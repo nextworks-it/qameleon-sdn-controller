@@ -1,0 +1,170 @@
+{
+  "qameleon-topology:input": {
+    "qameleon-topology:topology": {
+      "qameleon-topology:topology-uuid": "QameleonTopology",
+      "qameleon-topology:qam-node": [
+        {
+          "qameleon-topology:node-type": "dummy",
+          "qameleon-topology:host": "127.0.0.1",
+          "qameleon-topology:port": "17830",
+          "qameleon-topology:username": "admin",
+          "qameleon-topology:password": "admin",
+          "qameleon-topology:administrative-state": "UNLOCKED",
+          "qameleon-topology:uuid": "node-a"
+        },
+		{
+          "qameleon-topology:node-type": "dummy",
+          "qameleon-topology:host": "127.0.0.1",
+          "qameleon-topology:port": "17831",
+          "qameleon-topology:username": "admin",
+          "qameleon-topology:password": "admin",
+          "qameleon-topology:administrative-state": "UNLOCKED",
+          "qameleon-topology:uuid": "node-b"
+        },
+		{
+          "qameleon-topology:node-type": "dummy",
+          "qameleon-topology:host": "127.0.0.1",
+          "qameleon-topology:port": "17832",
+          "qameleon-topology:username": "admin",
+          "qameleon-topology:password": "admin",
+          "qameleon-topology:administrative-state": "UNLOCKED",
+          "qameleon-topology:uuid": "node-c"
+        },
+		{
+          "qameleon-topology:node-type": "dummy",
+          "qameleon-topology:host": "127.0.0.1",
+          "qameleon-topology:port": "17833",
+          "qameleon-topology:username": "admin",
+          "qameleon-topology:password": "admin",
+          "qameleon-topology:administrative-state": "UNLOCKED",
+          "qameleon-topology:uuid": "node-d"
+        },
+		{
+          "qameleon-topology:node-type": "endpoint",
+          "qameleon-topology:host": "127.0.0.1",
+          "qameleon-topology:port": "17834",
+          "qameleon-topology:username": "admin",
+          "qameleon-topology:password": "admin",
+          "qameleon-topology:administrative-state": "UNLOCKED",
+          "qameleon-topology:uuid": "endpoint-a"
+        },
+		{
+          "qameleon-topology:node-type": "endpoint",
+          "qameleon-topology:host": "127.0.0.1",
+          "qameleon-topology:port": "17835",
+          "qameleon-topology:username": "admin",
+          "qameleon-topology:password": "admin",
+          "qameleon-topology:administrative-state": "UNLOCKED",
+          "qameleon-topology:uuid": "endpoint-b"
+        },
+		{
+          "qameleon-topology:node-type": "endpoint",
+          "qameleon-topology:host": "127.0.0.1",
+          "qameleon-topology:port": "17836",
+          "qameleon-topology:username": "admin",
+          "qameleon-topology:password": "admin",
+          "qameleon-topology:administrative-state": "UNLOCKED",
+          "qameleon-topology:uuid": "endpoint-c"
+        }
+
+
+      ],
+      "qameleon-topology:qam-link": [
+        {
+		"qameleon-topology:uuid": "Phy-1",
+		"qameleon-topology:port-src": "OUT01",
+		"qameleon-topology:node-src": "node-b",
+		"qameleon-topology:port-dst": "IN01",
+		"qameleon-topology:node-dst": "node-c",
+		"qameleon-topology:direction": "UNIDIRECTIONAL",
+		"qameleon-topology:available-capacity": {},
+		"qameleon-topology:total-potential-capacity": {}
+
+        },
+		{
+		"qameleon-topology:uuid": "Phy-2",
+		"qameleon-topology:port-src": "OUT02",
+		"qameleon-topology:node-src": "node-b",
+		"qameleon-topology:port-dst": "IN01",
+		"qameleon-topology:node-dst": "node-a",
+		"qameleon-topology:direction": "UNIDIRECTIONAL",
+		"qameleon-topology:available-capacity": {},
+		"qameleon-topology:total-potential-capacity": {}
+
+        },
+		{
+		"qameleon-topology:uuid": "Phy-3",
+		"qameleon-topology:port-src": "OUT01",
+		"qameleon-topology:node-src": "endpoint-a",
+		"qameleon-topology:node-dst": "node-b",
+		"qameleon-topology:port-dst": "IN02",
+		"qameleon-topology:direction": "UNIDIRECTIONAL",
+		"qameleon-topology:available-capacity": {},
+		"qameleon-topology:total-potential-capacity": {}
+
+        },
+		{
+		"qameleon-topology:uuid": "Phy-4",
+		"qameleon-topology:port-src": "OUT03",
+		"qameleon-topology:node-src": "node-c",
+		"qameleon-topology:port-dst": "IN01",
+		"qameleon-topology:node-dst": "node-d",
+		"qameleon-topology:direction": "UNIDIRECTIONAL",
+		"qameleon-topology:available-capacity": {},
+		"qameleon-topology:total-potential-capacity": {}
+
+        },{
+		"qameleon-topology:uuid": "Phy-5",
+		"qameleon-topology:port-src": "OUT01",
+		"qameleon-topology:node-src": "node-d",
+		"qameleon-topology:port-dst": "IN02",
+		"qameleon-topology:node-dst": "node-b",
+		"qameleon-topology:direction": "UNIDIRECTIONAL",
+		"qameleon-topology:available-capacity": {},
+		"qameleon-topology:total-potential-capacity": {}
+
+        },
+		{
+		"qameleon-topology:uuid": "Phy-6",
+		"qameleon-topology:port-src": "OUT02",
+		"qameleon-topology:node-src": "node-d",
+		"qameleon-topology:port-dst": "IN01",
+		"qameleon-topology:node-dst": "endpoint-b",
+		"qameleon-topology:direction": "UNIDIRECTIONAL",
+		"qameleon-topology:available-capacity": {},
+		"qameleon-topology:total-potential-capacity": {}
+        },
+		{
+		"qameleon-topology:uuid": "Phy-7",
+		"qameleon-topology:port-src": "OUT02",
+		"qameleon-topology:node-src": "node-a",
+		"qameleon-topology:port-dst": "IN01",
+		"qameleon-topology:node-dst": "endpoint-c",
+		"qameleon-topology:direction": "UNIDIRECTIONAL",
+		"qameleon-topology:available-capacity": {},
+		"qameleon-topology:total-potential-capacity": {}
+		},
+		{
+		"qameleon-topology:uuid": "Phy-8",
+		"qameleon-topology:port-src": "OUT03",
+		"qameleon-topology:node-src": "node-a",
+		"qameleon-topology:port-dst": "IN02",
+		"qameleon-topology:node-dst": "node-c",
+		"qameleon-topology:direction": "UNIDIRECTIONAL",
+		"qameleon-topology:available-capacity": {},
+		"qameleon-topology:total-potential-capacity": {}
+		},
+		{
+		"qameleon-topology:uuid": "Phy-9",
+		"qameleon-topology:port-src": "OUT03",
+		"qameleon-topology:node-src": "node-d",
+		"qameleon-topology:port-dst": "IN02",
+		"qameleon-topology:node-dst": "endpoint-c",
+		"qameleon-topology:direction": "UNIDIRECTIONAL",
+		"qameleon-topology:available-capacity": {},
+		"qameleon-topology:total-potential-capacity": {}
+		}
+       ]
+     }
+   }
+ }

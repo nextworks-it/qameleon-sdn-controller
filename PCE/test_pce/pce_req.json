@@ -1,0 +1,19 @@
+{
+  "input": {
+    "end-point": [
+      {
+        "service-interface-point": {
+          "service-interface-point-uuid": "endpoint-a_sip01"
+        },
+        "capacity": {}
+      },
+	  {
+        "service-interface-point": {
+          "service-interface-point-uuid": "endpoint-b_sip01"
+        },
+        "capacity": {}
+      }
+    ],
+    "routing-constraint": {}
+  }
+}

@@ -1,0 +1,21 @@
+
+
+<div class="row">
+    <div class="col-lg-12">
+      <nb-card>
+        <nb-card-header>Upload LightPath</nb-card-header>
+        <nb-card-body>
+          <div class="row">
+          <div class="col-lg-12">
+            <input #pathFiles type="file" fullWidth (change)="onUploadedLightPath($event,pathFiles.files)" required>  
+            </div>
+            <div class="col-lg-12" style="margin-top: 2%;"> 
+            <button type="submit" nbButton (click)="onBoardLightPath()">Submit</button>
+              </div>
+            </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  
+  </div>
+  

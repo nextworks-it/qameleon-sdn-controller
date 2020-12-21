@@ -1,0 +1,53 @@
+module qam-common {
+
+    namespace "qameleon-common";
+    prefix q-common;
+
+    organization "NXW";
+    contact "p.piscione@nextworks.it";
+    description "Desc";
+
+    revision 2020-09-14{
+        description "qameleon-common";
+    }
+
+
+typedef q-node-type {
+    type enumeration {
+      enum lumentum {
+        value "1";
+        description " Lumentum node.";
+      }
+      enum finisar {
+        value "2";
+        description " Finisar node.";
+      }
+	enum dummy {
+        value "3";
+        description "Dummy node.";
+      }
+	enum endpoint {
+        value "4";
+        description " Endpoint node.";
+      }
+    }
+    description "Type of Qameleon node";
+}
+
+grouping light-path-info{
+	leaf id{
+		type string;	
+	}
+	leaf channel-number{
+		type int32;	
+	}	
+	leaf sip-src{
+		type string;
+	}
+	leaf sip-dst{
+		type string;
+	}
+}
+
+
+}

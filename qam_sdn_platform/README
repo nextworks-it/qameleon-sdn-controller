@@ -1,0 +1,8 @@
+To build the whole SDN platfrom from the scratch it should be follow the following builing order:
+1. api of topology-api
+2. netconf-driver
+3. topology-plugin
+4. provisioning-plugin
+5. topology-app
+6. provisioning-app
+

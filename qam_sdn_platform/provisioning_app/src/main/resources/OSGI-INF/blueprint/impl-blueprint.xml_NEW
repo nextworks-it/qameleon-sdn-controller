@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<blueprint
+        xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+  xmlns:odl="http://opendaylight.org/xmlns/blueprint/v1.0.0"
+        xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+  odl:use-default-for-reference-types="true">
+
+  <reference id="dataBroker" interface="org.opendaylight.mdsal.binding.api.DataBroker" odl:type="default" />
+  <reference id="rpcProviderService" interface="org.opendaylight.mdsal.binding.api.RpcProviderService" odl:type="default" />
+  <reference id="mountPointService" interface="org.opendaylight.mdsal.binding.api.MountPointService" odl:type="default" />
+  <reference id="rpcConsumerRegistry" interface="org.opendaylight.mdsal.binding.api.RpcConsumerRegistry" odl:type="default" />
+
+  <bean id="provider" class="it.nextworks.qameleon.QAMeleonProvisioningAppStarter" init-method="init" destroy-method="close">
+    <argument ref="dataBroker" />
+    <argument ref="rpcProviderService" />provisioning-app
+    <argument ref="mountPointService" />
+    <argument ref="rpcConsumerRegistry" />
+  </bean>
+
+  <bean id="ProvisioningAppConfigService" class="it.nextworks.qameleon.qamProvisioningApp.service" factory-method="getInstance">
+    <cm:managed-properties persistent-id="it.nextworks.qameleon.qamProvisioningApp.service" update-strategy="component-managed"/>
+
+    <property name="pceHost" value="${pceHost}"/>
+    <property name="pcePort" value="${pcePort}"/>
+    <property name="absoluteLookupTablePath" value="${absoluteLookupTablePath}"/>
+  </bean>
+
+
+  <cm:property-placeholder persistent-id="it.nextworks.qameleon.qamProvisioningApp.service">
+    <cm:default-properties>
+      <cm:property name="pceHost" value="127.0.0.1"/>
+      <cm:property name="pcePort" value="1234"/>
+      <cm:property name="absoluteLookupTablePath" value="/home/ubuntu/repo/qam_gitlab/qam_devel/qameleon_devel/sdn_agent/netconf_server_netopeer/inv_lookup_table.json"/>
+    </cm:default-properties>
+  </cm:property-placeholder>
+</blueprint>

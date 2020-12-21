@@ -1,0 +1,215 @@
+module qameleon-topology {
+    namespace "qameleon-topology";
+    prefix q-topology;
+
+    import nxw-tapi-topology {
+        prefix nxw-topology;
+    }
+
+import qam-common {
+	prefix q-common;
+}
+
+import tapi-photonic-media{
+	prefix tapi-ph-media;
+}
+
+    organization "NXW";
+    contact "p.piscione@nextworks.it";
+    description "Desc";
+
+    revision 2020-09-04{
+        description "Qameleon-topology";
+    }
+
+
+grouping qam-connections{
+	list internal-connection{
+		//uses internal-connection;
+		leaf src-port{
+			type string;	
+		}
+		leaf dst-port{
+			type string;
+			}
+	}
+}
+
+grouping q-node{
+	uses nxw-topology:simple-node;
+	leaf node-type{
+		type q-common:q-node-type;
+	}
+	uses qam-connections;
+}
+
+
+
+grouping spectrum-info{
+	uses tapi-ph-media:spectrum-band;
+	leaf channel-spacing{
+		type int32; //Spacing expressed in Mhz	
+	}	
+	leaf-list available-channel{
+		type int32;
+		}
+	leaf-list occupied-channel{
+		type int32;		
+		}
+}
+
+
+
+grouping q-link{
+	uses nxw-topology:simple-link;
+	leaf port-src{
+		type string;
+	}
+	leaf port-dst{
+		type string;
+	}
+	uses spectrum-info;
+}
+
+
+
+grouping qam-topology{
+	leaf topology-uuid{
+		type string;	
+	}
+
+	list qam-node {
+		key 'uuid';
+		uses q-node;
+		description "A QAM node into the QAM topology";
+        }
+
+	list qam-link{
+		uses q-link;
+		
+		description "A QAM link into the QAM topology";
+	} 
+}
+
+container qam-topology-cont{
+       uses qam-topology;
+}
+
+
+
+/*RPC */
+rpc get-qam-topology {
+	input{
+	leaf topology-id{
+		type string; 
+		}
+}
+	output{
+	container qam-topology-out{
+		uses qam-topology;
+		}
+	
+	}
+}
+
+rpc create-qam-topology {
+        description "It creates a topology specifying the list of nodes and links";
+        input {
+            container topology {
+                uses qam-topology;
+                description "topology Input";
+            }
+		
+        }
+    }
+
+
+rpc get-qam-node {
+	input{
+		leaf node-id{
+			type string; 
+	}
+}
+	output{
+		container node-out{
+			uses q-node;
+		}
+	}
+	 description "It gets the node connections info.";
+	
+}
+
+rpc get-qam-link{
+	input{
+		leaf link-id{
+			type string; 
+	}
+}
+	output{
+		container link-out{
+			uses q-link;
+		}
+	}
+	 description "It gets the link info.";
+}
+
+
+
+
+rpc update-link{
+input{
+	leaf channel-number{
+		type int32;
+		}	
+	
+	leaf-list link-uuid-list{
+		type string;		
+		}
+	}
+}
+
+
+
+rpc remove-light-path{
+input{
+	leaf channel-number{
+		type int32;
+		}	
+	
+	leaf-list link-uuid-list{
+		type string;		
+		}
+	}
+}
+
+rpc delete_topology{
+	input{
+		leaf topology-uuid{
+			type string;
+			}
+	}
+
+}
+/*
+rpc disable_node{
+	input{
+		leaf node-id{
+			type string; 
+		}
+	}
+}
+
+
+rpc disable_port{
+	input{
+		leaf node-id{
+			type string; 
+		}
+		leaf port-id{
+			type string; 
+		}
+	}
+}
+*/
+
+}

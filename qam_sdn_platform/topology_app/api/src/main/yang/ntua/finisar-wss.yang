@@ -1,0 +1,76 @@
+module finisar-wss {
+    namespace "http://org/nextworks/qameleon/finisar-wss";
+    prefix finisar-wss;
+	import wss {
+		prefix wss;
+	}
+    organization
+        "Nextworks s.r.l";
+
+    contact
+        "Editor: Pietro Piscione <mailto:p.piscione@nextworks.it>";
+
+    description
+        "This YANG defines RPCs for commercial Finisar WSS for QAMeleon project";
+    revision 2020-09-01 {
+        description "Initial revision";
+    }
+
+container finisar-wss {
+        uses wss:wss-config;
+    }
+
+
+typedef port {
+        type uint16 { range "1..99"; }
+        description "Port range to apply the channel plan into.";
+}
+  
+typedef channel {
+    type uint16 { range "1..99"; }
+    description
+      "Channel range to apply the channel plan into.";
+  }
+  
+grouping channel-port-pair{
+	leaf channel {
+		type channel;
+		description "Channel number typedef that is translated in a corresponding frequency.";
+      }
+      leaf port {
+		type port;
+		description "Port typedef to apply the channel plan to.";
+   }
+}
+	
+/*End of typedef */
+	
+	
+container channel-plan {
+	config false;
+	list channel-port-pair-list{
+	key port-id; 
+	leaf port-id {
+		type port;
+	}
+	uses channel-port-pair;
+	}
+}	
+
+
+rpc configure-channel-plan{
+	description
+      "It configures a channel plan specifying the channel and the port.";
+	input {
+      leaf channel-number {
+		type channel;
+		description "Channel number that is translated in a corresponding frequency.";
+      		}
+	  leaf port-number {
+		type port;
+	description "Port to apply the channel plan to.";
+      		}
+	}
+	}
+}
+

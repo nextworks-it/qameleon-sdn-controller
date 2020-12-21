@@ -1,0 +1,4 @@
+This directory contains few Python3 scripts to interact with the Qameleon SDN platform. 
+
+The IP and port of SDN platform are hardcoded, but you can change as you prefer.
+Furthermore, it contains also a file called test_sd_platform that, as the name suggests, executes different tests of the Qameleon SDN platform. Before running the tests, make sure the SDN platform is up&running, i.e. the topology and provisioning apps are both running. Make sure also to have correctly set the correct IP and PORT. You can execute each of these tests manually executing the corresponding python script available in this directory.

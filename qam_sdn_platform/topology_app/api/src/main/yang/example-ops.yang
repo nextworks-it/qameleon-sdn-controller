@@ -1,0 +1,29 @@
+module example-ops {
+     namespace "urn:example-ops:reboot";
+     prefix "ops";
+
+
+     revision "2016-07-07" {
+       description "Initial version.";
+       reference "example document.";
+     }
+
+
+     rpc reboot {
+       description "Reboot operation.";
+       input {
+         leaf delay {
+           type uint32;
+           units "seconds";
+           default 0;
+           description
+             "Delay in seconds.";
+         }
+         leaf message {
+           type string;
+           description
+             "Log message.";
+         }
+       }
+     }
+   }

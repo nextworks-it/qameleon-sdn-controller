@@ -1,0 +1,11 @@
+This directory contains:
+pce, a spring-based Java project representing the PAth Computation Engine external application of QAMeLeon SDN Platfom. 
+
+into pce directory: 
+1. mvn package command to build the jar
+2. Execute the jar to make the PCE up & running
+
+Into test_pce dir is available a python3 script to test the PCE. It is assumed to have a topology already on-boarded into the topology application.
+Change the hardcoded IP address and the source and destination nodes according your needs.
+
+

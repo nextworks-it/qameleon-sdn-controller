@@ -1,0 +1,107 @@
+module nxw-tapi-topology {
+    namespace "nxw-tapi-topology";
+    prefix nxw-tapi-topology;
+    import tapi-common {
+        prefix tapi-common;
+    }
+    import tapi-topology {
+        prefix tapi-topology;
+    }
+    organization "NXW";
+    contact "p.piscione@nextworks.it";
+    description "Desc";
+    revision 2020-07-28 {
+        description "Desc";
+    }
+
+
+
+grouping simple-node{
+	leaf host{
+		type string;
+	}
+	leaf port{
+		type string;
+	}
+	leaf username{
+		type string;
+	}
+	leaf password{
+		type string;
+	}
+	uses tapi-topology:node;
+}
+
+
+grouping simple-link{
+	leaf node-src{
+		type string;		
+	}
+	leaf node-dst{
+		type string;		
+	}
+	uses tapi-topology:link;
+}
+
+
+container tapi-topology-containers{
+		list tapi-topology-container {
+		    key 'uuid';
+		    uses tapi-topology:topology;
+		}
+}
+
+grouping nxw-topology{
+	leaf topology-uuid{
+		type string;	
+	}
+
+	list nxw-node {
+		key 'uuid';
+		uses simple-node;
+		description "A NXW node into the NXW topology";
+        }
+	list nxw-link{
+		uses simple-link;
+		description "A NXW link into the NXW topology";
+	} 
+}
+
+
+
+rpc create-nxw-topology {
+        description "It creates a topology specifying the list of nodes and links";
+        input {
+            container nxw-topology-input {
+                uses nxw-topology;
+                description "topology Input";
+            }
+		
+        }
+    }
+
+rpc del-nxw-topology{
+        description "It deletes all the nodes and links within the topology.";
+        input{
+                leaf topology-id{
+                        type string;
+        	}
+	}	
+
+}
+
+rpc get-nxw-topology {
+	input{
+		leaf topology-id{
+			type string; 
+	}
+}
+	output {
+		container topology-output{
+			uses tapi-topology:topology;
+		}
+	}
+}
+
+
+}

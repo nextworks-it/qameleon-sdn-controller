@@ -1,0 +1,9 @@
+{
+	"tapi-path-computation:input": {
+		"tapi-path-computation:sip-src-uuid": "endpoint-a_sip01",
+		"tapi-path-computation:sip-dst-uuid": "endpoint-b_sip01",
+		"tapi-path-computation:routing-constraint": {},
+		"tapi-path-computation:topology-constraint": {},
+		"tapi-path-computation:objective-function": {}
+	}
+}

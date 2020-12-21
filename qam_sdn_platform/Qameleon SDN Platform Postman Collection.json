@@ -1,0 +1,480 @@
+{
+	"info": {
+		"_postman_id": "c3866ec9-dbbf-484c-9085-5dcdb6458a35",
+		"name": "Qameleon SDN Platform Collection (No Real node references)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TAPI topology RPC",
+			"item": [
+				{
+					"name": "Get topology RPC",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Basic YWRtaW46YWRtaW4="
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"tapi-topology:input\": {\r\n    \"tapi-topology:topology-id-or-name\": \"QameleonTopology\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/restconf/operations/tapi-topology:get-topology-details",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"restconf",
+								"operations",
+								"tapi-topology:get-topology-details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get link details RPC",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Basic YWRtaW46YWRtaW4="
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"tapi-topology:input\": {\r\n    \"tapi-topology:topology-id-or-name\": \"QameleonTopology\",\r\n    \"tapi-topology:link-id-or-name\": \"Phy-1\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/restconf/operations/tapi-topology:get-link-details",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"restconf",
+								"operations",
+								"tapi-topology:get-link-details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get node details RPC",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Basic YWRtaW46YWRtaW4="
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"tapi-topology:input\": {\r\n    \"tapi-topology:topology-id-or-name\": \"QameleonTopology\",\r\n    \"tapi-topology:node-id-or-name\": \"node-a\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/restconf/operations/tapi-topology:get-node-details",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"restconf",
+								"operations",
+								"tapi-topology:get-node-details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get node edge point details RPC",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Basic YWRtaW46YWRtaW4="
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"tapi-topology:input\": {\r\n    \"tapi-topology:topology-id-or-name\": \"QameleonTopology\",\r\n    \"tapi-topology:node-id-or-name\": \"node-a\",\r\n    \"tapi-topology:ep-id-or-name\": \"IN01\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/restconf/operations/tapi-topology:get-node-edge-point-details",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"restconf",
+								"operations",
+								"tapi-topology:get-node-edge-point-details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all topology RPC",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Basic YWRtaW46YWRtaW4="
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/restconf/operations/tapi-topology:get-topology-list",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"restconf",
+								"operations",
+								"tapi-topology:get-topology-list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Qameleon",
+			"item": [
+				{
+					"name": "Provisioning App",
+					"item": [
+						{
+							"name": "Get all lightpaths",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46YWRtaW4=",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/config/tapi-common:context/tapi-path-computation:path-computation-context",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"config",
+										"tapi-common:context",
+										"tapi-path-computation:path-computation-context"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get lightpath by uuid",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/config/tapi-common:context/tapi-path-computation:path-computation-context/path/458366513",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"config",
+										"tapi-common:context",
+										"tapi-path-computation:path-computation-context",
+										"path",
+										"458366513"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create lightpath",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"tapi-path-computation:input\": {\r\n\t\t\"tapi-path-computation:sip-src-uuid\": \"endpoint-a_sip01\",\r\n\t\t\"tapi-path-computation:sip-dst-uuid\": \"endpoint-b_sip01\",\r\n\t\t\"tapi-path-computation:routing-constraint\": {},\r\n\t\t\"tapi-path-computation:topology-constraint\": {},\r\n\t\t\"tapi-path-computation:objective-function\": {}\r\n\t}\r\n}"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/tapi-path-computation:compute-p-2-p-path",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"tapi-path-computation:compute-p-2-p-path"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove lightpath",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"tapi-path-computation:input\": {\r\n   \"tapi-path-computation:path-id-or-name\":\"458366513\"\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/tapi-path-computation:delete-p-2-p-path",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"tapi-path-computation:delete-p-2-p-path"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Topology App RPC",
+					"item": [
+						{
+							"name": "Create topology RPC (Dummy nodes)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"qameleon-topology:input\": {\r\n    \"qameleon-topology:topology\": {\r\n      \"qameleon-topology:topology-uuid\": \"QameleonTopology\",\r\n      \"qameleon-topology:qam-node\": [\r\n        {\r\n          \"qameleon-topology:node-type\": \"dummy\",\r\n          \"qameleon-topology:host\": \"127.0.0.1\",\r\n          \"qameleon-topology:port\": \"17830\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"node-a\"\r\n        },\r\n\t\t{\r\n          \"qameleon-topology:node-type\": \"dummy\",\r\n          \"qameleon-topology:host\": \"127.0.0.1\",\r\n          \"qameleon-topology:port\": \"17831\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"node-b\"\r\n        },\r\n\t\t{\r\n          \"qameleon-topology:node-type\": \"dummy\",\r\n          \"qameleon-topology:host\": \"127.0.0.1\",\r\n          \"qameleon-topology:port\": \"17832\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"node-c\"\r\n        },\r\n\t\t{\r\n          \"qameleon-topology:node-type\": \"dummy\",\r\n          \"qameleon-topology:host\": \"127.0.0.1\",\r\n          \"qameleon-topology:port\": \"17833\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"node-d\"\r\n        },\r\n\t\t{\r\n          \"qameleon-topology:node-type\": \"endpoint\",\r\n          \"qameleon-topology:host\": \"127.0.0.1\",\r\n          \"qameleon-topology:port\": \"17834\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"endpoint-a\"\r\n        },\r\n\t\t{\r\n          \"qameleon-topology:node-type\": \"endpoint\",\r\n          \"qameleon-topology:host\": \"127.0.0.1\",\r\n          \"qameleon-topology:port\": \"17835\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"endpoint-b\"\r\n        },\r\n\t\t{\r\n          \"qameleon-topology:node-type\": \"endpoint\",\r\n          \"qameleon-topology:host\": \"127.0.0.1\",\r\n          \"qameleon-topology:port\": \"17836\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"endpoint-c\"\r\n        }\r\n\r\n\r\n      ],\r\n      \"qameleon-topology:qam-link\": [\r\n        {\r\n\t\t\"qameleon-topology:uuid\": \"Phy-1\",\r\n\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\"qameleon-topology:node-src\": \"node-b\",\r\n\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\"qameleon-topology:node-dst\": \"node-c\",\r\n\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\r\n        },\r\n\t\t{\r\n\t\t\"qameleon-topology:uuid\": \"Phy-2\",\r\n\t\t\"qameleon-topology:port-src\": \"OUT02\",\r\n\t\t\"qameleon-topology:node-src\": \"node-b\",\r\n\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\"qameleon-topology:node-dst\": \"node-a\",\r\n\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\r\n        },\r\n\t\t{\r\n\t\t\"qameleon-topology:uuid\": \"Phy-3\",\r\n\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\"qameleon-topology:node-src\": \"endpoint-a\",\r\n\t\t\"qameleon-topology:node-dst\": \"node-b\",\r\n\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\r\n        },\r\n\t\t{\r\n\t\t\"qameleon-topology:uuid\": \"Phy-4\",\r\n\t\t\"qameleon-topology:port-src\": \"OUT03\",\r\n\t\t\"qameleon-topology:node-src\": \"node-c\",\r\n\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\"qameleon-topology:node-dst\": \"node-d\",\r\n\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\r\n        },{\r\n\t\t\"qameleon-topology:uuid\": \"Phy-5\",\r\n\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\"qameleon-topology:node-src\": \"node-d\",\r\n\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\"qameleon-topology:node-dst\": \"node-b\",\r\n\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\r\n        },\r\n\t\t{\r\n\t\t\"qameleon-topology:uuid\": \"Phy-6\",\r\n\t\t\"qameleon-topology:port-src\": \"OUT02\",\r\n\t\t\"qameleon-topology:node-src\": \"node-d\",\r\n\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\"qameleon-topology:node-dst\": \"endpoint-b\",\r\n\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n        },\r\n\t\t{\r\n\t\t\"qameleon-topology:uuid\": \"Phy-7\",\r\n\t\t\"qameleon-topology:port-src\": \"OUT02\",\r\n\t\t\"qameleon-topology:node-src\": \"node-a\",\r\n\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\"qameleon-topology:node-dst\": \"endpoint-c\",\r\n\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t},\r\n\t\t{\r\n\t\t\"qameleon-topology:uuid\": \"Phy-8\",\r\n\t\t\"qameleon-topology:port-src\": \"OUT03\",\r\n\t\t\"qameleon-topology:node-src\": \"node-a\",\r\n\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\"qameleon-topology:node-dst\": \"node-c\",\r\n\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t},\r\n\t\t{\r\n\t\t\"qameleon-topology:uuid\": \"Phy-9\",\r\n\t\t\"qameleon-topology:port-src\": \"OUT03\",\r\n\t\t\"qameleon-topology:node-src\": \"node-d\",\r\n\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\"qameleon-topology:node-dst\": \"endpoint-c\",\r\n\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t}\r\n       ]\r\n     }\r\n   }\r\n }"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/qameleon-topology:create-qam-topology",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"qameleon-topology:create-qam-topology"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET topology  RPC",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"qameleon-topology:input\": {\r\n    \"qameleon-topology:topology-id\": \"QameleonTopology\"\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/qameleon-topology:get-qam-topology",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"qameleon-topology:get-qam-topology"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET link RPC",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"qameleon-topology:input\": {\r\n    \"qameleon-topology:link-id\": \"Phy-1\"\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/qameleon-topology:get-qam-link",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"qameleon-topology:get-qam-link"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET node  RPC",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"qameleon-topology:input\": {\r\n    \"qameleon-topology:node-id\": \"node-a\"\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/qameleon-topology:get-qam-node",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"qameleon-topology:get-qam-node"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
