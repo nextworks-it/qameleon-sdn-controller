@@ -1,0 +1,126 @@
+module tpa {
+    namespace "http://org/nextworks/qameleon/tpa";
+    prefix tpa;
+
+    import ietf-yang-types {
+        prefix yang;
+    }
+
+    organization
+        "Nextworks s.r.l";
+
+    contact
+        "Editor: Pietro G. Giardina <mailto:p.giardina@nextworks.it>";
+
+    description
+        "This YANG defines configuartions for Transponder Aggregator (TPA)";
+    revision 2018-05-08 {
+        description "Initial Revision";
+    }
+
+    typedef tpa-direction-type {
+        description "Indicates direction: Add or Drop";
+        type enumeration {
+            enum ADD;
+            enum DROP;
+        }
+    }
+
+    typedef tpa-port-direction-type {
+        description "Indicates the port direction: Input/Output";
+        type enumeration {
+            enum I;
+            enum O;
+        }
+    }
+
+    typedef frequency-ghz-type {
+        type decimal64 {
+          fraction-digits 3;
+          range "0..max";
+        }
+        units "GHz";
+    }
+
+    grouping tpa-port-config {
+        description "configuration data for wss port";
+
+        leaf port-id {
+            type uint32;
+        }
+
+        leaf port-direction {
+            type tpa-port-direction-type;
+        }
+
+        container port-frequency-info {
+            description "Frequency dlot allocated within the flex grid";
+
+            leaf base-central-frequency {
+                description "Base flex-grid central frequency ITU-T G.694.1";
+                type frequency-ghz-type;
+                default 193100;
+            }
+
+            leaf base-central-frequency-granularity {
+                description "It is the nominal central frequency granularity in GHz";
+                type frequency-ghz-type;
+                default 6.25;
+            }
+
+            leaf central-frequency-slot-granularity {
+                description "It is the slot width granularity in GHz";
+                type frequency-ghz-type;
+                default 12.5;
+            }
+
+            leaf n {
+                description "Fixes the nominal central frequency as follows:
+                f = base-central-frequency + n * base-central-frequency-granularity";
+                type int16;
+                mandatory true;
+            }
+
+            leaf m {
+                description "Defines the slot width as follows:
+                m * central-frequency-slot-granularity";
+                type int16;
+                mandatory true;
+            }
+        }
+    }
+
+    grouping tpa-config {
+        description "wss module configuration";
+
+        leaf tpa-id {
+            type uint32;
+        }
+
+        leaf tpa-direction {
+            description "ADD/DROP";
+            type tpa-direction-type;
+        }
+
+        leaf tpa-number-of-inports{
+            description "MxN: wss has M inports";
+            type uint32;
+        }
+
+        leaf tpa-number-of-outports{
+            description "MxN: wss has N inports";
+            type uint32;
+        }
+
+        list tpa-ports {
+            description "List of Port of TPA";
+            key "port-id";
+            uses tpa-port-config;
+        }
+    }
+
+    //---------- MAIN TREE ------------//
+    container tpa {
+        uses tpa-config;
+    }
+}

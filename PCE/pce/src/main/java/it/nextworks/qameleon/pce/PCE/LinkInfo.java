@@ -11,14 +11,16 @@ public class LinkInfo {
     private String portSrc;
     private String portDst;
     private List<Integer> availableChannels;
+    private double weight;
 
-    public LinkInfo(String linkId, String nodeSrc, String nodeDst, String portSrc, String portDst, List<Integer> availableChannles){
+    public LinkInfo(String linkId, String nodeSrc, String nodeDst, String portSrc, String portDst, List<Integer> availableChannles, double weight){
         this.linkId = linkId;
         this.nodeSrc = nodeSrc;
         this.nodeDst = nodeDst;
         this.portSrc = portSrc;
         this.portDst = portDst;
         this.availableChannels = availableChannles;
+        this.weight = weight;
     }
 
     public String getNodeSrc() {
@@ -43,6 +45,15 @@ public class LinkInfo {
 
     public String getLinkId() {
         return linkId;
+    }
+
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
 }

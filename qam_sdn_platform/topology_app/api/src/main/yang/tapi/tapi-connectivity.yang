@@ -160,19 +160,19 @@ module tapi-connectivity {
     }
    /**************************
     * package object-classes
-    **************************/ 
+    **************************/
     grouping connection {
         list connection-end-point {
             uses connection-end-point-ref;
             key 'topology-uuid node-uuid node-edge-point-uuid connection-end-point-uuid';
-            config false;
+//            config false;
             min-elements 2;
             description "none";
         }
         list lower-connection {
             uses connection-ref;
             key 'connection-uuid';
-            config false;
+//            config false;
             description "An Connection object supports a recursive aggregation relationship such that the internal construction of an Connection can be exposed as multiple lower level Connection objects (partitioning).
                 Aggregation is used as for the Node/Topology  to allow changes in hierarchy. 
                 Connection aggregation reflects Node/Topology aggregation. 
@@ -181,29 +181,29 @@ module tapi-connectivity {
         list supported-client-link {
             uses tapi-topology:link-ref;
             key 'topology-uuid link-uuid';
-            config false;
+//            config false;
             description "none";
         }
         list route {
             key 'local-id';
-            config false;
+//            config false;
             uses route;
             description "none";
         }
         list switch-control {
             key 'uuid';
-            config false;
+   //         config false;
             uses switch-control;
             description "none";
         }
         leaf direction {
             type tapi-common:forwarding-direction;
-            config false;
+//           config false;
             description "none";
         }
         leaf layer-protocol-name {
             type tapi-common:layer-protocol-name;
-            config false;
+//           config false;
             description "none";
         }
         container connection-spec-reference {
@@ -219,39 +219,39 @@ module tapi-connectivity {
     grouping connection-end-point {
         leaf layer-protocol-name {
             type tapi-common:layer-protocol-name;
-            config false;
+//            config false;
             description "none";
         }
         leaf layer-protocol-qualifier {
             type tapi-common:layer-protocol-qualifier;
-            config false;
+//            config false;
             description "none";
         }
         container parent-node-edge-point {
             uses tapi-topology:node-edge-point-ref;
-            config false;
+//            config false;
             description "none";
         }
         list client-node-edge-point {
             uses tapi-topology:node-edge-point-ref;
             key 'topology-uuid node-uuid node-edge-point-uuid';
-            config false;
+//            config false;
             description "none";
         }
         list aggregated-connection-end-point {
             uses connection-end-point-ref;
             key 'topology-uuid node-uuid node-edge-point-uuid connection-end-point-uuid';
-            config false;
+//            config false;
             description "none";
         }
         leaf connection-port-direction {
             type tapi-common:port-direction;
-            config false;
+//            config false;
             description "The orientation of defined flow at the EndPoint.";
         }
         leaf connection-port-role {
             type tapi-common:port-role;
-            config false;
+//            config false;
             description "Each EP of the FC has a role (e.g., working, protection, protected, symmetric, hub, spoke, leaf, root)  in the context of the FC with respect to the FC function. ";
         }
         list cep-role {
@@ -323,13 +323,13 @@ module tapi-connectivity {
         list connection {
             uses connection-ref;
             key 'connection-uuid';
-            config false;
+            //config false;
             description "none";
         }
         list connectivity-service {
             uses connectivity-service-ref;
             key 'connectivity-service-uuid';
-            config false;
+            //config false;
             description "none";
         }
         uses tapi-common:global-class;
@@ -357,7 +357,7 @@ module tapi-connectivity {
         list connection-end-point {
             uses connection-end-point-ref;
             key 'topology-uuid node-uuid node-edge-point-uuid connection-end-point-uuid';
-            config false;
+//            config false;
             description "none";
         }
         container capacity {
@@ -402,7 +402,7 @@ module tapi-connectivity {
         list connection-end-point {
             uses connection-end-point-ref;
             key 'topology-uuid node-uuid node-edge-point-uuid connection-end-point-uuid';
-            config false;
+            //config false;
             min-elements 2;
             description "none";
         }
@@ -422,7 +422,7 @@ module tapi-connectivity {
         }
         list connection {
             key 'uuid';
-            config false;
+//            config false;
             uses connection;
             description "none";
         }
@@ -555,14 +555,14 @@ module tapi-connectivity {
     grouping resilience-route {
         leaf priority {
             type uint64;
-            config false;
+            //config false;
             description "Value of 0 (zero) means 'unspecified priority'.
                 Highest priority is 1, sometimes referred as 'preferred' or 'main' or 'intended' route.
                 2 has lower priority than 1, 3 has lower priority than 2, etc.";
         }
         leaf route-state {
             type route-state;
-            config false;
+            //config false;
             description "Current information on the route selection.";
         }
         description "This object adds resilience and state attributes to the Route.

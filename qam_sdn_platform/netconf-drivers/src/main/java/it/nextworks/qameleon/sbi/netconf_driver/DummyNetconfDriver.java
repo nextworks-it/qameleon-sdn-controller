@@ -1,6 +1,7 @@
 package it.nextworks.qameleon.sbi.netconf_driver;
 
 import com.google.common.util.concurrent.FluentFuture;
+import it.nextworks.qameleon.sbi.netconf_driver.lumentumNetconfDriver.LumentumUtil;
 import org.opendaylight.mdsal.binding.api.DataBroker;
 import org.opendaylight.mdsal.binding.api.MountPointService;
 import org.opendaylight.mdsal.binding.api.WriteTransaction;
@@ -70,7 +71,7 @@ public class DummyNetconfDriver extends NetconfDriver{
     }
 
     public Node getDeviceInfo(){
-        return dummyNetconfDevice;
+        return dummyNetconfDevice;  
     }
 
     public List<InternalConnection> getInternalConnectionList() {
@@ -88,7 +89,20 @@ public class DummyNetconfDriver extends NetconfDriver{
 
 
     public boolean createCrossConnection(int channel, Double wavelengthNm, String srcPort, String dstPort) {
-        LOG.info("Creating cross-connection on channel "+channel+" source port "+srcPort+" and destination port "+dstPort);
+        if(srcPort==null && dstPort==null){
+            LOG.error("Cannot setup cross connection: src and dst ports are null");
+            return false;
+        }
+        else if(srcPort==null && dstPort!=null){
+            LOG.info("Setting up cross-connection on optical channel # "+channel+" for destination port "+dstPort);
+        }
+        else if(srcPort!=null && dstPort==null){
+            LOG.info("Setting up cross-connection on optical channel # "+channel+" for source port "+srcPort);
+        }
+        else{
+            LOG.info("Setting up cross-connection on optical channel # "+channel+" between source port "+srcPort+" and destination port "+dstPort);
+        }
+
 
         DataBroker dataBrokerDevice = getDataBroker();
         if(dataBrokerDevice==null){

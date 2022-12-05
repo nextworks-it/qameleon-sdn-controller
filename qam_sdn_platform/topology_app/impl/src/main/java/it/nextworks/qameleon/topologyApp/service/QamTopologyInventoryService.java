@@ -32,7 +32,7 @@ public class QamTopologyInventoryService {
 
 
     public boolean writeQamTopologyIntoTree(QamTopology qamTopology){
-        LOG.info("Writing Qam topology into data tree...");
+        //LOG.info("Writing Qam topology into data tree...");
         final WriteTransaction transaction = dataBroker.newWriteOnlyTransaction();
 
         String topologyUuid = qamTopology.getTopologyUuid();
@@ -40,7 +40,9 @@ public class QamTopologyInventoryService {
         QamTopologyCont qamTopologyCont = new QamTopologyContBuilder()
                 .setTopologyUuid(topologyUuid)
                 .setQamLink(qamTopology.getQamLink())
-                .setQamNode(qamTopology.getQamNode()).build();
+                .setQamNode(qamTopology.getQamNode())
+                .build();
+
         transaction.put(LogicalDatastoreType.CONFIGURATION,  instanceIdentifier, qamTopologyCont);
 
         try {
@@ -54,7 +56,7 @@ public class QamTopologyInventoryService {
 
 
     public QamTopology getQamTapiTopologyFromTree(){
-        LOG.info("Reading Qam topology from data tree...");
+        //LOG.info("Reading Qam topology from data tree...");
         final ReadTransaction transaction = dataBroker.newReadOnlyTransaction();
 
         InstanceIdentifier<QamTopologyCont> instanceIdentifier = getInstanceIdentifierTapiTopology();

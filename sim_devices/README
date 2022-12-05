@@ -1,0 +1,15 @@
+# To make up and running some simulated NETCONF devices.
+
+1. Build the container with:
+sudo docker build . -t netconf-testtool:1.7.2
+
+2. Once built the image, run the container. In the below example the simDev dir is used to simulated some dummy devices. Use different dir if you need.
+
+E.g. #1
+sudo docker run -d -p 17830-17837:17830-17837 -v $PWD/simDev:/opt/simDev --name netconf_testtool_1.7.2 netconf-testtool:1.7.2
+
+3. (Optional) To see the logs of the container
+sudo docker logs -f -n 100 netconf_testtool_1.7.2
+
+
+More details here: https://docs.opendaylight.org/projects/netconf/en/latest/testtool.html

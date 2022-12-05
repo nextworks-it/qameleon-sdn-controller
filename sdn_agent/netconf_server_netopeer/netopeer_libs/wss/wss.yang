@@ -1,0 +1,118 @@
+module wss {
+    namespace "http://org/nextworks/qameleon/wss";
+    prefix wss;
+
+    import ietf-yang-types {
+        prefix yang;
+    }
+
+    organization
+        "Nextworks s.r.l";
+
+    contact
+        "Editor: Pietro G. Giardina <mailto:p.giardina@nextworks.it>";
+
+    description
+        "This YANG defines configuartions for WSS (also High speed WSS)";
+    revision 2018-05-08 {
+        description "Initial Revision";
+    }
+
+    typedef direction-type {
+        description "Indicates direction: I/O";
+        type enumeration {
+            enum I;
+            enum O;
+        }
+    }
+
+    typedef frequency-ghz-type {
+        type decimal64 {
+          fraction-digits 3;
+          range "0..max";
+        }
+        units "GHz";
+    }
+
+    grouping wss-port-config {
+        description "configuration data for wss port";
+
+        leaf port-id {
+            type uint32;
+        }
+
+        leaf port-direction {
+            type direction-type;
+        }
+
+        container port-frequency-info {
+            description "Frequency dlot allocated within the flex grid";
+
+            leaf base-central-frequency {
+                description "Base flex-grid central frequency ITU-T G.694.1";
+                type frequency-ghz-type;
+                default 193100;
+            }
+
+            leaf base-central-frequency-granularity {
+                description "It is the nominal central frequency granularity in GHz";
+                type frequency-ghz-type;
+                default 6.25;
+            }
+
+            leaf central-frequency-slot-granularity {
+                description "It is the slot width granularity in GHz";
+                type frequency-ghz-type;
+                default 12.5;
+            }
+
+            leaf n {
+                description "Fixes the nominal central frequency as follows:
+                f = base-central-frequency + n * base-central-frequency-granularity";
+                type int16;
+                mandatory true;
+            }
+
+            leaf m {
+                description "Defines the slot width as follows:
+                m * central-frequency-slot-granularity";
+                type int16;
+                mandatory true;
+            }
+        }
+    }
+
+    grouping wss-config {
+        description "wss module configuration";
+
+        leaf wss-id {
+            type uint32;
+        }
+
+        leaf wss-direction {
+            description "I/O";
+            type direction-type;
+        }
+
+        leaf wss-number-of-ports{
+            description "1xN: wss has N ports";
+            type uint32;
+        }
+
+        leaf wss-speed {
+            description "High speed or not";
+            type boolean;
+        }
+
+        list wss-ports {
+            description "List of Port of WSS";
+            key "port-id";
+            uses wss-port-config;
+        }
+    }
+
+    //---------- MAIN TREE ------------//
+    container wss {
+        uses wss-config;
+    }
+}

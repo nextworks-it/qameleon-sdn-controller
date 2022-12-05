@@ -1,0 +1,105 @@
+{
+    "uuid": "98b84b79-263a-45d4-919d-cd5172ca1f5c",
+    "lastMigration": 24,
+    "name": "SBVT mock",
+    "endpointPrefix": "",
+    "latency": 0,
+    "port": 3000,
+    "hostname": "0.0.0.0",
+    "routes": [
+        {
+            "uuid": "36118cf3-2beb-483c-bd09-afaa7f37e844",
+            "documentation": "sbvt",
+            "method": "post",
+            "endpoint": "tx",
+            "responses": [
+                {
+                    "uuid": "d713a087-11bb-411f-8216-5abcdf3880c0",
+                    "body": "{}",
+                    "latency": 0,
+                    "statusCode": 200,
+                    "label": "",
+                    "headers": [],
+                    "bodyType": "DATABUCKET",
+                    "filePath": "",
+                    "databucketID": "",
+                    "sendFileAsBody": false,
+                    "rules": [],
+                    "rulesOperator": "OR",
+                    "disableTemplating": false,
+                    "fallbackTo404": false,
+                    "default": true
+                }
+            ],
+            "enabled": true,
+            "responseMode": null
+        },
+        {
+            "uuid": "ae897254-4909-4147-b378-57c8f4709db6",
+            "documentation": "sbvt",
+            "method": "get",
+            "endpoint": "tx",
+            "responses": [
+                {
+                    "uuid": "29a0c341-2123-4c91-853d-1b2870e6e45e",
+                    "body": "{\n  \"modulation_format\": \"QPSK\",\n  \"baudrate\": \"16\",\n  \"frequency\": \"193160\",\n  \"laser_enable\": \"True\",\n  \"edfa_output_power\": \"0\",\n  \"monit_edfa_input_power\": \"-10.0\",\n  \"monit_edfa_output_power\": \"15.6\",\n  \"monit_frequency\": \"193159.89\",\n  \"monit_osnr_01\": \"12.5\",\n  \"last_update\": \"1656698202\"\n}",
+                    "latency": 0,
+                    "statusCode": 200,
+                    "label": "",
+                    "headers": [],
+                    "bodyType": "INLINE",
+                    "filePath": "",
+                    "databucketID": "lvz9",
+                    "sendFileAsBody": false,
+                    "rules": [],
+                    "rulesOperator": "OR",
+                    "disableTemplating": false,
+                    "fallbackTo404": false,
+                    "default": true
+                }
+            ],
+            "enabled": true,
+            "responseMode": null
+        }
+    ],
+    "proxyMode": false,
+    "proxyHost": "",
+    "proxyRemovePrefix": false,
+    "tlsOptions": {
+        "enabled": false,
+        "type": "CERT",
+        "pfxPath": "",
+        "certPath": "",
+        "keyPath": "",
+        "caPath": "",
+        "passphrase": ""
+    },
+    "cors": true,
+    "headers": [
+        {
+            "key": "Content-Type",
+            "value": "application/json"
+        }
+    ],
+    "proxyReqHeaders": [
+        {
+            "key": "",
+            "value": ""
+        }
+    ],
+    "proxyResHeaders": [
+        {
+            "key": "",
+            "value": ""
+        }
+    ],
+    "data": [
+        {
+            "uuid": "9423fefe-f83c-4f31-a78d-57a1e6fac680",
+            "id": "lvz9",
+            "name": "response",
+            "documentation": "",
+            "value": "{\n  \"modulation_format\": \"16QAM\",\n  \"baudrate\": \"16\",\n  \"frequency\": \"193160\",\n  \"laser_enable\": \"True\",\n  \"edfa_output_power\": \"0\",\n  \"monit_edfa_input_power\": \"-10.0\",\n  \"monit_edfa_output_power\": \"15.6\",\n  \"monit_frequency\": \"193159.89\",\n  \"monit_osnr_01\": \"12.5\",\n  \"last_update\": \"1656698202\"\n}"
+        }
+    ]
+}

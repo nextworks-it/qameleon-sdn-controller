@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datastores xmlns="urn:cesnet:tmc:datastores:file">
+  <running lock="">
+    <tpa xmlns="http://org/nextworks/qameleon/tpa">
+      <tpa-id>44</tpa-id>
+      <tpa-direction>ADD</tpa-direction>
+      <tpa-number-of-inports>1</tpa-number-of-inports>
+      <tpa-number-of-outports>1</tpa-number-of-outports>
+      <tpa-ports>
+        <port-id>44</port-id>
+        <port-direction>O</port-direction>
+        <port-frequency-info>
+          <base-central-frequency-granularity>10</base-central-frequency-granularity>
+          <central-frequency-slot-granularity>10</central-frequency-slot-granularity>
+          <n>44</n>
+          <m>44</m>
+        </port-frequency-info>
+      </tpa-ports>
+    </tpa>
+  </running>
+  <candidate lock="" modified="false"/>
+  <startup lock="">
+    <tpa xmlns="http://org/nextworks/qameleon/tpa">
+      <tpa-id>44</tpa-id>
+      <tpa-direction>ADD</tpa-direction>
+      <tpa-number-of-inports>1</tpa-number-of-inports>
+      <tpa-number-of-outports>1</tpa-number-of-outports>
+      <tpa-ports>
+        <port-id>44</port-id>
+        <port-direction>O</port-direction>
+        <port-frequency-info>
+          <base-central-frequency-granularity>10</base-central-frequency-granularity>
+          <central-frequency-slot-granularity>10</central-frequency-slot-granularity>
+          <n>44</n>
+          <m>44</m>
+        </port-frequency-info>
+      </tpa-ports>
+    </tpa>
+  </startup>
+</datastores>

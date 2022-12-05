@@ -1,0 +1,166 @@
+module sliceable-bvt {
+    namespace "http://org/nextworks/qameleon/sbvt";
+    prefix sbvt;
+
+    import ietf-yang-types {
+        prefix yang;
+    }
+
+    import org-openroadm-common-optical-channel-types {
+        prefix orocht;
+    }
+
+    organization
+        "Nextworks s.r.l.";
+
+    contact
+        "Editor: Pietro G. Giardina <mailto:p.giardina@nextworks.it>";
+
+    description
+        "This YANG defines configurations for Sliceable Bandwidth Variable Transponder";
+
+    revision 2018-04-23 {
+        description "Initial Revision";
+    }
+
+    //Types definition
+    typedef direction-type {
+        description "Indicates the direction";
+        type enumeration {
+            enum TX;
+            enum RX;
+       }
+    }
+
+    typedef baud-rate-type {
+        description "Baud Rate type definition";
+        type decimal64 {
+            fraction-digits 3;
+            range "0..max";
+        }
+        units "Gbaud";
+    }
+
+    typedef modulation-type {
+        type orocht:modulation-format;
+    }
+
+    typedef frequency-ghz-type {
+        type decimal64 {
+          fraction-digits 3;
+          range "0..max";
+        }
+        units "GHz";
+    }
+
+    grouping subcarrier-config {
+        description "Subcarrier module configuration";
+        leaf subcarrier-id {
+            type uint32;
+        }
+
+        leaf direction {
+            description "Transmitter or Receiver";
+            type direction-type;
+        }
+
+        leaf baud-rate {
+            description "Baud Rate to use";
+            type baud-rate-type;
+        }
+
+        leaf modulation {
+            description "Modulation format to use";
+            type modulation-type;
+        }
+
+        leaf central-frequency {
+            description "Subacrrier central frequency";
+            type frequency-ghz-type;
+        }
+    }
+
+    grouping optical-flow-carrier-config {
+        description "Carrier inside an Optical Flow";
+
+        leaf ofc-id {
+            type uint32;
+        }
+
+        container frequency-info {
+            description "Frequency dlot allocated within the flex grid";
+
+            leaf base-central-frequency {
+                description "Base flex-grid central frequency ITU-T G.694.1";
+                type frequency-ghz-type;
+                default 193100;
+            }
+
+            leaf base-central-frequency-granularity {
+                description "It is the nominal central frequency granularity in GHz";
+                type frequency-ghz-type;
+                default 6.25;
+            }
+
+            leaf central-frequency-slot-granularity {
+                description "It is the slot width granularity in GHz";
+                type frequency-ghz-type;
+                default 12.5;
+            }
+
+            leaf n {
+                description "Fixes the nominal central frequency as follows:
+                f = base-central-frequency + n * base-central-frequency-granularity";
+                type int16;
+                mandatory true;
+            }
+
+            leaf m {
+                description "Defines the slot width as follows:
+                m * central-frequency-slot-granularity";
+                type int16;
+                mandatory true;
+            }
+        } //frequency-info
+
+        list subcarrier-modules {
+            description "list of subcarriers composing an optical carrier";
+            key "subcarrier-id";
+            uses subcarrier-config;
+        }
+    }
+
+    grouping optical-flow-config {
+        description "Configuration data for Optical Flow";
+
+        leaf of-id {
+            type uint32;
+        }
+
+        list optical-flow-carriers {
+            description "List of carriers composing optical flow";
+            key "ofc-id";
+            uses optical-flow-carrier-config;
+        }
+
+    } //optical-flow-config
+
+    //---------- MAIN TREE ------------//
+    container sbvt {
+        leaf sbvt-id {
+           description "ID of transponder";
+           type uint16;
+        }
+
+        leaf slice-ability-support {
+           when "count(../subcarrier-module) > 1";
+           type boolean;
+           description "Determines if the transponder is sliceable.";
+        }
+
+        list optical-flows {
+            key "of-id";
+            uses optical-flow-config;
+        }
+    }
+}

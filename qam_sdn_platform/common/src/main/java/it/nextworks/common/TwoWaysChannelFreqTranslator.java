@@ -5,23 +5,27 @@ import com.google.common.collect.HashBiMap;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class TwoWaysChannelFreqTranslator {
     private final double LIGHT_SPEED_MS = 299792458;
     private static final Logger LOG = LoggerFactory.getLogger(TwoWaysChannelFreqTranslator.class);
     private BiMap<Integer, Double> channelFreqBimap;
 
-    public TwoWaysChannelFreqTranslator(final String filenameLookupTable) {
+
+    public TwoWaysChannelFreqTranslator() {
         channelFreqBimap = HashBiMap.create();
         JSONParser parser = new JSONParser();
         try {
+            PropertyReader propertyReader = new PropertyReader();
+            propertyReader.parsePropertiesFile();
+            String filenameLookupTable = propertyReader.getFrequencyChannelMapFilePath();
             Object obj = parser.parse(new FileReader(filenameLookupTable));
             JSONArray jsonArray = (JSONArray) obj;
             JSONObject jsonObject = (JSONObject) jsonArray.get(0);
@@ -54,7 +58,12 @@ public class TwoWaysChannelFreqTranslator {
     }
 
     public Double getWavelengthNanometer(Double frequencyGhz){
-        return 299792458/frequencyGhz;
+        return LIGHT_SPEED_MS/frequencyGhz;
+    }
+
+    public int wavelengthToChannel(Double wavelengthNanometer){
+        Double frequencyGhz = (LIGHT_SPEED_MS / wavelengthNanometer)  ;
+        return frequencyToChannel(frequencyGhz);
     }
 
     public int frequencyToChannel(Double frequency) {
@@ -75,7 +84,7 @@ public class TwoWaysChannelFreqTranslator {
                 }
             }
             LOG.warn("Not able to find the exact channel for frequency " + frequency + " Ghz. Taken the channel " + candidateChannel);
-            LOG.warn("Getting the channel " + candidateChannel + " with absolute difference of " + minDiff + " Ghz");
+            LOG.info("Getting the channel " + candidateChannel + " with absolute difference of " + minDiff + " Ghz");
             return candidateChannel;
         }
 

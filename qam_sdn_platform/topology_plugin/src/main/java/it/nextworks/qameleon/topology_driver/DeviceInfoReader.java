@@ -17,4 +17,8 @@ public interface DeviceInfoReader {
     public boolean refreshInfo();
 
     public String getDeviceId();
+
+    public List<Integer> getOutputChannelOccupied();
+
+    public List<Integer> getInputChannelOccupied();
 }

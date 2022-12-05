@@ -1,19 +1,10 @@
 package it.nextworks.qameleon.topology_driver.impl;
 
 import it.nextworks.qameleon.sbi.netconf_driver.DummyNetconfDriver;
-import it.nextworks.qameleon.sbi.netconf_driver.LumentumUtil;
 import it.nextworks.qameleon.topology_driver.DeviceInfoReader;
 import org.opendaylight.yang.gen.v1.qameleon.topology.rev200904.qam.connections.InternalConnection;
-import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev200423.AdministrativeState;
-import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev200423.OperationalState;
-import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev200423.PortDirection;
-import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev200423.Uuid;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev200423.Node;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev200423.node.OwnedNodeEdgePoint;
-import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev200423.node.OwnedNodeEdgePointBuilder;
-import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev200423.node.edge.point.MappedServiceInterfacePoint;
-import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev200423.node.edge.point.MappedServiceInterfacePointBuilder;
-import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev200423.topology.NodeBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +12,12 @@ import java.util.List;
 public class DummyInfoReader implements DeviceInfoReader {
     private final String fakeDeviceId;
     private DummyNetconfDriver dummyNetconfDriver;
+    final int INPUT_PORT_COUNT = 4;
+    final int OUTPUT_PORT_COUNT = 4;
 
     public DummyInfoReader(String nodeId, boolean addSip){
         this.fakeDeviceId = nodeId;
-        dummyNetconfDriver =  new DummyNetconfDriver(nodeId,3,3,addSip);
+        dummyNetconfDriver =  new DummyNetconfDriver(nodeId,INPUT_PORT_COUNT,OUTPUT_PORT_COUNT,addSip);
     }
     public DummyInfoReader(String nodeId, int inPortsCount, int outPortCount, boolean addSip){
         this.fakeDeviceId = nodeId;
@@ -59,6 +52,16 @@ public class DummyInfoReader implements DeviceInfoReader {
     @Override
     public String getDeviceId() {
         return fakeDeviceId;
+    }
+
+    @Override
+    public List<Integer> getOutputChannelOccupied() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<Integer> getInputChannelOccupied() {
+        return new ArrayList<>();
     }
 
 

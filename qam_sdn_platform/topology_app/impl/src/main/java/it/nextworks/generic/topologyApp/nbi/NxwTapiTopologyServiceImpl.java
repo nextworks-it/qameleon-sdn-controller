@@ -292,12 +292,15 @@ public class NxwTapiTopologyServiceImpl implements NxwTapiTopologyService {
     private boolean createNodeNetworkTopology(String topologyId, NxwNode nxwNode){
         final NodeId nodeId = new NodeId(nxwNode.getUuid().getValue());
 
+
         NetconfNode ncnode = new NetconfNodeBuilder()
                 .setHost(new Host(new IpAddress(new Ipv4Address(nxwNode.getHost()))))
                 .setPort(new PortNumber(Integer.valueOf(nxwNode.getPort())))
                 .setTcpOnly(false).setSchemaless(false)
                 .setCredentials(new LoginPasswordBuilder()
-                        .setUsername(nxwNode.getUsername()).setPassword(nxwNode.getPassword()).build())
+                        .setUsername(nxwNode.getUsername())
+                        .setPassword(nxwNode.getPassword())
+                        .build())
                 .build();
 
         final Node updatedNode = new NodeBuilder()
@@ -378,6 +381,7 @@ public class NxwTapiTopologyServiceImpl implements NxwTapiTopologyService {
 
 
         for(NxwNode nxwNode: nxwNodeList){
+
               boolean nodeSuccessfulCreated = createNodeNetworkTopology(TOPOLOGY_NETCONF,nxwNode);//Create a node for ODL topology
 
             if(!nodeSuccessfulCreated){
@@ -434,7 +438,7 @@ public class NxwTapiTopologyServiceImpl implements NxwTapiTopologyService {
     public ListenableFuture<RpcResult<DelNxwTopologyOutput>> delNxwTopology(DelNxwTopologyInput input) {
         String topologyId = input.getTopologyId();
 
-        LOG.info("Del NXW Topology called");
+        LOG.info("Delete NXW Topology called");
         if(!deleteTopologyFromTree(input.getTopologyId())){ //Delete the topology from network topology tree
             RpcResultBuilder<DelNxwTopologyOutput> rpcResultBuilder = RpcResultBuilder.failed();
             rpcResultBuilder.withError(RpcError.ErrorType.APPLICATION, "Error deleting topology.");

@@ -50,6 +50,7 @@ public class TapiDataTreeService {
 
     public void writeTapiTopologyIntoTree(Topology topology) throws ExecutionException {
         final WriteTransaction transaction = dataBroker.newWriteOnlyTransaction();
+
         List<Topology> topologyList = new ArrayList<>();
         topologyList.add(topology);
         Context1 context1 = new Context1Builder().setTopologyContext(new TopologyContextBuilder().setTopology(topologyList).build()).build();

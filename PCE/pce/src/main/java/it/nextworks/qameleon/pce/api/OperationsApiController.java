@@ -166,6 +166,7 @@ public class OperationsApiController implements OperationsApi {
                 return new ResponseEntity<TapiPathComputationComputeP2PPath>(objectMapper.readValue(jsonObject, TapiPathComputationComputeP2PPath.class), HttpStatus.OK);
             }
             catch(BadRequestException e){
+                log.error(e.getMessage());
                 return new ResponseEntity<TapiPathComputationComputeP2PPath>(HttpStatus.BAD_REQUEST);
             }
             catch (IOException e) {

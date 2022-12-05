@@ -102,7 +102,7 @@ public class QameleonTopologyAppRest implements QameleonTopologyService {
         }
 
         String nodeId = input.getNodeId();
-        QamNode qamNode = topologyQameleonService.getNode(nodeId);
+        QamNode qamNode = topologyQameleonService.getNode(nodeId, false);
         if(qamNode==null){
             new GetQamNodeOutputBuilder().setNodeOut(new NodeOutBuilder().build());
             RpcResultBuilder<GetQamNodeOutput> rpcResultBuilder = RpcResultBuilder.failed();
@@ -190,6 +190,7 @@ public class QameleonTopologyAppRest implements QameleonTopologyService {
                     .setTopologyUuid(qamTopology.getTopologyUuid())
                     .build();
         }
+
         GetQamTopologyOutput getQamTopologyOutput = new GetQamTopologyOutputBuilder().setQamTopologyOut(qamTopologyOut).build();
         RpcResultBuilder<GetQamTopologyOutput> rpcResultBuilder = RpcResultBuilder.success(getQamTopologyOutput);
         rpcResultBuilder.withError(RpcError.ErrorType.APPLICATION, "OK");

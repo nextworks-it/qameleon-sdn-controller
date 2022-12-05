@@ -27,11 +27,21 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
 
   <dependencies>
     <!-- https://mvnrepository.com/artifact/org.json/json -->
-    <dependency>
+    <dependency>    
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
       <version>20131018</version>
     </dependency>
+
+<dependency>
+      <groupId>org.opendaylight.mdsal.binding.model.ietf</groupId>
+      <artifactId>rfc6991-ietf-inet-types</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.opendaylight.mdsal.binding.model.ietf</groupId>
+      <artifactId>rfc6991-ietf-yang-types</artifactId>
+    </dependency>
+
     <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
     <dependency>
       <groupId>com.googlecode.json-simple</groupId>

@@ -6,6 +6,10 @@ module qameleon-topology {
         prefix nxw-topology;
     }
 
+    import tapi-connectivity {
+        prefix tapi-connectivity;
+    }
+
 import qam-common {
 	prefix q-common;
 }
@@ -13,6 +17,16 @@ import qam-common {
 import tapi-photonic-media{
 	prefix tapi-ph-media;
 }
+
+
+augment "/qam-topology-cont/qam-node/owned-node-edge-point" {
+        container qam-cep-list {
+            uses tapi-connectivity:cep-list;
+            description "none";
+        }
+        description "none";
+    }
+
 
     organization "NXW";
     contact "p.piscione@nextworks.it";
@@ -190,26 +204,5 @@ rpc delete_topology{
 	}
 
 }
-/*
-rpc disable_node{
-	input{
-		leaf node-id{
-			type string; 
-		}
-	}
-}
-
-
-rpc disable_port{
-	input{
-		leaf node-id{
-			type string; 
-		}
-		leaf port-id{
-			type string; 
-		}
-	}
-}
-*/
 
 }

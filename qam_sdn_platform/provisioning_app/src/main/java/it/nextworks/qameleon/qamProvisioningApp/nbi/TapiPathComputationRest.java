@@ -55,7 +55,7 @@ public class TapiPathComputationRest implements TapiPathComputationService {
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             String jsonInputStrFormant = ow.writeValueAsString(input);
             LOG.info(jsonInputStrFormant);
-            String lightPathId = qamProvisioningService.createLightPathRequest(input);
+            String lightPathId = qamProvisioningService.createLightPathRequest(null, input);
 
             LOG.info("Light path correctly created..");
             Service service =new ServiceBuilder().setUuid(new Uuid(lightPathId)).build();
@@ -70,4 +70,5 @@ public class TapiPathComputationRest implements TapiPathComputationService {
             return rpcResultBuilder.buildFuture();
         }
     }
+
 }

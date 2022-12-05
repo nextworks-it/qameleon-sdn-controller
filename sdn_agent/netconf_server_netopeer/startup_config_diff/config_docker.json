@@ -1,0 +1,16 @@
+{
+"datastores":{
+	"abs_path":"/home/datastore/",
+	"tpa":"datastore-tpa.xml",
+	"wss":"datastore-wss.xml",
+	"sbvt":"datastore-sbvt.xml",
+	"dummy":"datastore-dummy.xml"
+	},
+"ext_conf_file":{
+        "abs_path":"/home/cfg_files/",
+        "tpa":"conf-tpa.txt",
+        "wss":"conf-wss.txt",
+	"sbvt":"channel.txt",
+	"dummy":"conf-dummy.txt"
+        }
+}

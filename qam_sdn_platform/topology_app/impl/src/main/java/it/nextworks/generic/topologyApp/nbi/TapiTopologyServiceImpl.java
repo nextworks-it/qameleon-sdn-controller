@@ -10,6 +10,7 @@ import org.opendaylight.yangtools.yang.common.RpcResult;
 import org.opendaylight.yangtools.yang.common.RpcResultBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.ExecutionException;
 
 public class TapiTopologyServiceImpl implements TapiTopologyService {
@@ -83,8 +84,12 @@ public class TapiTopologyServiceImpl implements TapiTopologyService {
 
     public boolean updateTapiTopologyIntoTree(Topology topology){
         LOG.info("Received request to update topology.");
+
         org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev200423.topology.context.Topology topology1 =
-        new org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev200423.topology.context.TopologyBuilder(topology).build();
+        new org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev200423.topology.context.TopologyBuilder(topology)
+                .setLink(topology.getLink())
+                .setNode(topology.getNode())//Does not work with the augment of CEP into QAM topology.
+                .build();
         try {
             tapiDataTreeService.writeTapiTopologyIntoTree(topology1);
             return true;

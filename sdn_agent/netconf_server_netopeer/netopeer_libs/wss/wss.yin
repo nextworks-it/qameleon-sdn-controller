@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:ietf:params:xml:ns:yang:yin:1" xmlns:wss="http://org/nextworks/qameleon/wss" xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types" name="wss">
+  <namespace uri="http://org/nextworks/qameleon/wss"/>
+  <prefix value="wss"/>
+  <import module="ietf-yang-types">
+    <prefix value="yang"/>
+  </import>
+  <organization>
+    <text>Nextworks s.r.l</text>
+  </organization>
+  <contact>
+    <text>Editor: Pietro G. Giardina &lt;mailto:p.giardina@nextworks.it&gt;</text>
+  </contact>
+  <description>
+    <text>This YANG defines configuartions for WSS (also High speed WSS)</text>
+  </description>
+  <revision date="2018-05-08">
+    <description>
+      <text>Initial Revision</text>
+    </description>
+  </revision>
+  <typedef name="direction-type">
+    <description>
+      <text>Indicates direction: I/O</text>
+    </description>
+    <type name="enumeration">
+      <enum name="I"/>
+      <enum name="O"/>
+    </type>
+  </typedef>
+  <typedef name="frequency-ghz-type">
+    <type name="decimal64">
+      <fraction-digits value="3"/>
+      <range value="0..max"/>
+    </type>
+    <units name="GHz"/>
+  </typedef>
+  <grouping name="wss-port-config">
+    <description>
+      <text>configuration data for wss port</text>
+    </description>
+    <leaf name="port-id">
+      <type name="uint32"/>
+    </leaf>
+    <leaf name="port-direction">
+      <type name="direction-type"/>
+    </leaf>
+    <container name="port-frequency-info">
+      <description>
+        <text>Frequency dlot allocated within the flex grid</text>
+      </description>
+      <leaf name="base-central-frequency">
+        <description>
+          <text>Base flex-grid central frequency ITU-T G.694.1</text>
+        </description>
+        <type name="frequency-ghz-type"/>
+        <default value="193100"/>
+      </leaf>
+      <leaf name="base-central-frequency-granularity">
+        <description>
+          <text>It is the nominal central frequency granularity in GHz</text>
+        </description>
+        <type name="frequency-ghz-type"/>
+        <default value="6.25"/>
+      </leaf>
+      <leaf name="central-frequency-slot-granularity">
+        <description>
+          <text>It is the slot width granularity in GHz</text>
+        </description>
+        <type name="frequency-ghz-type"/>
+        <default value="12.5"/>
+      </leaf>
+      <leaf name="n">
+        <description>
+          <text>Fixes the nominal central frequency as follows:
+f = base-central-frequency + n * base-central-frequency-granularity</text>
+        </description>
+        <type name="int16"/>
+        <mandatory value="true"/>
+      </leaf>
+      <leaf name="m">
+        <description>
+          <text>Defines the slot width as follows:
+m * central-frequency-slot-granularity</text>
+        </description>
+        <type name="int16"/>
+        <mandatory value="true"/>
+      </leaf>
+    </container>
+  </grouping>
+  <grouping name="wss-config">
+    <description>
+      <text>wss module configuration</text>
+    </description>
+    <leaf name="wss-id">
+      <type name="uint32"/>
+    </leaf>
+    <leaf name="wss-direction">
+      <description>
+        <text>I/O</text>
+      </description>
+      <type name="direction-type"/>
+    </leaf>
+    <leaf name="wss-number-of-ports">
+      <description>
+        <text>1xN: wss has N ports</text>
+      </description>
+      <type name="uint32"/>
+    </leaf>
+    <leaf name="wss-speed">
+      <description>
+        <text>High speed or not</text>
+      </description>
+      <type name="boolean"/>
+    </leaf>
+    <list name="wss-ports">
+      <description>
+        <text>List of Port of WSS</text>
+      </description>
+      <key value="port-id"/>
+      <uses name="wss-port-config"/>
+    </list>
+  </grouping>
+  <container name="wss">
+    <uses name="wss-config"/>
+  </container>
+</module>

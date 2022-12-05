@@ -17,6 +17,11 @@
   <packaging>jar</packaging>
 
    <dependencies>
+       <dependency>
+           <groupId>it.nextworks.qameleon</groupId>
+           <artifactId>common-libs</artifactId>
+           <version>0.0.1</version>
+       </dependency>
      <dependency>
        <groupId>it.nextworks.testnetconf</groupId>
        <artifactId>testnetconf-api</artifactId>

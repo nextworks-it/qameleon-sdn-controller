@@ -16,7 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
 
 @Service
@@ -34,13 +33,17 @@ public class PceService {
     @Value("${odl.password}")
     private String odlPassword;
 
+    @Value("${topologyName}")
+    private String topologyName;
+
+    private final int ERROR = -1;
     private TopologyAppRestClient topologyAppRestClient;
 
     private HashMap<String, LinkInfo> linkInfoMap;
     private HashMap<String, TapiPathComputationPath> computedMapPath;
 
     private static final Logger LOG = LoggerFactory.getLogger(PceService.class);
-    private final String TOPOLOGY_ID = "QameleonTopology";
+
 
 
     public PceService(){
@@ -54,6 +57,8 @@ public class PceService {
             topologyAppRestClient =  new TopologyAppRestClient(odlHostName, odlPort, odlUsername, odlPassword);
         }
     }
+
+
     private int isUsable(JSONArray jsonArray, String elementId){
         for(int i=0; i<jsonArray.length(); i++){
             JSONObject element = jsonArray.getJSONObject(i);
@@ -63,20 +68,20 @@ public class PceService {
             if(elementId.equals(idElementToCompare)){
              if(!opState.equals("ENABLED") || !adminState.equals("UNLOCKED")){
                 LOG.warn("Element in not working state");
-                return -1;
+                return ERROR;
             }
             return i;
             }
         }
         LOG.warn("Element not found");
-        return -1;
+        return ERROR;
     }
 
 
     private boolean areNodeAndPortsUsable(JSONArray jsonArrayNodes, String nodeId, String portId){
         int nodeIndex = isUsable(jsonArrayNodes,nodeId);
         JSONArray onepNodeJsonArray;
-        if(nodeIndex>-1){
+        if(nodeIndex>ERROR){
             onepNodeJsonArray = jsonArrayNodes.getJSONObject(nodeIndex).getJSONArray("owned-node-edge-point");
         }
         else{
@@ -85,7 +90,7 @@ public class PceService {
         }
 
         int onepIndex = isUsable(onepNodeJsonArray,portId);
-        if(onepIndex>-1){
+        if(onepIndex>ERROR){
             return true;
         }
 
@@ -94,12 +99,22 @@ public class PceService {
     }
 
 
-    private HipsterDirectedGraph buildGraph(JSONArray jsonArrayLinks, JSONArray jsonArrayNodes){
+    private HipsterDirectedGraph buildGraph(JSONArray jsonArrayLinks, JSONArray jsonArrayNodes, List<String> linksToInclude, List<String> linksToExclude){
         GraphBuilder graphBuilder = GraphBuilder.<String,Double>create();
 
+        linkInfoMap.clear();
         for(int i=0; i<jsonArrayLinks.length(); i++){
+            double linkWeight =2d;
             JSONObject jsonQamLink = (JSONObject)jsonArrayLinks.get(i);
             String linkId = jsonQamLink.getString("uuid");
+            if(linksToExclude!=null && linksToExclude.size()>0 && linksToExclude.contains(linkId)){
+                LOG.info("Link with UUID "+linkId+" must be excluded from the path");
+                continue;
+            }
+            if(linksToInclude!=null && linksToInclude.size()>0 && linksToInclude.contains(linkId)){
+                LOG.info("Link with UUID "+linkId+" must be included in the path");
+                linkWeight = 1d;
+            }
             String nodeSrc = jsonQamLink.getString("node-src");
             String portSrc = jsonQamLink.getString("port-src");
             String nodeDst = jsonQamLink.getString("node-dst");
@@ -119,11 +134,22 @@ public class PceService {
             boolean atLeastOneChannelUsable = availableChannelList.size()>0;
 
             if(isSrcUsable && isDstUsable && atLeastOneChannelUsable) {
-               linkInfoMap.put(nodeSrc+"_"+nodeDst,new LinkInfo(linkId,nodeSrc,nodeDst,portSrc,portDst, availableChannelList));
-                graphBuilder = graphBuilder.connect(nodeSrc).to(nodeDst).withEdge(1d);
+                String keyMap = nodeSrc+"_"+nodeDst;
+                if(linkInfoMap.get(keyMap)==null){
+                   linkInfoMap.put(keyMap,new LinkInfo(linkId,nodeSrc,nodeDst,portSrc,portDst, availableChannelList,linkWeight));
+                   LOG.info("Adding link "+linkId+ " from src "+nodeSrc+" to destination "+nodeDst+" with weight "+linkWeight);
+                   graphBuilder = graphBuilder.connect(nodeSrc).to(nodeDst).withEdge(linkWeight);
+                }else{
+                    LinkInfo linkInfo =linkInfoMap.get(keyMap);
+                    double weightExistingLink = linkInfo.getWeight();
+                    if(linkWeight<weightExistingLink){
+                        linkInfoMap.put(keyMap,new LinkInfo(linkId,nodeSrc,nodeDst,portSrc,portDst, availableChannelList,linkWeight));
+                        LOG.info("Replacing link "+linkId+ " from src "+nodeSrc+" to destination "+nodeDst+" with weight "+linkWeight);
+                    }
+                }
             }
             else{
-                LOG.warn("Src: nodeID "+nodeSrc+" is usable "+isSrcUsable+ "Dst: nodeID "+nodeDst+" is usable "+isDstUsable+" atLeastOneChannelUsable "+atLeastOneChannelUsable);
+                LOG.warn("Src: nodeID "+nodeSrc+" is usable "+isSrcUsable+ ". Dst: nodeID "+nodeDst+" is usable "+isDstUsable+" atLeastOneChannelUsable "+atLeastOneChannelUsable);
             }
         }
         return graphBuilder.createDirectedGraph();
@@ -136,6 +162,64 @@ public class PceService {
     }
 
 
+    private String getSrcNodeUuid(TapiPathComputationPathServiceEndPoint ep1, TapiPathComputationPathServiceEndPoint ep2){
+        //TapiCommonPortDirection sourceDirection = TapiCommonPortDirection.INPUT;
+        TapiCommonPortDirection sourceDirection = TapiCommonPortDirection.OUTPUT;
+
+        if(ep1.getDirection()!=null && ep1.getDirection().equals(sourceDirection))
+            return ep1.getServiceInterfacePoint().getServiceInterfacePointUuid().split("_")[0];
+
+        if(ep2.getDirection()!=null && ep2.getDirection().equals(sourceDirection))
+            return ep2.getServiceInterfacePoint().getServiceInterfacePointUuid().split("_")[0];
+
+        String defaultEpSrc = ep1.getServiceInterfacePoint().getServiceInterfacePointUuid().split("_")[0];
+        LOG.warn("Not able to find end point with INPUT as direction port. Considering "+defaultEpSrc+ " as default src");
+        return defaultEpSrc;
+    }
+
+    private String getDstNodeUuid(TapiPathComputationPathServiceEndPoint ep1, TapiPathComputationPathServiceEndPoint ep2){
+        //TapiCommonPortDirection dstDirection = TapiCommonPortDirection.OUTPUT;
+        TapiCommonPortDirection dstDirection = TapiCommonPortDirection.INPUT;
+        if(ep1.getDirection()!=null && ep1.getDirection().equals(dstDirection))
+            return ep1.getServiceInterfacePoint().getServiceInterfacePointUuid().split("_")[0];
+
+        if(ep2.getDirection()!=null && ep2.getDirection().equals(dstDirection))
+            return ep2.getServiceInterfacePoint().getServiceInterfacePointUuid().split("_")[0];
+
+        String defaultEpDst = ep2.getServiceInterfacePoint().getServiceInterfacePointUuid().split("_")[0];
+        LOG.warn("Not able to find end point with OUTPUT as direction port. Considering "+defaultEpDst+ " as default src");
+        return defaultEpDst;
+    }
+
+    private int getOpticalChannelConstraint(List<TapiCommonNameAndValue> nameList){
+        int channelConstraint = -1;
+        LOG.info("{}",nameList==null);
+        if(nameList==null || nameList.size()==0){
+            LOG.info("No constraints on either channel or frequency or wavelength found.");
+            return channelConstraint;
+        }
+
+         if(nameList.get(0).getValueName().equals("channel")){
+                channelConstraint = Integer.valueOf(nameList.get(0).getValue());
+                LOG.info("Found constraint on channel "+channelConstraint +"the path computation request ");
+            }
+
+        else{
+            LOG.info("No constraints on either channel or frequency or wavelength found.");
+        }
+        return channelConstraint;
+    }
+
+
+    private boolean areListElementsInAnotherList(List<String> listElements, List<String> otherList){
+        for(String elementToCheck: listElements){
+            if(!otherList.contains(elementToCheck)) {
+                LOG.warn(elementToCheck + " not available in the list");
+                return false;
+            }
+        }
+        return true;
+    }
 
     public TapiPathComputationComputeP2PPath computeLightPath(TapiPathComputationComputep2ppathInputBodyparam tapiPathComputationComputep2ppathInputBodyParam) throws BadRequestException {
 
@@ -150,21 +234,27 @@ public class PceService {
             throw new BadRequestException("Not enough endpoints provided for path computation. They must be exactly two.");
         }
 
-        String srcSipUuid = tapiPathComputationComputep2ppathInputBodyParam.getInput().getEndPoint().get(0).getServiceInterfacePoint().getServiceInterfacePointUuid();
-        String dstSipUuid = tapiPathComputationComputep2ppathInputBodyParam.getInput().getEndPoint().get(1).getServiceInterfacePoint().getServiceInterfacePointUuid();
+        TapiPathComputationPathServiceEndPoint ep1 =tapiPathComputationComputep2ppathInputBodyParam.getInput().getEndPoint().get(0);
+        TapiPathComputationPathServiceEndPoint ep2 =tapiPathComputationComputep2ppathInputBodyParam.getInput().getEndPoint().get(1);
+        String srcSipUuid = ep1.getServiceInterfacePoint().getServiceInterfacePointUuid();
+        String dstSipUuid = ep2.getServiceInterfacePoint().getServiceInterfacePointUuid();
 
-        if(!isSipIdValid(srcSipUuid) || !isSipIdValid(srcSipUuid)){
+
+        //tapiPathComputationComputep2ppathInputBodyParam.getInput().getEndPoint().get(1).getName()
+        if(!isSipIdValid(srcSipUuid) || !isSipIdValid(dstSipUuid)){
             LOG.warn("Bad request. SPI format not valid. It should be something like this: node-a_sip01. The underscore and \"sip\" substring are mandatory. ");
             throw new BadRequestException("Bad request. SPI format not valid.");
         }
-        String srcNode = srcSipUuid.split("_")[0];
-        String dstNode = dstSipUuid.split("_")[0];
+        LOG.info("Source SIP is "+srcSipUuid);
+        LOG.info("Destination SIP is "+dstSipUuid);
+
+        String srcNode = getSrcNodeUuid(ep1, ep2);
+        String dstNode = getDstNodeUuid(ep1, ep2);
 
         try {
             LOG.info("Received request to compute light path from "+srcNode+" to "+dstNode);
             initRestClients();//used this fix because in the constructor the config variables are not immediately loaded.
-            //TODO Topology name hardcoded. To be fixed.
-            JSONObject jsonObject = topologyAppRestClient.getTopology(TOPOLOGY_ID); //SUPPOSE TO use always the same topology (for now)
+            JSONObject jsonObject = topologyAppRestClient.getTopology(topologyName);
             if(jsonObject==null) {
                 throw new BadRequestException("No topology found.");
             }
@@ -176,12 +266,47 @@ public class PceService {
                 LOG.warn("Either the number of nodes ("+jsonArrayNodes.length()+") or the number of links ("+jsonArrayLinks.length()+") is not enough for path computation");
                 throw new BadRequestException("Not enough elements for path computation found.");
             }
+
+
             LOG.info("Building graph from topology.");
-            HipsterDirectedGraph hipsterDirectedGraph = buildGraph(jsonArrayLinks, jsonArrayNodes);
+            List<String> includeLink = new ArrayList<>();
+            List<String> excludeLink = new ArrayList<>();
+            if(tapiPathComputationComputep2ppathInputBodyParam.getInput().getTopologyConstraint()!=null) {
+                LOG.info("Topology constraints found.");
+                includeLink = tapiPathComputationComputep2ppathInputBodyParam.getInput().getTopologyConstraint().getIncludeLink();
+                excludeLink = tapiPathComputationComputep2ppathInputBodyParam.getInput().getTopologyConstraint().getExcludeLink();
+            }
+
+            List<String> linkUuidList = getLinkUuidList(jsonArrayLinks);
+            if(includeLink!=null && includeLink.size()>0){
+                if(!areListElementsInAnotherList(includeLink, linkUuidList))
+                    throw new BadRequestException("Include link list contains links UUID not available into topology links ");
+            }
+
+            if(excludeLink!=null && excludeLink.size()>0){
+                if(!areListElementsInAnotherList(excludeLink, linkUuidList))
+                    throw new BadRequestException("Exclude link list contains links UUID not available into topology links ");
+            }
+
+
+            HipsterDirectedGraph hipsterDirectedGraph = buildGraph(jsonArrayLinks, jsonArrayNodes,includeLink, excludeLink);
             LOG.info("Computing lightpath from source node "+srcNode+" to destination node "+dstNode+".");
             List<Object> paths = computePaths(hipsterDirectedGraph, srcNode, dstNode);
             LOG.info("Storing Explicit Route Object (ERO) into PCE.");
-            String pathId = setEro(paths,topologyUuid);
+
+
+            int channelConstraint = -1;
+            int channelConstraintSrc = getOpticalChannelConstraint(ep1.getName());
+            int channelConstraintDst = getOpticalChannelConstraint(ep2.getName());
+
+            if(channelConstraintSrc == channelConstraintDst || channelConstraintSrc != -1){
+                channelConstraint = channelConstraintSrc;
+            }
+            if(channelConstraintSrc == -1 || channelConstraintDst != -1){
+                channelConstraint = channelConstraintDst;
+            }
+
+            String pathId = setEro(paths,topologyUuid, channelConstraint);
 
             if(pathId==null) {
                 LOG.warn("Cannot set ERO. Path not found.");
@@ -196,6 +321,16 @@ public class PceService {
         }
     }
 
+    private List<String> getLinkUuidList(JSONArray jsonArrayLinks) {
+        List<String> linkUuid = new ArrayList<>();
+        for(int i=0; i<jsonArrayLinks.length(); i++) {
+            JSONObject jsonQamLink = (JSONObject) jsonArrayLinks.get(i);
+            String linkUuidStr = jsonQamLink.getString("uuid");
+            linkUuid.add(linkUuidStr);
+        }
+        return linkUuid;
+    }
+
     private List<Object> computePaths(HipsterDirectedGraph hipsterDirectedGraph, String nodeSrc, String nodeDst) {
         SearchProblem p = GraphSearchProblem
                 .startingFrom(nodeSrc)
@@ -203,8 +338,6 @@ public class PceService {
                 .takeCostsFromEdges()
                 .build();
 
-        Algorithm.SearchResult searchResult = Hipster.createDijkstra(p).search(nodeDst);
-        searchResult.getGoalNodes();
         List<Object> nodes= Arrays.asList(Hipster.createDijkstra(p).search(nodeDst).getGoalNodes().toArray());
         return nodes;
         }
@@ -249,10 +382,11 @@ public class PceService {
         return true;
     }
 
-    private String setEro(List<Object> paths, String topologyUuid){
+
+    private String setEro(List<Object> paths, String topologyUuid, int channelConstraint){
         TapiPathComputationPath tapiPathComputationPath = new TapiPathComputationPath();
 
-        Set<Integer> channelSet  = new HashSet<Integer>();
+        Set<Integer> channelSet  = new HashSet<>();
 
         String srcPath = null;
         String dstPath = null;
@@ -268,6 +402,7 @@ public class PceService {
 
                 String src = (String)Algorithm.recoverStatePath(node).get(j);
                 String dst = (String)Algorithm.recoverStatePath(node).get(j+1);
+
                 String linkId = linkInfoMap.get(src+"_"+dst).getLinkId();
                 if(j==0) {
                     channelSet.addAll(linkInfoMap.get(src + "_" + dst).getAvailableChannels());
@@ -282,6 +417,7 @@ public class PceService {
                 tapiTopologyLinkRef.setLinkUuid(linkId);
                 tapiTopologyLinkRef.setTopologyUuid(topologyUuid);
                 tapiPathComputationPath.addLinkItem(tapiTopologyLinkRef);
+
             }
         }
 
@@ -290,13 +426,22 @@ public class PceService {
             return null;
         }
 
-        Integer minimumChannel = Collections.min(channelSet);
+        Integer channelSelected = Collections.min(channelSet); //By default the minimum channel is selected
 
+        //if a channel constraint is specified, is selected that one
+        if(channelConstraint!=-1 && channelSet.contains(channelConstraint)){
+            channelSelected = channelConstraint;
+        }
+
+        if(channelConstraint!=-1 && !channelSet.contains(channelConstraint)){
+            LOG.warn("The path computation request cannot be satisfied: channel "+channelConstraint+" not available");
+            return null;
+        }
 
         List<TapiCommonNameAndValue> tapiCommonNameAndValues = new ArrayList<>();
         TapiCommonNameAndValue tapiCommonNameAndValue = new TapiCommonNameAndValue();
         tapiCommonNameAndValue.setValueName("channel");
-        tapiCommonNameAndValue.setValue(String.valueOf(minimumChannel));
+        tapiCommonNameAndValue.setValue(String.valueOf(channelSelected));
         tapiCommonNameAndValues.add(tapiCommonNameAndValue);
 
         TapiCommonNameAndValue tapiCommonNameAndValueSrcPath = new TapiCommonNameAndValue();

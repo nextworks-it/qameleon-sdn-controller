@@ -1,0 +1,40 @@
+module simulated-device {
+	namespace "sim-dev";
+	prefix sim-dev;
+	organization "NXW";
+	contact "p.piscione@nextworks.it";
+	description "YANG model that represents a dummy optical network device that contains a list of cross-connections.";
+
+	revision 2020-12-15{
+		description "First draft.";
+	}
+
+grouping cross-connection{
+	leaf src-port{
+		type string;
+	}
+	leaf dst-port{
+		type string;
+	}
+	leaf optical-channel{
+		type int32;
+	}
+	leaf central-wavelength{
+		type decimal64 {
+          	fraction-digits 3;
+        	}
+        	units "nm";
+	}
+}
+
+container cross-connections-top{
+	leaf device-id{
+		type string;
+	}
+
+	list cross-connections{
+		uses cross-connection;
+	}
+}
+
+}

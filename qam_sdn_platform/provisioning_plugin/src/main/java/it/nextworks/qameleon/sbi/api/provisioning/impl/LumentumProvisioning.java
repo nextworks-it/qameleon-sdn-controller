@@ -1,9 +1,9 @@
 package it.nextworks.qameleon.sbi.api.provisioning.impl;
 
 import it.nextworks.common.TwoWaysChannelFreqTranslator;
-import it.nextworks.qameleon.sbi.netconf_driver.LumentumNetconfDriver;
 import it.nextworks.qameleon.sbi.api.provisioning.LightPathProvisioning;
-import it.nextworks.qameleon.sbi.netconf_driver.LumentumUtil;
+import it.nextworks.qameleon.sbi.netconf_driver.lumentumNetconfDriver.LumentumNetconfDriver;
+import it.nextworks.qameleon.sbi.netconf_driver.lumentumNetconfDriver.LumentumUtil;
 import org.opendaylight.mdsal.binding.api.MountPointService;
 import org.opendaylight.yang.gen.v1.http.www.lumentum.com.lumentum.ote.connection.rev170213.ConfigureCcConnectionInput;
 import org.opendaylight.yang.gen.v1.http.www.lumentum.com.lumentum.ote.connection.rev170213.ConfigureCcConnectionInputBuilder;
@@ -19,40 +19,174 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LumentumProvisioning implements LightPathProvisioning {
-    LumentumNetconfDriver lumentumNetconfDriver;
+    private LumentumNetconfDriver lumentumNetconfDriver;
     private static final Logger LOG = LoggerFactory.getLogger(LumentumProvisioning.class);
-    private final String DN_MUX_CONNECTION_PREFIX = "ne=1;card=1;chassis=1;module=1;connection=";
-    private final String DN_DEMUX_CONNECTION_PREFIX = "ne=1;card=1;chassis=1;module=2;connection=";
+    private final String DN_MUX_CONNECTION_PREFIX = "ne=1;chassis=1;card=1;module=1;connection=";
+    private final String DN_DEMUX_CONNECTION_PREFIX = "ne=1;chassis=1;card=1;module=2;connection=";
     private final double MINIMUM_CHANNEL_WIDTH_GHZ = 37.5;
     private final double MINIMUM_SLOT_WIDTH_GHZ = 6.25;
     private final String DN_MUX_DEMUX_PREFIX = "ne=1;chassis=1;card=1;port=";
-    private final String FILENAME_LOOKUP_TABLE;
+    private final int OUTPUT_PORT_MUX = 4201;
+    private final int INPUT_PORT_DEMUX = 5101;
+    private final int LINE_IN_OUT_ID = 3001;
 
-    public LumentumProvisioning(MountPointService mountPointService, String lumentumId, String filenameLookupTable) {
-        FILENAME_LOOKUP_TABLE=filenameLookupTable;
+    public LumentumProvisioning(MountPointService mountPointService, String lumentumId) {
         lumentumNetconfDriver = new LumentumNetconfDriver(mountPointService,lumentumId);
     }
 
-    @Override//TODO to be tested
-    public boolean setupLightPath(int channel, String portSrc, String portDst) {
-        TwoWaysChannelFreqTranslator twoWaysChannelFreqTranslator = new TwoWaysChannelFreqTranslator(FILENAME_LOOKUP_TABLE);
-        Double centralFreq= twoWaysChannelFreqTranslator.channelToFrequency(channel);
-        Double centralFreq2 = twoWaysChannelFreqTranslator.channelToFrequency(channel);
-        Double deltaFreq = centralFreq2-centralFreq;
-        Double startingFreq = centralFreq-deltaFreq/2;
-        //TODO convert the channel, src and dst port into the lumentum corresponding one.
-        String connectionId = portSrc+ portDst+ channel;
-        boolean crossConnectionSetupSuccess = createConnection(String.valueOf(portSrc), Integer.valueOf(portSrc), Integer.valueOf(portDst), startingFreq,2, MaintenanceState.InService, connectionId);
-        LOG.info("Pretending to have been setup a cross connection into Lumentum device.");
-        return crossConnectionSetupSuccess;
+    private List<Integer> connectionIdUsed(){
+        LOG.info("Checking connection ID used so far");
+        List<Integer> connectionIdList = new ArrayList<>();
+        for(Connection connection:lumentumNetconfDriver.getLumentumConnections().getConnection()){
+            connectionIdList.add(LumentumUtil.dnToHasMap( connection.getDn()).get("connection"));
+        }
+        return connectionIdList;
     }
 
+    private Double roundToSlotFrequency(Double freq){
+        double freqTmp = 191325;
+        int slotCount = 1;
+        while(freqTmp<freq){
+            freqTmp += MINIMUM_SLOT_WIDTH_GHZ;
+            slotCount++;
+        }
+        LOG.info("Round to slot #"+slotCount+ " whose frequency is "+freqTmp);
+        return freqTmp;
+    }
+
+
+
+    public boolean setupLightPath(int channel, String portSrc, String portDst, double bandwidthChannel){
+        LOG.info("Processing request for creating cross-connection from port (src) "+portSrc+ " to port (dst) "+portDst+" using channel "+channel);
+        TwoWaysChannelFreqTranslator twoWaysChannelFreqTranslator = new TwoWaysChannelFreqTranslator();
+        Double centralFreqGhz= twoWaysChannelFreqTranslator.channelToFrequency(channel);
+
+        Double startingFreqGhz = centralFreqGhz-bandwidthChannel/2;
+        Double endingFreqGhz = centralFreqGhz+bandwidthChannel/2;
+
+        LOG.info("Optical channel: "+channel);
+        LOG.info("Starting frequency (Ghz) : "+startingFreqGhz);
+        LOG.info("Central frequency (Ghz) : "+centralFreqGhz);
+        LOG.info("Ending frequency (Ghz) : "+endingFreqGhz);
+
+        startingFreqGhz = roundToSlotFrequency(startingFreqGhz);
+        endingFreqGhz = roundToSlotFrequency(endingFreqGhz);
+
+        LOG.info("Starting frequency rounded (Ghz) "+startingFreqGhz);
+        LOG.info("Ending frequency rounded (Ghz) : "+endingFreqGhz);
+
+        Double deltaFreqGhz = endingFreqGhz-startingFreqGhz;
+        LOG.info("Total spectrum is (Ghz) : "+deltaFreqGhz);
+
+        if(deltaFreqGhz<MINIMUM_CHANNEL_WIDTH_GHZ){
+            LOG.error("The frequency width ("+deltaFreqGhz+" Ghz) is less than the minimum allowed ("+MINIMUM_CHANNEL_WIDTH_GHZ+" Ghz)");
+            return false;
+        }
+        List<Integer> connectionIdUsed = connectionIdUsed();
+        Integer connectionMuxId = 1;
+        LOG.info("Number of connections ID used: "+connectionIdUsed.size());
+
+        int portDstInt = -1;
+
+        try {
+            portDstInt = Integer.parseInt(portDst);
+        } catch (NumberFormatException e) {
+            LOG.error("Cannot parse "+portDst+ " to an integer value");
+            LOG.error(e.getMessage());
+            return false;
+        }
+
+        if(portDstInt==LINE_IN_OUT_ID) {
+            while(connectionIdUsed.contains(connectionMuxId)) {
+                LOG.warn("Connection ID "+connectionMuxId+ " already used");
+                connectionMuxId ++;
+            }
+
+            connectionIdUsed.add(connectionMuxId);
+            LOG.info("Connection MUX ID to assign is "+connectionMuxId);
+
+            if (!setupCrossConnection("Conn MUX lightpath channel " + channel, Integer.parseInt(portSrc), OUTPUT_PORT_MUX, startingFreqGhz, endingFreqGhz, MaintenanceState.InService, connectionMuxId, DN_MUX_CONNECTION_PREFIX)) {
+                LOG.error("Error during cross connection creation within MUX");
+                return false;
+            }
+            LOG.info("Cross-connection within MUX successfully setup");
+        }
+
+        int portSrcInt = -1;
+        try {
+            portSrcInt = Integer.parseInt(portSrc);
+        } catch (NumberFormatException e) {
+            LOG.error("Cannot parse "+portSrc+ " to an integer value");
+            LOG.error(e.getMessage());
+            return false;
+        }
+
+        if(portSrcInt==LINE_IN_OUT_ID){
+            Integer connectionDemuxId = 1;
+
+            while(connectionIdUsed.contains(connectionDemuxId)) {
+                LOG.warn("Connection ID "+connectionDemuxId+ " already used");
+                connectionDemuxId ++;
+            }
+
+            LOG.info("Connection DEMUX ID to assign is "+connectionDemuxId);
+            if(!setupCrossConnection("Conn DEMUX lightpath channel "+channel, INPUT_PORT_DEMUX, Integer.parseInt(portDst), startingFreqGhz,endingFreqGhz, MaintenanceState.InService, connectionDemuxId, DN_DEMUX_CONNECTION_PREFIX)){
+                LOG.error("Error during cross connection creation within DEMUX");
+                return false;
+            }
+            LOG.info("Cross-connection within DEMUX successfully setup");
+        }
+
+        //LOG.error("Either source or destination port must be equal to "+LINE_IN_OUT_ID);
+
+        return true;
+    }
+
+
+
     @Override
-    public boolean removeLightPath(int channel, String portSrc, String portDst) {
-        LOG.info("Pretending to have been removed cross connection(s) into Lumentum device.");
+    public boolean removeLightPath(int channel, String portSrc, String portDst, double bandwidthChannel) {
+        TwoWaysChannelFreqTranslator twoWaysChannelFreqTranslator = new TwoWaysChannelFreqTranslator();
+        LOG.info("Going to remove cross-connection within Lumentum Device for channel "+channel);
+
+        for(Connection connection:lumentumNetconfDriver.getLumentumConnections().getConnection()){
+            double startingFreq = connection.getConfig().getStartFreq().getValue().doubleValue();
+            double endingFreq =connection.getConfig().getEndFreq().getValue().doubleValue();
+            double centralFreq = (startingFreq + endingFreq)/2;
+            int moduleId = LumentumUtil.dnToHasMap( connection.getDn()).get("module");
+            int channelTmp =twoWaysChannelFreqTranslator.frequencyToChannel(centralFreq);
+            int connectionId = LumentumUtil.dnToHasMap( connection.getDn()).get("connection");
+
+            LOG.info("starting freq "+startingFreq);
+            LOG.info("ending freq "+endingFreq);
+            LOG.info("central freq "+centralFreq);
+            LOG.info("moduleId "+moduleId);
+            LOG.info("channelTmp "+channelTmp);
+            LOG.info("connectionId "+connectionId);
+
+            if(channelTmp==channel && moduleId==1){
+                LOG.info("Going to remove cross-connection within MUX");
+                DistinguishedName dnConnectionMux = new DistinguishedName(DN_MUX_CONNECTION_PREFIX+connectionId);
+                if(!lumentumNetconfDriver.removeCrossConnection(dnConnectionMux)){
+                    LOG.error("Error removing cross connection with id "+connectionId);
+                    return false;
+                }
+                LOG.info("Connection with ID "+connectionId+" successfully removed from MUX");
+            }
+            if(channelTmp==channel && moduleId==2){
+                LOG.info("Going to remove cross-connection within DEMUX");
+                DistinguishedName dnConnectionDemux = new DistinguishedName(DN_DEMUX_CONNECTION_PREFIX+connectionId);
+                if(!lumentumNetconfDriver.removeCrossConnection(dnConnectionDemux)){
+                    LOG.error("Error removing cross connection with id " + connectionId);
+                   return false;
+                }
+                LOG.info("Connection with ID "+connectionId+" successfully removed from DEMUX");
+            }
+        }
         return true;
     }
 
@@ -63,66 +197,68 @@ public class LumentumProvisioning implements LightPathProvisioning {
     }
 
 
-    //Used by provisioning
-    private boolean createConnection(String configName, int inputPort, int outputPort, double startFreq, int slotCount, MaintenanceState maintenanceState, String connectionId){
-        if(slotCount<0 || slotCount>762){//It is 762 and not  768 because 37.5 is the minimum with already allocated.
-            LOG.error("Slot count cannot be lower than 0 or greater than 762");
+    private boolean setupCrossConnection(String configName, int inputPort, int outputPort, double startFreq, double endFreq, MaintenanceState maintenanceState, Integer connectionId, final String dnPrefix){
+        if(startFreq>=endFreq){
+            LOG.error("Starting frequency cannot be either equal or higher than ending frequency");
             return false;
         }
-        double endFreq = startFreq+MINIMUM_CHANNEL_WIDTH_GHZ+slotCount*MINIMUM_SLOT_WIDTH_GHZ;
-        //TODO missing the amplifier info. To be added ??
+
         BigDecimal startFreqGhz = new BigDecimal(startFreq);
         BigDecimal endFreqGhz = new BigDecimal(endFreq);
-        DwdmFrequencyRangeGhz dwdmFrequencyRangeGhzStart = new DwdmFrequencyRangeGhz(startFreqGhz);
-        DwdmFrequencyRangeGhz dwdmFrequencyRangeGhzEnd = new DwdmFrequencyRangeGhz(endFreqGhz);
+        DwdmFrequencyRangeGhz dwdmFrequencyRangeGhzStart = new DwdmFrequencyRangeGhz(startFreqGhz.setScale(2));
+        DwdmFrequencyRangeGhz dwdmFrequencyRangeGhzEnd = new DwdmFrequencyRangeGhz(endFreqGhz.setScale(2));
         Config config = new ConfigBuilder().setCustomName(configName)
                 .setMaintenanceState(maintenanceState)
-                .setInputPortReference(getDnMuxInput(inputPort))
-                .setOutputPortReference(getDnDemuxOutput(outputPort))
+                .setInputPortReference(getDnMux(inputPort))
+                .setOutputPortReference(getDnMux(outputPort))
                 .setStartFreq(dwdmFrequencyRangeGhzStart)
                 .setEndFreq(dwdmFrequencyRangeGhzEnd)
+                .setBlocked(false)
+
                 .build();
 
-        Connection connection = new ConnectionBuilder()
+        String distinguishName = dnPrefix +connectionId;
+        Connection lumentumCrossConnection = new ConnectionBuilder()
                 .setConfig(config)
-                .setDn(new DistinguishedName(DN_MUX_CONNECTION_PREFIX +connectionId)).build();
+                .setDn(new DistinguishedName(distinguishName))
+                .build();
 
-        String nodeSrcId = LumentumUtil.MUX_IN_PORT_PREFIX + LumentumUtil.leftPadZero(inputPort);
-        String nodeDstId = LumentumUtil.DEMUX_OUT_PORT_PREFIX + LumentumUtil.leftPadZero(outputPort);
-        String linkId = nodeSrcId+"-"+nodeDstId+"-"+startFreq+"-"+endFreq;
-        //TODO the connection object must be sent using the corresponding RPC to the Lumentum device using NETCONF
-        //Once send the RPC, perform a NETCONF get request to connectivity in order to see if the connection has been setup. TODO
-        return true;
-
+        LOG.info("Going to setup cross-connection within Lumentum device. Cross-connection main info below");
+        LOG.info("Distinguish Name (DN)  "+distinguishName);
+        LOG.info("Starting and ending frequency (Ghz): "+startFreqGhz+" and "+endFreqGhz);
+        LOG.info("Source and destination ports identifier: "+inputPort+ " and "+outputPort);
+        return lumentumNetconfDriver.setupLumentumCrossConnection(lumentumCrossConnection);
     }
 
-    private boolean configureCcConnectionDemux(int connectionId, int ouputPort){
+    public boolean configureCcConnectionDemux(int connectionId, int ouputPort){
         ConfigureCcConnectionInput configureCcConnection = new ConfigureCcConnectionInputBuilder()
                 .setDn(new DistinguishedName(DN_DEMUX_CONNECTION_PREFIX +connectionId))
                 .setInputPortReference(new DistinguishedName("ne=1;chassis=1;card=1;port=5102"))
                 .setOutputPortReference(new DistinguishedName("ne=1;chassis=1;card=1;port=52"+ LumentumUtil.leftPadZero(ouputPort)))
-                .setCustomInputId(new IdentityCode(("CC DeMux"))).build();
-        return false;
+                .setCustomInputId(new IdentityCode(("DEMUX CC Connection "+connectionId))).build();
+                return lumentumNetconfDriver.ConfigureCcConnectionRpc(configureCcConnection);
     }
 
-    private boolean configureCcConnectionMux(int connectionId, int inputPort){
+    public boolean configureCcConnectionMux(int connectionId, int inputPort){
         ConfigureCcConnectionInput configureCcConnection = new ConfigureCcConnectionInputBuilder()
                 .setDn(new DistinguishedName(DN_MUX_CONNECTION_PREFIX +connectionId))
                 .setInputPortReference(new DistinguishedName("ne=1;chassis=1;card=1;port=41"+ LumentumUtil.leftPadZero(inputPort)))
                 .setOutputPortReference(new DistinguishedName("ne=1;chassis=1;card=1;port=4202"))
-                .setCustomInputId(new IdentityCode(("CC Mux"))).build();
-        return false;
+                .setCustomInputId(new IdentityCode(("MUX CC Connection "+connectionId))).build();
+                return lumentumNetconfDriver.ConfigureCcConnectionRpc(configureCcConnection);
     }
 
     private DistinguishedName getDnMuxInput(int inputPort){
-        DistinguishedName distinguishedName = new DistinguishedName(DN_MUX_DEMUX_PREFIX+ LumentumUtil.MUX_IN_PORT_PREFIX+ LumentumUtil.leftPadZero(inputPort));
-        return distinguishedName;
+        return new DistinguishedName(DN_MUX_DEMUX_PREFIX+ LumentumUtil.MUX_IN_PORT_PREFIX+ LumentumUtil.leftPadZero(inputPort));
+
     }
 
     private DistinguishedName getDnDemuxOutput(int outputNumber){
-        DistinguishedName distinguishedName = new DistinguishedName(DN_MUX_DEMUX_PREFIX+ LumentumUtil.DEMUX_OUT_PORT_PREFIX+ LumentumUtil.leftPadZero(outputNumber));
-        return distinguishedName;
-
+        return new DistinguishedName(DN_MUX_DEMUX_PREFIX+ LumentumUtil.DEMUX_OUT_PORT_PREFIX+ LumentumUtil.leftPadZero(outputNumber));
+        }
+    private DistinguishedName getDnMux(int portNumber){
+        String dnBuilt = DN_MUX_DEMUX_PREFIX+ portNumber;
+        return new DistinguishedName(dnBuilt);
     }
 
 }

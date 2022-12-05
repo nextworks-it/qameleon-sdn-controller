@@ -1,0 +1,15 @@
+{
+"datastores":{
+	"abs_path":"/home/pietro/repo/qameleon/netconf_server_netopeer/datastore/",
+	"tpa":"datastore-tpa.xml",
+	"wss":"datastore-wss.xml",
+	"dummy":"datastore-dummy.xml"
+	},
+"ext_conf_file":{
+        "abs_path":"/home/ubuntu/conf_file/",
+        "tpa":"conf-tpa.txt",
+	"dummy":"dummy.txt",
+	"sbvt":"channel.txt",
+        "wss":"conf-wss.txt"
+        }
+}

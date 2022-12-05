@@ -10,20 +10,18 @@ import org.slf4j.LoggerFactory;
 public class DummyProvisioning implements LightPathProvisioning {
     private static final Logger LOG = LoggerFactory.getLogger(DummyProvisioning.class);
     private DummyNetconfDriver dummyNetconfDriver;
-    private String lookupTableFilename;
 
-    public DummyProvisioning(MountPointService mountPointService, String nodeId, String lookupTableFilename){
+    public DummyProvisioning(MountPointService mountPointService, String nodeId){
         dummyNetconfDriver = new DummyNetconfDriver(mountPointService, nodeId);
-        this.lookupTableFilename = lookupTableFilename;
     }
 
     @Override
-    public boolean setupLightPath(int channel, String portSrc, String portDst) {
+    public boolean setupLightPath(int channel, String portSrc, String portDst, double bandwidthChannel) {
         if(!isValid(channel, portSrc, portDst)) {
             LOG.info("Your lightpath setup request is not valid. Please check the fields.");
             return false;
         }
-        TwoWaysChannelFreqTranslator twoWaysChannelFreqTranslator = new TwoWaysChannelFreqTranslator(lookupTableFilename);
+        TwoWaysChannelFreqTranslator twoWaysChannelFreqTranslator = new TwoWaysChannelFreqTranslator();
         Double frequencyMhz = twoWaysChannelFreqTranslator.channelToFrequency(channel);
         Double wavelengthNm = twoWaysChannelFreqTranslator.getWavelengthNanometer(frequencyMhz);
         LOG.debug("Channel "+channel+" corresponds to frequency "+frequencyMhz+" Ghz");
@@ -32,7 +30,7 @@ public class DummyProvisioning implements LightPathProvisioning {
     }
 
     @Override
-    public boolean removeLightPath(int channel, String portSrc, String portDst) {
+    public boolean removeLightPath(int channel, String portSrc, String portDst, double bandwidthChannel) {
         if(!isValid(channel, portSrc, portDst)) {
             LOG.info("Your setup lightpath request is not valid. Please check the fields.");
             return false;

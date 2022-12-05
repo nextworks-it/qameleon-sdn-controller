@@ -1,0 +1,29 @@
+module dummy {
+    namespace "http://org/nextworks/qameleon/dummy";
+    prefix dummy;
+
+    organization
+        "Nextworks s.r.l";
+
+    contact
+        "Editor: Pietro P. <mailto:p.piscione@nextworks.it>";
+
+    description
+        "Dummy yang model";
+    revision 2020-07-07 {
+        description "Dummy yang model";
+    }
+
+    grouping dummy-group {
+        description "dummy";
+
+        leaf dummy-leaf-int {
+            type uint32;
+        }
+    }
+
+    //---------- MAIN TREE ------------//
+    container dummy {
+        uses dummy-group;
+    }
+}

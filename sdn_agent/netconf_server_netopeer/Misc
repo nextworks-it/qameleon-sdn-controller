@@ -1,0 +1,95 @@
+For TPA
+---------------------------------------------------------------------------------------------
+
+lnctool --model tpa.yang convert; lnctool --model tpa.yang validation; lnctool --model tpa.yang transapi --paths ./pathfile;
+autoconf; ./configure; sudo make install;
+sudo netopeer-manager rm --name tpa; sudo netopeer-manager add --name tpa --model /home/pietro/repo/qameleon/netconf_server_netopeer/tpa/tpa.yin --datastore /home/pietro/repo/qameleon/netconf_server_netopeer/datastore-tpa.xml --transapi /usr/local/lib/tpa.so
+
+
+<tpa xmlns="http://org/nextworks/qameleon/tpa">
+	<tpa-id>1</tpa-id>
+	<tpa-direction>ADD</tpa-direction>
+	<tpa-number-of-inports>1</tpa-number-of-inports>
+	<tpa-number-of-outports>1</tpa-number-of-outports>
+	<tpa-ports>
+		<port-id>1</port-id>
+		<port-direction>O</port-direction>
+		<port-frequency-info>
+			<base-central-frequency-granularity>5</base-central-frequency-granularity>
+			<central-frequency-slot-granularity>10</central-frequency-slot-granularity>
+			<n>2</n>
+			<m>2</m>
+		</port-frequency-info>
+	</tpa-ports>
+</tpa>
+
+
+
+--------------------------------------
+FOR WSS
+
+lnctool --model wss.yang convert; lnctool --model wss.yang validation; lnctool --model wss.yang transapi --paths ./pathfile;
+autoconf; ./configure; sudo make install;
+sudo netopeer-manager rm --name wss; sudo netopeer-manager add --name wss --model /home/pietro/repo/qameleon/netconf_server_netopeer/wss/wss.yin --datastore /home/pietro/repo/qameleon/netconf_server_netopeer/datastore-wss.xml --transapi /usr/local/lib/wss.so
+
+edit-config: creating rpc request failed
+
+
+<wss xmlns="http://org/nextworks/qameleon/wss">
+	<wss-id>10</wss-id>
+	<wss-ports>
+		<port-id>44</port-id>
+		<port-frequency-info>
+		<n>444</n>	
+		<m>343</m>		
+		</port-frequency-info>
+	</wss-ports>
+</wss>
+
+.................
+FOR DUMMY
+<dummy xmlns="http://org/nextworks/qameleon/dummy">
+        <dummy-leaf-int>10</dummy-leaf-int>
+</dummy>
+
+
+  
+
+
+
+
+-------------------------
+FOR SBVT
+
+<sbvt>
+	<sbvt-id>1</sbvt-id>
+	<slice-ability-support>false</slice-ability-support>
+	<optical-flows>
+	
+		<optical-flow-config>
+			<of-id>1</of-id>
+			<optical-flow-carriers>
+				<optical-flow-carrier-config>
+					<ofc-id>1</ofc-id>
+					<frequency-info>
+						<base-central-frequency>193100</base-central-frequency>
+						<base-central-frequency-granularity>6.25</base-central-frequency-granularity>
+						<central-frequency-slot-granularity>12.5</central-frequency-slot-granularity>
+						<n>6.25</n>
+						<m>6.25</m>
+					</frequency-info>
+					<subcarrier-modules>
+						<subcarrier-config>
+							<subcarrier-id>1</subcarrier-id>
+							<direction>TX</direction>
+							<baud-rate>100</baud-rate>
+							<modulation>bpsk</modulation>
+							<central-frequency>1930000</central-frequency>
+						</subcarrier-config>
+					</subcarrier-modules>
+				</optical-flow-carrier-config>
+			</optical-flow-carriers>
+		</optical-flow-config>
+
+	</optical-flows>
+</sbvt>

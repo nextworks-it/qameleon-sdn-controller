@@ -4,9 +4,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import it.nextworks.common.TwoWaysChannelFreqTranslator;
 import it.nextworks.generic.topologyApp.nbi.NxwTapiTopologyServiceImpl;
 import it.nextworks.qameleon.topology_driver.DeviceInfoReader;
-import it.nextworks.qameleon.topology_driver.impl.DummyInfoReader;
-import it.nextworks.qameleon.topology_driver.impl.FinisarInfoReader;
-import it.nextworks.qameleon.topology_driver.impl.LumentumInfoReader;
+import it.nextworks.qameleon.topology_driver.impl.*;
 import org.opendaylight.mdsal.binding.api.DataBroker;
 import org.opendaylight.mdsal.binding.api.MountPointService;
 import org.opendaylight.yang.gen.v1.nxw.tapi.topology.rev200728.CreateNxwTopologyInputBuilder;
@@ -17,28 +15,29 @@ import org.opendaylight.yang.gen.v1.nxw.tapi.topology.rev200728.create.nxw.topol
 import org.opendaylight.yang.gen.v1.nxw.tapi.topology.rev200728.nxw.topology.NxwNode;
 import org.opendaylight.yang.gen.v1.nxw.tapi.topology.rev200728.nxw.topology.NxwNodeBuilder;
 import org.opendaylight.yang.gen.v1.qameleon.common.rev200914.QNodeType;
-import org.opendaylight.yang.gen.v1.qameleon.topology.rev200904.QamTopology;
-import org.opendaylight.yang.gen.v1.qameleon.topology.rev200904.QamTopologyContBuilder;
-import org.opendaylight.yang.gen.v1.qameleon.topology.rev200904.RemoveLightPathInput;
+import org.opendaylight.yang.gen.v1.qameleon.topology.rev200904.*;
 import org.opendaylight.yang.gen.v1.qameleon.topology.rev200904.qam.connections.InternalConnection;
 import org.opendaylight.yang.gen.v1.qameleon.topology.rev200904.qam.topology.QamLink;
 import org.opendaylight.yang.gen.v1.qameleon.topology.rev200904.qam.topology.QamLinkBuilder;
 import org.opendaylight.yang.gen.v1.qameleon.topology.rev200904.qam.topology.QamNode;
 import org.opendaylight.yang.gen.v1.qameleon.topology.rev200904.qam.topology.QamNodeBuilder;
+import org.opendaylight.yang.gen.v1.qameleon.topology.rev200904.qam.topology.cont.qam.node.owned.node.edge.point.QamCepList;
+import org.opendaylight.yang.gen.v1.qameleon.topology.rev200904.qam.topology.cont.qam.node.owned.node.edge.point.QamCepListBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev200423.LayerProtocolName;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev200423.OperationalState;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev200423.Uuid;
+import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.connectivity.rev200616.cep.list.ConnectionEndPoint;
+import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.connectivity.rev200616.cep.list.ConnectionEndPointBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev200423.link.NodeEdgePoint;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev200423.link.NodeEdgePointBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev200423.node.OwnedNodeEdgePoint;
+import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev200423.node.OwnedNodeEdgePointBuilder;
 import org.opendaylight.yangtools.yang.common.RpcResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 public class TopologyQameleonService {
@@ -66,6 +65,7 @@ public class TopologyQameleonService {
         }
         if(!getInternalConnectivity(mountPointService, qamTopology))
             return false;
+
         return  setChannels();
     }
 
@@ -136,44 +136,35 @@ public class TopologyQameleonService {
     private boolean getInternalConnectivity(final MountPointService mountPointService, QamTopology qamTopology){
 
         List<QamNode> qamNodeListUpdate = new ArrayList<>();
+
         for(QamNode qamNode: qamTopology.getQamNode()) {
             String nodeId = qamNode.getUuid().getValue();
             LOG.info("Getting internal connectivity for device with ID "+nodeId);
             List<InternalConnection> internalConnectionsList;
             List<OwnedNodeEdgePoint> ownedNodeEdgePoints;
-            DeviceInfoReader deviceInfoReader = getDeviceInfoReader(mountPointService, nodeId, qamNode.getNodeType());
-            if(deviceInfoReader==null)
-                continue;
 
+            DeviceInfoReader deviceInfoReader = getDeviceInfoReader(mountPointService, nodeId, qamNode);
+
+            if(deviceInfoReader==null) {
+                continue;
+            }
             ownedNodeEdgePoints = deviceInfoReader.getDeviceInfo().getOwnedNodeEdgePoint();
             internalConnectionsList = deviceInfoReader.getInternalConnection();
+
             deviceInfoReaders.put(nodeId,deviceInfoReader);
             qamNode = new QamNodeBuilder(qamNode).
                     setOperationalState(OperationalState.ENABLED).
                     setInternalConnection(internalConnectionsList).
-                    setOwnedNodeEdgePoint(ownedNodeEdgePoints)
-                    .build();
+                    setOwnedNodeEdgePoint(ownedNodeEdgePoints).
+
+                    build();
 
             qamNodeListUpdate.add(qamNode);
             qamTopology = new QamTopologyContBuilder(qamTopology).setQamNode(qamNodeListUpdate).build();
-                 }
+        }
 
         qamTopology = new QamTopologyContBuilder(qamTopology).setQamNode(qamNodeListUpdate).build();
         return qamTopologyInventoryService.writeQamTopologyIntoTree(qamTopology);
-    }
-
-
-    private int getQamNodeIndex(String qamNodeId){
-        QamTopology qamTopology = qamTopologyInventoryService.getQamTapiTopologyFromTree();
-        int index = -1;
-        for(int i = 0; i< qamTopology.getQamNode().size();i++)
-
-        {
-            if (qamTopology.getQamNode().get(i).getUuid().getValue().equals(qamNodeId))
-                return i;
-        }
-
-        return index;
     }
 
 
@@ -201,58 +192,94 @@ public class TopologyQameleonService {
     }
 
 
+    private List<Integer> getUnionFromLists(List <Integer> list1, List <Integer> list2){
+        Set<Integer> set = new HashSet<>();
+        set.addAll(list1);
+        set.addAll(list2);
+        return new ArrayList<>(set);
+    }
+
     private boolean setChannels(){
+        LOG.info("Setting availability of channels");
         QamTopology qamTopology = qamTopologyInventoryService.getQamTapiTopologyFromTree();
         TwoWaysChannelFreqTranslator twoWaysChannelFreqTranslator
-                = new TwoWaysChannelFreqTranslator("/home/ubuntu/repo/qam_gitlab/qam_devel/qameleon_devel/sdn_agent/netconf_server_netopeer/inv_lookup_table.json");//TODO get from config gile
+                = new TwoWaysChannelFreqTranslator();
 
-        List<Integer> channelList = new ArrayList<>(twoWaysChannelFreqTranslator.getChannelSet());
-        Integer lastChannelNumber = channelList.size();
+        List<Integer> listOfAllChannels = new ArrayList<>(twoWaysChannelFreqTranslator.getChannelSet());
+        Integer lastChannelNumber = listOfAllChannels.size();
 
         List<QamLink> qamLinkListNew = new ArrayList<>();
         String topologyId = qamTopology.getTopologyUuid();
-        for(QamLink qamLink: qamTopology.getQamLink()){
-            NodeEdgePoint nodeEdgePointSrc = new NodeEdgePointBuilder()
-                    .setNodeEdgePointUuid(new Uuid(qamLink.getPortSrc()))
-                    .setNodeUuid(new Uuid(qamLink.getNodeSrc())).
-                            setTopologyUuid(new Uuid(topologyId)).build();
+        if(qamTopology.getQamLink()!=null) {
+            for (QamLink qamLink : qamTopology.getQamLink()) {
 
-            NodeEdgePoint nodeEdgePointDst = new NodeEdgePointBuilder()
-                    .setNodeEdgePointUuid(new Uuid(qamLink.getPortDst()))
-                    .setNodeUuid(new Uuid(qamLink.getNodeDst())).
-                            setTopologyUuid(new Uuid(topologyId)).build();
+                NodeEdgePoint nodeEdgePointSrc = new NodeEdgePointBuilder()
+                        .setNodeEdgePointUuid(new Uuid(qamLink.getPortSrc()))
+                        .setNodeUuid(new Uuid(qamLink.getNodeSrc())).
+                                setTopologyUuid(new Uuid(topologyId)).build();
 
-            List<NodeEdgePoint> nodeEdgePoints = new ArrayList<>();
-            nodeEdgePoints.add(nodeEdgePointSrc);
-            nodeEdgePoints.add(nodeEdgePointDst);
+                NodeEdgePoint nodeEdgePointDst = new NodeEdgePointBuilder()
+                        .setNodeEdgePointUuid(new Uuid(qamLink.getPortDst()))
+                        .setNodeUuid(new Uuid(qamLink.getNodeDst())).
+                                setTopologyUuid(new Uuid(topologyId)).build();
 
-            List<LayerProtocolName> layerProtocolNames = new ArrayList<>();
-            layerProtocolNames.add(LayerProtocolName.ODU);
-            layerProtocolNames.add(LayerProtocolName.PHOTONICMEDIA);
-            long minFreq = Math.round(twoWaysChannelFreqTranslator.channelToFrequency(1));
-            long maxFreq = Math.round(twoWaysChannelFreqTranslator.channelToFrequency(lastChannelNumber));
-            qamLink = new QamLinkBuilder(qamLink)
-                    .setLowerFrequency(new BigInteger(String.valueOf(minFreq)))
-                    .setUpperFrequency(new BigInteger(String.valueOf(maxFreq)))
-                    //.setFrequencyConstraint(frequencyConstraint)
-                    //.setChannelSpacing(CHANNEL_WIDTH_MHZ)
-                    .setAvailableChannel(channelList)
-                    .setOccupiedChannel(new ArrayList<>())
-                    .setNodeEdgePoint(nodeEdgePoints)
-                    .setLayerProtocolName(layerProtocolNames)
-                    .build();
-            qamLinkListNew.add(qamLink);
-            qameleonConnectivityMap.put(
-                    qamLink.getUuid().getValue(),
-                    new ConnectionInfo(
-                            qamLink.getUuid().getValue(),
-                            qamLink.getNodeSrc(),
-                            qamLink.getNodeDst()));
+                List<NodeEdgePoint> nodeEdgePoints = new ArrayList<>();
+                nodeEdgePoints.add(nodeEdgePointSrc);
+                nodeEdgePoints.add(nodeEdgePointDst);
+
+                List<LayerProtocolName> layerProtocolNames = new ArrayList<>();
+                layerProtocolNames.add(LayerProtocolName.ODU);
+                layerProtocolNames.add(LayerProtocolName.PHOTONICMEDIA);
+                long minFreq = Math.round(twoWaysChannelFreqTranslator.channelToFrequency(1));
+                long maxFreq = Math.round(twoWaysChannelFreqTranslator.channelToFrequency(lastChannelNumber));
+
+                String nodeSrcUuid = qamLink.getNodeSrc();
+                String nodeDstUuid = qamLink.getNodeDst();
+
+                DeviceInfoReader deviceInfoReaderSrc = deviceInfoReaders.get(nodeSrcUuid);
+                if(deviceInfoReaderSrc==null){
+                    LOG.error("Cannot find source node with UUID "+nodeSrcUuid);
+                    continue;
+                }
+
+                List<Integer> srcNodeOutputChannelOccupied = deviceInfoReaderSrc.getOutputChannelOccupied();
+
+                DeviceInfoReader deviceInfoReaderDst = deviceInfoReaders.get(nodeDstUuid);
+                if(deviceInfoReaderDst==null){
+                    LOG.error("Cannot destionation find node with UUID "+nodeDstUuid);
+                    continue;
+                }
+                List<Integer> dstNodeInputChannelOccupied = deviceInfoReaderDst.getInputChannelOccupied();
+
+                List<Integer> occupiedChannelLink = getUnionFromLists(srcNodeOutputChannelOccupied, dstNodeInputChannelOccupied);
+                List<Integer> availableChannels = new ArrayList<>(listOfAllChannels);
+                availableChannels.removeAll(occupiedChannelLink);
+
+                qamLink = new QamLinkBuilder(qamLink)
+                        .setLowerFrequency(new BigInteger(String.valueOf(minFreq)))
+                        .setUpperFrequency(new BigInteger(String.valueOf(maxFreq)))
+                        //.setFrequencyConstraint(frequencyConstraint)
+                        //.setChannelSpacing(CHANNEL_WIDTH_MHZ)
+                        //.setAvailableChannel(listOfAllChannels) OLD
+                        //.setOccupiedChannel(new ArrayList<>()) OLD
+                        .setAvailableChannel(availableChannels)
+                        .setOccupiedChannel(occupiedChannelLink)
+                        .setNodeEdgePoint(nodeEdgePoints)
+                        .setLayerProtocolName(layerProtocolNames)
+                        .build();
+                qamLinkListNew.add(qamLink);
+                qameleonConnectivityMap.put(
+                        qamLink.getUuid().getValue(),
+                        new ConnectionInfo(
+                                qamLink.getUuid().getValue(),
+                                qamLink.getNodeSrc(),
+                                qamLink.getNodeDst()));
+            }
         }
         qamTopology = new QamTopologyContBuilder(qamTopology).setQamLink(qamLinkListNew).build();
         return qamTopologyInventoryService.writeQamTopologyIntoTree(qamTopology);
     }
-    
+
 
      private void moveElementsBetweenLists(List<Integer> source, List<Integer> destination, List<Integer> elements){
             for(Integer item: elements){
@@ -309,15 +336,77 @@ public class TopologyQameleonService {
                 return false;
             }
             String nodeSrc = qameleonConnectivityMap.get(linkUuid).getNodeSrcId();
-            LOG.info("Pretending to retrieve information nodes "+nodeSrc+" where cross connection has been setup...");
+            String nodeDst = qameleonConnectivityMap.get(linkUuid).getNodeSrcId();
+            LOG.info("Link identifier cross connection has been setup is : "+linkUuid);
+            LOG.info("Node src identifier cross connection has been setup is : "+nodeSrc);
+            LOG.info("Node src identifier cross connection has been setup is : "+nodeDst);
+
+            //LOG.info("Retrieving information from source ("+nodeSrc+") and destination ("+nodeDst+") nodes where cross connections has been setup");
+
+            
             deviceInfoReaders.get(nodeSrc).getInternalConnection(); //The internal connection (real or dummy) are not actually update yet. TODO
+            deviceInfoReaders.get(nodeDst).getInternalConnection();
         }
         LOG.info("Link info correctly updated.");
         return true;
     }
 
+    private List<QamNode> addCepIntoQamNode(QamTopology qamTopology, String nodeUuid, String onep){
+        List<QamNode> qamNodeList = qamTopology.getQamNode();
+        int nodeIndex = -1;
+        int onepIndex = -1;
+        QamCepList cepList = null;
+
+        for(int i=0; i<qamNodeList.size(); i++){
+            QamNode qamNode = qamNodeList.get(i);
+            if(qamNode.getUuid().getValue().equals(nodeUuid)) {
+                nodeIndex = i;
+                for (int j=0; j<qamNode.getOwnedNodeEdgePoint().size(); j++) {
+                    OwnedNodeEdgePoint ownedNodeEdgePoint = qamNode.getOwnedNodeEdgePoint().get(j);
+
+
+                    if (ownedNodeEdgePoint.getUuid().getValue().equals(onep)) {
+                        onepIndex = j;
+
+                        OwnedNodeEdgePoint1 onep1 = ownedNodeEdgePoint.augmentation(OwnedNodeEdgePoint1.class);
+                        if (onep1 == null || onep1.getQamCepList() == null || onep1.getQamCepList().getConnectionEndPoint().size() == 0) {
+
+                            LOG.warn("No CEP found into Node with UUID "+nodeUuid+ " at ONEP "+nodeUuid+". Creating a new one.");
+                            List<ConnectionEndPoint> connectionEndPoints = new ArrayList<>();
+                            connectionEndPoints.add(new ConnectionEndPointBuilder().setUuid(new Uuid("CEP00")).build());
+                            cepList = new QamCepListBuilder().setConnectionEndPoint(connectionEndPoints).build();
+
+                        } else {
+                            int cepCount = cepList.getConnectionEndPoint().size();
+                            List<ConnectionEndPoint> connectionEndPoints = cepList.getConnectionEndPoint();
+                            connectionEndPoints.add(new ConnectionEndPointBuilder().setUuid(new Uuid("CEP"+cepCount)).build());
+                            cepList = new QamCepListBuilder().setConnectionEndPoint(connectionEndPoints).build();
+                        }
+                    }
+
+                }
+            }
+        }
+        if(cepList!=null){
+
+            QamNode qamNodeTmp = qamNodeList.get(nodeIndex);
+            List<OwnedNodeEdgePoint> onepListTmp = qamNodeTmp.getOwnedNodeEdgePoint();
+
+            OwnedNodeEdgePoint1 onep1 = new OwnedNodeEdgePoint1Builder().setQamCepList(cepList).build();
+            OwnedNodeEdgePoint onepTmp = new OwnedNodeEdgePointBuilder(onepListTmp.get(onepIndex))
+                    .addAugmentation(OwnedNodeEdgePoint1.class,onep1).build();
+
+            onepListTmp.set(onepIndex,onepTmp);
+            QamNode qamNodeNew = new QamNodeBuilder(qamNodeTmp).setOwnedNodeEdgePoint(onepListTmp).build();
+            qamNodeList.set(nodeIndex, qamNodeNew);
+        }
+
+
+        return qamNodeList;
+    }
     private boolean occupyChannels(String linkId, List<Integer> channelToOccupy){
         QamTopology qamTopology = qamTopologyInventoryService.getQamTapiTopologyFromTree();
+        List<QamNode> qamNodeList = qamTopology.getQamNode();
             int linkIndex = getQamLinkIndex(qamTopology,linkId);
             if(linkIndex==-1)
                 return false;
@@ -334,16 +423,21 @@ public class TopologyQameleonService {
             }
         moveElementsBetweenLists(availableChannel, occupiedChannel, channelToOccupy);
         List<QamLink> qamListLink = qamTopology.getQamLink();
+
         qamListLink.set(linkIndex, qamLink);
-        return  qamTopologyInventoryService.writeQamTopologyIntoTree( new  QamTopologyContBuilder(qamTopology).setQamLink(qamListLink).build());
+        //qamNodeList = addCepIntoQamNode(qamTopology,  qamLink.getNodeSrc(),qamLink.getPortSrc()); //TODO. Are they necessary ?
+        //qamNodeList = addCepIntoQamNode(qamTopology,  qamLink.getNodeDst(),qamLink.getPortDst());
+        return  qamTopologyInventoryService.writeQamTopologyIntoTree(new  QamTopologyContBuilder(qamTopology).setQamLink(qamListLink).setQamNode(qamNodeList).build());
 
     }
 
-    public QamNode getNode(String nodeId){
+    public QamNode getNode(String nodeId, boolean includeCredentials){
         QamTopology qamTopology = qamTopologyInventoryService.getQamTapiTopologyFromTree();
         for(QamNode qamNode: qamTopology.getQamNode()){
-            if(qamNode.getUuid().getValue().equals(nodeId))
+            if(qamNode.getUuid().getValue().equals(nodeId) && includeCredentials==false)
                 return new QamNodeBuilder(qamNode).setUsername(null).setPassword(null).build();
+            if(qamNode.getUuid().getValue().equals(nodeId) && includeCredentials==true)
+                return qamNode;
         }
         LOG.warn("Node with ID "+nodeId+" not found");
         return null;
@@ -365,8 +459,10 @@ public class TopologyQameleonService {
     }
 
 
-    private DeviceInfoReader getDeviceInfoReader(final MountPointService mountPointService, String nodeId, QNodeType qNodeType) {
+    private DeviceInfoReader getDeviceInfoReader(final MountPointService mountPointService, String nodeId, QamNode qamNode) {
         DeviceInfoReader deviceInfoReader;
+        QNodeType qNodeType = qamNode.getNodeType();
+        LOG.info("QNode Type is "+qNodeType);
         switch (qNodeType) {
             case Dummy:
                 return new DummyInfoReader( nodeId, false);
@@ -374,21 +470,36 @@ public class TopologyQameleonService {
             case Lumentum:
                 deviceInfoReader = new LumentumInfoReader(mountPointService, nodeId);
                 break;
-            case Finisar:
-                deviceInfoReader = new FinisarInfoReader(mountPointService, nodeId);
-                return deviceInfoReader;
+
+            case Nll:
+                deviceInfoReader = new NllInfoReader(mountPointService, nodeId);
+                break;
 
             case Endpoint:
-                return  new DummyInfoReader( nodeId, true);
+                deviceInfoReader =   new DummyInfoReader( nodeId, true);
+                break;
+
+            case Openroadm:
+                deviceInfoReader =  new OpenRoadmInfoReader(mountPointService, nodeId,
+                        qamNode.getHost(),
+                        qamNode.getPort(),
+                        qamNode.getUsername(),
+                        qamNode.getPassword());
+                break;
+/*
+            case Sbvt:
+                deviceInfoReader = new SbvtInfoReader(nodeId);
+                break;
+*/
 
             default:
-                LOG.warn("Qam Node "+qNodeType+" unknown");
+                LOG.warn("Qam Node "+qNodeType+" is unknown");
                 return null;
-
         }
 
         int counter = 0;
         boolean getInfoSuccess = deviceInfoReader.refreshInfo();
+        //If some error occurs, the info is reading again, or at least trying to
         while (!getInfoSuccess  && counter<MAX_TENTATIVE) {
             try {
                 Thread.sleep(TIMEOUT_TRY);

@@ -55,8 +55,8 @@ public class NetconfDriver {
             LOG.info("Instance identifier is null.");
             return null;
         }
-        LOG.info("Getting mount point");
-        LOG.info("mountPointService==null {}",mountPointService==null);
+        //LOG.info("Getting mount point");
+        //LOG.info("mountPointService==null {}",mountPointService==null);
         final Optional<MountPoint> mpOptional = mountPointService.getMountPoint(nodeInput);
 
         if(mpOptional==null || !mpOptional.isPresent()){
@@ -77,6 +77,7 @@ public class NetconfDriver {
     }
 
 
+
     public Optional<?> readFromDataStore( Class className, LogicalDatastoreType logicalDatastoreType){
         DataBroker db = getDataBroker();
         if(db==null){
@@ -90,13 +91,15 @@ public class NetconfDriver {
 
         Optional<?> data;
         try {
+            LOG.info("Trying reading from "+logicalDatastoreType.toString()+ " data store");
             data = readTrx.read(logicalDatastoreType, iid).get();
-            if(!data.isPresent())
+            if(data==null || !data.isPresent())
                 return Optional.empty();
 
         } catch (InterruptedException | ExecutionException e) {
-            LOG.error(" Error while reading from data store");
+            LOG.error("Error while reading from data store");
             LOG.error(e.getMessage());
+            e.printStackTrace();
             return Optional.empty();
         } finally {
             readTrx.close();

@@ -400,19 +400,19 @@ module tapi-path-computation {
     rpc compute-p-2-p-path {
         description "none";
         input {
-            /*list sep {
+            list sep {
                 key 'local-id';
                 min-elements 2;
                 max-elements 2;
                 uses path-service-end-point;
                 description "none";
-            }*/
-		leaf sip-src-uuid{
+            }
+		/*leaf sip-src-uuid{
 			type string;
 		}
 		leaf sip-dst-uuid{
 			type string;
-		}
+		}*/
             container routing-constraint {
                 uses routing-constraint;
                 description "none";

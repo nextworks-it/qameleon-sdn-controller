@@ -1,0 +1,18 @@
+## To create an express Link on OpenROADM device
+curl -X POST 127.0.0.1:8080/open-roadm/express-link -H 'Content-Type: application/json' -d @payload.json -v
+
+## To get interface from openradm device
+curl 127.0.0.1:8080/open-roadm/interface/NMC-CTP-DEG3-TX-195.0 -v
+
+Where NMC-CTP-DEG3-TX-195.0 is the interface name
+
+
+## The get the openroadm Connection information
+curl 127.0.0.1:8080/open-roadm/connection/NMC-CTP-DEG1-RX-195.0-to-NMC-CTP-DEG3-TX-195.0 -v
+
+Where NMC-CTP-DEG1-RX-195.0-to-NMC-CTP-DEG3-TX-195.0 is the ROADM Connection name
+
+## To get all the ROADM connection info
+curl 127.0.0.1:8080/open-roadm/connection/
+
+

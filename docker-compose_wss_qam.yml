@@ -1,0 +1,78 @@
+version: '3.9'
+services:
+
+  qam_sdn_controller:
+        restart: unless-stopped
+        container_name: qam_sdn_controller
+        image: qam_sdn_controller:0.0.1
+        ports:
+         - 8081:8081
+         - 8181:8181
+        networks:
+           qameleon_network:
+             ipv4_address: 172.10.12.2
+
+  pce:
+        ports:
+            - '1234:1234'
+        container_name: pce
+        image: 'pce:0.0.1'
+        networks:
+           qameleon_network:
+             ipv4_address: 172.10.12.3
+  
+  netconf-testtool:
+        ports:
+            - '17830-17837:17830-17837'
+        container_name: netconf_testtool_1.7.2
+        image: 'netconf-testtool:1.7.2'
+        ##Execute after container starts sudo docker exec -it sdn-agent bash -c 'nohup python3 /usr/src/netopeer/socket_server.py &> output.out & sleep 1'
+        networks:
+           qameleon_network:
+             ipv4_address: 172.10.12.5
+
+
+  sdn-agent-wss-1:
+        ports:
+         - 830:830
+        container_name: sdn-agent-wss-1
+        image: netopeer_server:0.1
+        #command: sh -c "/usr/local/bin/init_socket_server.sh"
+        ##Execute after container starts sudo docker exec -it sdn-agent bash -c 'nohup python3 /usr/src/netopeer/s$
+        volumes:
+            - /home/ubuntu/shared_dir_wss1:/home/cfg_files
+        networks:
+           qameleon_network:
+             ipv4_address: 172.10.12.6
+
+  sdn-agent-wss-2:
+        ports:
+         - 831:830
+        container_name: sdn-agent-wss-2
+        image: netopeer_server:0.1
+        #command: sh -c "/usr/local/bin/init_socket_server.sh"
+        ##Execute after container starts sudo docker exec -it sdn-agent bash -c 'nohup python3 /usr/src/netopeer/s$
+        volumes:
+            - /home/ubuntu/shared_dir_wss2:/home/cfg_files
+        networks:
+           qameleon_network:
+             ipv4_address: 172.10.12.7
+
+  sdn-agent-wss-3:
+        ports:
+         - 832:830
+        container_name: sdn-agent-wss-3
+        image: netopeer_server:0.1
+        #command: sh -c "/usr/local/bin/init_socket_server.sh"
+        ##Execute after container starts sudo docker exec -it sdn-agent bash -c 'nohup python3 /usr/src/netopeer/s$
+        volumes:
+            - /home/ubuntu/shared_dir_wss3:/home/cfg_files
+        networks:
+           qameleon_network:
+             ipv4_address: 172.10.12.8
+
+networks:
+  qameleon_network:
+    ipam:
+      config:
+        - subnet: 172.10.12.0/24

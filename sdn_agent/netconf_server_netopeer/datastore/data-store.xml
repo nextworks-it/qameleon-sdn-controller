@@ -1,0 +1,39 @@
+<ns0:datastores xmlns="http://org/nextworks/qameleon/tpa" xmlns:ns0="urn:cesnet:tmc:datastores:file">
+  <ns0:running lock="">
+    <tpa>
+      <tpa-id>2</tpa-id>
+      <tpa-direction>ADD</tpa-direction>
+      <tpa-number-of-inports>1</tpa-number-of-inports>
+      <tpa-number-of-outports>1</tpa-number-of-outports>
+      <tpa-ports>
+        <port-id>1</port-id>
+        <port-direction>O</port-direction>
+        <port-frequency-info>
+          <base-central-frequency-granularity>10</base-central-frequency-granularity>
+          <central-frequency-slot-granularity>10</central-frequency-slot-granularity>
+          <n>1</n>
+          <m>3</m>
+        </port-frequency-info>
+      </tpa-ports>
+    </tpa>
+  </ns0:running>
+  <ns0:startup lock="">
+    <tpa>
+      <tpa-id>2</tpa-id>
+      <tpa-direction>ADD</tpa-direction>
+      <tpa-number-of-inports>1</tpa-number-of-inports>
+      <tpa-number-of-outports>1</tpa-number-of-outports>
+      <tpa-ports>
+        <port-id>1</port-id>
+        <port-direction>O</port-direction>
+        <port-frequency-info>
+          <base-central-frequency-granularity>10</base-central-frequency-granularity>
+          <central-frequency-slot-granularity>10</central-frequency-slot-granularity>
+          <n>1</n>
+          <m>3</m>
+        </port-frequency-info>
+      </tpa-ports>
+    </tpa>
+  </ns0:startup>
+  <ns0:candidate lock="" modified="false" />
+</ns0:datastores>

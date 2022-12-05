@@ -1,0 +1,2168 @@
+{
+	"info": {
+		"_postman_id": "91b7b88a-a624-43a8-894b-cd8914514966",
+		"name": "Qameleon SDN Platform Collection PUBLIC VERSION",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13186966"
+	},
+	"item": [
+		{
+			"name": "00_Generic requests",
+			"item": [
+				{
+					"name": "Topology App",
+					"item": [
+						{
+							"name": "Create topology (Emulated network)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"qameleon-topology:input\": {\r\n    \"qameleon-topology:topology\": {\r\n      \"qameleon-topology:topology-uuid\": \"QameleonTopology\",\r\n      \"qameleon-topology:qam-node\": [\r\n        {\r\n          \"qameleon-topology:node-type\": \"dummy\",\r\n          \"qameleon-topology:host\": \"10.30.8.74\",\r\n          \"qameleon-topology:port\": \"17830\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"node-a\"\r\n        },\r\n\t\t{\r\n          \"qameleon-topology:node-type\": \"dummy\",\r\n          \"qameleon-topology:host\": \"10.30.8.74\",\r\n          \"qameleon-topology:port\": \"17831\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"node-b\"\r\n        },\r\n\t\t{\r\n          \"qameleon-topology:node-type\": \"dummy\",\r\n          \"qameleon-topology:host\": \"10.30.8.74\",\r\n          \"qameleon-topology:port\": \"17832\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"node-c\"\r\n        },\r\n\t\t{\r\n          \"qameleon-topology:node-type\": \"dummy\",\r\n          \"qameleon-topology:host\": \"10.30.8.74\",\r\n          \"qameleon-topology:port\": \"17833\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"node-d\"\r\n        },\r\n\t\t{\r\n          \"qameleon-topology:node-type\": \"endpoint\",\r\n          \"qameleon-topology:host\": \"10.30.8.74\",\r\n          \"qameleon-topology:port\": \"17834\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"endpoint-a\"\r\n        },\r\n\t\t{\r\n          \"qameleon-topology:node-type\": \"endpoint\",\r\n          \"qameleon-topology:host\": \"10.30.8.74\",\r\n          \"qameleon-topology:port\": \"17835\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"endpoint-b\"\r\n        },\r\n\t\t{\r\n          \"qameleon-topology:node-type\": \"endpoint\",\r\n          \"qameleon-topology:host\": \"10.30.8.74\",\r\n          \"qameleon-topology:port\": \"17836\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"endpoint-c\"\r\n        }\r\n\r\n\r\n      ],\r\n      \"qameleon-topology:qam-link\": [\r\n        {\r\n\t\t\"qameleon-topology:uuid\": \"Phy-1\",\r\n\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\"qameleon-topology:node-src\": \"node-b\",\r\n\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\"qameleon-topology:node-dst\": \"node-c\",\r\n\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\r\n        },\r\n\t\t{\r\n\t\t\"qameleon-topology:uuid\": \"Phy-2\",\r\n\t\t\"qameleon-topology:port-src\": \"OUT02\",\r\n\t\t\"qameleon-topology:node-src\": \"node-b\",\r\n\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\"qameleon-topology:node-dst\": \"node-a\",\r\n\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\r\n        },\r\n\t\t{\r\n\t\t\"qameleon-topology:uuid\": \"Phy-3\",\r\n\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\"qameleon-topology:node-src\": \"endpoint-a\",\r\n\t\t\"qameleon-topology:node-dst\": \"node-b\",\r\n\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\r\n        },\r\n\t\t{\r\n\t\t\"qameleon-topology:uuid\": \"Phy-4\",\r\n\t\t\"qameleon-topology:port-src\": \"OUT03\",\r\n\t\t\"qameleon-topology:node-src\": \"node-c\",\r\n\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\"qameleon-topology:node-dst\": \"node-d\",\r\n\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\r\n        },{\r\n\t\t\"qameleon-topology:uuid\": \"Phy-5\",\r\n\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\"qameleon-topology:node-src\": \"node-d\",\r\n\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\"qameleon-topology:node-dst\": \"node-b\",\r\n\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\r\n        },\r\n\t\t{\r\n\t\t\"qameleon-topology:uuid\": \"Phy-6\",\r\n\t\t\"qameleon-topology:port-src\": \"OUT02\",\r\n\t\t\"qameleon-topology:node-src\": \"node-d\",\r\n\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\"qameleon-topology:node-dst\": \"endpoint-b\",\r\n\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n        },\r\n\t\t{\r\n\t\t\"qameleon-topology:uuid\": \"Phy-7\",\r\n\t\t\"qameleon-topology:port-src\": \"OUT02\",\r\n\t\t\"qameleon-topology:node-src\": \"node-a\",\r\n\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\"qameleon-topology:node-dst\": \"endpoint-c\",\r\n\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t},\r\n\t\t{\r\n\t\t\"qameleon-topology:uuid\": \"Phy-8\",\r\n\t\t\"qameleon-topology:port-src\": \"OUT03\",\r\n\t\t\"qameleon-topology:node-src\": \"node-a\",\r\n\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\"qameleon-topology:node-dst\": \"node-c\",\r\n\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t},\r\n\t\t{\r\n\t\t\"qameleon-topology:uuid\": \"Phy-9\",\r\n\t\t\"qameleon-topology:port-src\": \"OUT03\",\r\n\t\t\"qameleon-topology:node-src\": \"node-d\",\r\n\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\"qameleon-topology:node-dst\": \"endpoint-c\",\r\n\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t}\r\n       ]\r\n     }\r\n   }\r\n }"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/qameleon-topology:create-qam-topology",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"qameleon-topology:create-qam-topology"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove topology",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"qameleon-topology:input\": {\r\n    \"qameleon-topology:topology-uuid\": \"QameleonTopology\"\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/qameleon-topology:delete_topology",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"qameleon-topology:delete_topology"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET topology  RPC",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"qameleon-topology:input\": {\r\n    \"qameleon-topology:topology-id\": \"QameleonTopology\"\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/qameleon-topology:get-qam-topology",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"qameleon-topology:get-qam-topology"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET link RPC",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"qameleon-topology:input\": {\r\n    \"qameleon-topology:link-id\": \"Phy-1\"\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/qameleon-topology:get-qam-link",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"qameleon-topology:get-qam-link"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get node RPC",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"qameleon-topology:input\": {\r\n    \"qameleon-topology:node-id\": \"node-openroadm\"\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/qameleon-topology:get-qam-node",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"qameleon-topology:get-qam-node"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Provisioning App",
+					"item": [
+						{
+							"name": "NEW",
+							"item": [
+								{
+									"name": "NEW Get lightpath by Uuid",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Basic YWRtaW46YWRtaW4="
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{host}}:{{port}}/restconf/config/tapi-common:context/tapi-connectivity:connectivity-context/connectivity-service/808889521",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"restconf",
+												"config",
+												"tapi-common:context",
+												"tapi-connectivity:connectivity-context",
+												"connectivity-service",
+												"808889521"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "NEW Get all lightpaths",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Basic YWRtaW46YWRtaW4="
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{host}}:{{port}}/restconf/config/tapi-common:context/tapi-connectivity:connectivity-context",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"restconf",
+												"config",
+												"tapi-common:context",
+												"tapi-connectivity:connectivity-context"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "NEW Get single connection",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Basic YWRtaW46YWRtaW4="
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{host}}:{{port}}/restconf/config/tapi-common:context/tapi-connectivity:connectivity-context/connection/connection-node-c-node-d-ch-1",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"restconf",
+												"config",
+												"tapi-common:context",
+												"tapi-connectivity:connectivity-context",
+												"connection",
+												"connection-node-c-node-d-ch-1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "NEW Create lightpath with constraint",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Basic YWRtaW46YWRtaW4="
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"input\": {\r\n    \"end-point\": [{\r\n            \"local-id\":\"endpoint-a\",\r\n            \"tapi-connectivity:name\":[\r\n                {\r\n                    \"tapi-connectivity:value-name\":\"wavelength-constraint\",\r\n                    \"tapi-connectivity:value\":\"1543.61\"\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"local-id\":\"endpoint-b\"\r\n        }]\r\n    }}"
+										},
+										"url": {
+											"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"restconf",
+												"operations",
+												"tapi-connectivity:create-connectivity-service"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "NEW Create lightpath with no constraint",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Basic YWRtaW46YWRtaW4="
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"input\": {\r\n    \"end-point\": [{\r\n            \"local-id\":\"endpoint-a\"\r\n        },\r\n        {\r\n            \"local-id\":\"endpoint-b\"\r\n        }]\r\n    }}"
+										},
+										"url": {
+											"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"restconf",
+												"operations",
+												"tapi-connectivity:create-connectivity-service"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "NEW Remove lightpath",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Basic YWRtaW46YWRtaW4="
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"tapi-connectivity:input\": {\r\n        \"tapi-connectivity:service-id-or-name\": \"1301518223\"\r\n    }\r\n}"
+										},
+										"url": {
+											"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:delete-connectivity-service",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"restconf",
+												"operations",
+												"tapi-connectivity:delete-connectivity-service"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Get ERO of all lightpaths",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46YWRtaW4=",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/config/tapi-common:context/tapi-path-computation:path-computation-context",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"config",
+										"tapi-common:context",
+										"tapi-path-computation:path-computation-context"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get ERO lightpath by uuid",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/config/tapi-common:context/tapi-path-computation:path-computation-context/path/458366513",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"config",
+										"tapi-common:context",
+										"tapi-path-computation:path-computation-context",
+										"path",
+										"458366513"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove lightpath",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tapi-connectivity:input\": {\r\n        \"tapi-connectivity:service-id-or-name\": \"784428327\"\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:delete-connectivity-service",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"tapi-connectivity:delete-connectivity-service"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PCE",
+					"item": [
+						{
+							"name": "PCE",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/yang-data+json"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/yang-data+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"input\": {\r\n\t\t\"end-point\": [{\r\n\t\t\t\t\"service-interface-point\": {\r\n\t\t\t\t\t\"service-interface-point-uuid\": \"endpoint-a_sip01\"\r\n\t\t\t\t},\r\n\t\t\t\t\"name\": [{\r\n\t\t\t\t\t\"value-name\": \"channel\",\r\n\t\t\t\t\t\"value\": \"50\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"service-interface-point\": {\r\n\t\t\t\t\t\"service-interface-point-uuid\": \"endpoint-b_sip01\"\r\n\t\t\t\t},\r\n\t\t\t\t\"capacity\": {}\r\n\t\t\t}\r\n\t\t],\r\n\t\t\"routing-constraint\": {}\r\n\t}\r\n}"
+								},
+								"url": {
+									"raw": "10.30.8.74:1234/operations/tapi-path-computation:compute-p-2-p-path/",
+									"host": [
+										"10",
+										"30",
+										"8",
+										"74"
+									],
+									"port": "1234",
+									"path": [
+										"operations",
+										"tapi-path-computation:compute-p-2-p-path",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "TAPI topology RPC",
+					"item": [
+						{
+							"name": "Get topology RPC",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"tapi-topology:input\": {\r\n    \"tapi-topology:topology-id-or-name\": \"QameleonTopology\"\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/tapi-topology:get-topology-details",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"tapi-topology:get-topology-details"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get link details RPC",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"tapi-topology:input\": {\r\n    \"tapi-topology:topology-id-or-name\": \"QameleonTopology\",\r\n    \"tapi-topology:link-id-or-name\": \"Phy-1\"\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/tapi-topology:get-link-details",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"tapi-topology:get-link-details"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get node details RPC",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"tapi-topology:input\": {\r\n    \"tapi-topology:topology-id-or-name\": \"QameleonTopology\",\r\n    \"tapi-topology:node-id-or-name\": \"dummy\"\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/tapi-topology:get-node-details",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"tapi-topology:get-node-details"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get node edge point details RPC",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"tapi-topology:input\": {\r\n    \"tapi-topology:topology-id-or-name\": \"QameleonTopology\",\r\n    \"tapi-topology:node-id-or-name\": \"dummy\",\r\n    \"tapi-topology:ep-id-or-name\": \"IN01\"\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/tapi-topology:get-node-edge-point-details",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"tapi-topology:get-node-edge-point-details"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "This postman directory contains generic requests for retrieving information from the TAPI endpoint."
+		},
+		{
+			"name": "One-to-one integrations",
+			"item": [
+				{
+					"name": "QAMeleon device Integration (NTUA)",
+					"item": [
+						{
+							"name": "WSS scenario D8.3 Section 4.3",
+							"item": [
+								{
+									"name": "NXW Create topology (SIM devices) WSSs scenario",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Basic YWRtaW46YWRtaW4="
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"qameleon-topology:input\": {\r\n    \"qameleon-topology:topology\": {\r\n      \"qameleon-topology:topology-uuid\": \"QameleonTopology\",\r\n      \"qameleon-topology:qam-node\": [\r\n          {\r\n          \"qameleon-topology:node-type\": \"endpoint\",\r\n          \"qameleon-topology:host\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:port\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"endpoint-src\"\r\n        },\r\n          {\r\n          \"qameleon-topology:node-type\": \"nll\",\r\n          \"qameleon-topology:host\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:port\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:username\": \"root\",\r\n          \"qameleon-topology:password\": \"root\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"qam-wss-1\"\r\n        },\r\n  {\r\n          \"qameleon-topology:node-type\": \"nll\",\r\n          \"qameleon-topology:host\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:port\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:username\": \"root\",\r\n          \"qameleon-topology:password\": \"root\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"qam-wss-2\"\r\n        },\r\n        {\r\n          \"qameleon-topology:node-type\": \"openroadm\",\r\n          \"qameleon-topology:host\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:port\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:username\": \"openroadm\",\r\n          \"qameleon-topology:password\": \"openroadm\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"wss-openroadm\"\r\n        },\r\n        {\r\n          \"qameleon-topology:node-type\": \"endpoint\",\r\n          \"qameleon-topology:host\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:port\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"endpoint-dst\"\r\n        }],\r\n      \"qameleon-topology:qam-link\": [\r\n        {\r\n  \"qameleon-topology:uuid\": \"Phy-1\",\r\n  \"qameleon-topology:port-src\": \"OUT01\",\r\n  \"qameleon-topology:node-src\": \"endpoint-src\",\r\n  \"qameleon-topology:port-dst\": \"IN01\",\r\n  \"qameleon-topology:node-dst\": \"qam-wss-1\",\r\n  \"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n  \"qameleon-topology:available-capacity\": {},\r\n  \"qameleon-topology:total-potential-capacity\": {}\r\n},\r\n  {\r\n  \"qameleon-topology:uuid\": \"Phy-2\",\r\n  \"qameleon-topology:port-src\": \"OUT01\",\r\n  \"qameleon-topology:node-src\": \"qam-wss-1\",\r\n  \"qameleon-topology:port-dst\": \"IN01\",\r\n  \"qameleon-topology:node-dst\": \"qam-wss-2\",\r\n  \"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n  \"qameleon-topology:available-capacity\": {},\r\n  \"qameleon-topology:total-potential-capacity\": {}\r\n        },\r\n        {\r\n  \"qameleon-topology:uuid\": \"Phy-3\",\r\n  \"qameleon-topology:port-src\": \"OUT01\",\r\n  \"qameleon-topology:node-src\": \"qam-wss-2\",\r\n  \"qameleon-topology:port-dst\": \"DEG1-AMPRX-IN\",\r\n  \"qameleon-topology:node-dst\": \"wss-openroadm\",\r\n  \"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n  \"qameleon-topology:available-capacity\": {},\r\n  \"qameleon-topology:total-potential-capacity\": {}\r\n        },\r\n                {\r\n  \"qameleon-topology:uuid\": \"Phy-4\",\r\n  \"qameleon-topology:port-src\": \"DEG3-AMPTX-OUT\",\r\n  \"qameleon-topology:node-src\": \"wss-openroadm\",\r\n  \"qameleon-topology:port-dst\": \"IN01\",\r\n  \"qameleon-topology:node-dst\": \"endpoint-dst\",\r\n  \"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n  \"qameleon-topology:available-capacity\": {},\r\n  \"qameleon-topology:total-potential-capacity\": {}\r\n        }\r\n        ]\r\n     }\r\n   }\r\n }\r\n"
+										},
+										"url": {
+											"raw": "{{host}}:{{port}}/restconf/operations/qameleon-topology:create-qam-topology",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"restconf",
+												"operations",
+												"qameleon-topology:create-qam-topology"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Ligthpath creation --> Setup of WSSs",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Basic YWRtaW46YWRtaW4="
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"input\": {\r\n    \"end-point\": [{\r\n            \"local-id\":\"endpoint-src\",\r\n            \"direction\": \"OUTPUT\"\r\n        },\r\n        {\r\n            \"local-id\":\"endpoint-dst\",\r\n            \"direction\": \"INPUT\"\r\n        }]\r\n    }\r\n}"
+										},
+										"url": {
+											"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"restconf",
+												"operations",
+												"tapi-connectivity:create-connectivity-service"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Create topology (Real laser NTUA)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"qameleon-topology:input\": {\r\n    \"qameleon-topology:topology\": {\r\n      \"qameleon-topology:topology-uuid\": \"QameleonTopology\",\r\n      \"qameleon-topology:qam-node\": [\r\n          {\r\n          \"qameleon-topology:node-type\": \"finisar\",\r\n          \"qameleon-topology:host\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:port\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:username\": \"root\",\r\n          \"qameleon-topology:password\": \"root\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"laser-ntua\"\r\n        },\r\n          {\r\n          \"qameleon-topology:node-type\": \"dummy\",\r\n          \"qameleon-topology:host\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:port\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"dummy\"\r\n        },\r\n  {\r\n          \"qameleon-topology:node-type\": \"endpoint\",\r\n          \"qameleon-topology:host\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:port\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"endpoint-dst\"\r\n        }],\r\n      \"qameleon-topology:qam-link\": [\r\n        {\r\n  \"qameleon-topology:uuid\": \"Phy-1\",\r\n  \"qameleon-topology:port-src\": \"OUT01\",\r\n  \"qameleon-topology:node-src\": \"laser-ntua\",\r\n  \"qameleon-topology:port-dst\": \"IN01\",\r\n  \"qameleon-topology:node-dst\": \"dummy\",\r\n  \"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n  \"qameleon-topology:available-capacity\": {},\r\n  \"qameleon-topology:total-potential-capacity\": {}\r\n\r\n        },\r\n  {\r\n  \"qameleon-topology:uuid\": \"Phy-2\",\r\n  \"qameleon-topology:port-src\": \"OUT01\",\r\n  \"qameleon-topology:node-src\": \"dummy\",\r\n  \"qameleon-topology:port-dst\": \"IN01\",\r\n  \"qameleon-topology:node-dst\": \"endpoint-dst\",\r\n  \"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n  \"qameleon-topology:available-capacity\": {},\r\n  \"qameleon-topology:total-potential-capacity\": {}\r\n        }]\r\n     }\r\n   }\r\n }\r\n"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/qameleon-topology:create-qam-topology",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"qameleon-topology:create-qam-topology"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Channel 1 setup NTUA laser",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"input\": {\r\n    \"end-point\": [{\r\n            \"local-id\":\"laser-ntua\",\r\n            \"direction\": \"OUTPUT\"\r\n        },\r\n        {\r\n            \"local-id\":\"endpoint-dst\",\r\n            \"direction\": \"INPUT\"\r\n        }]\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"tapi-connectivity:create-connectivity-service"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Channel 2 setup NTUA laser",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"input\": {\r\n    \"end-point\": [{\r\n            \"local-id\":\"laser-ntua\",\r\n            \"direction\": \"OUTPUT\"\r\n        },\r\n        {\r\n            \"local-id\":\"endpoint-dst\",\r\n            \"direction\": \"INPUT\",\r\n\t\t\t\t\"tapi-connectivity:name\": [{\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"wavelength-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"1569.45\"\r\n\t\t\t\t}]\r\n        }]\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"tapi-connectivity:create-connectivity-service"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create topology (SIM devices)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"qameleon-topology:input\": {\r\n    \"qameleon-topology:topology\": {\r\n      \"qameleon-topology:topology-uuid\": \"QameleonTopology\",\r\n      \"qameleon-topology:qam-node\": [\r\n          {\r\n          \"qameleon-topology:node-type\": \"nll\",\r\n          \"qameleon-topology:host\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:port\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:username\": \"root\",\r\n          \"qameleon-topology:password\": \"root\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"laser-ntua\"\r\n        },\r\n          {\r\n          \"qameleon-topology:node-type\": \"dummy\",\r\n          \"qameleon-topology:host\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:port\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"dummy\"\r\n        },\r\n  {\r\n          \"qameleon-topology:node-type\": \"endpoint\",\r\n          \"qameleon-topology:host\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:port\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"endpoint-dst\"\r\n        }],\r\n      \"qameleon-topology:qam-link\": [\r\n        {\r\n  \"qameleon-topology:uuid\": \"Phy-1\",\r\n  \"qameleon-topology:port-src\": \"OUT01\",\r\n  \"qameleon-topology:node-src\": \"laser-ntua\",\r\n  \"qameleon-topology:port-dst\": \"IN01\",\r\n  \"qameleon-topology:node-dst\": \"dummy\",\r\n  \"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n  \"qameleon-topology:available-capacity\": {},\r\n  \"qameleon-topology:total-potential-capacity\": {}\r\n\r\n        },\r\n  {\r\n  \"qameleon-topology:uuid\": \"Phy-2\",\r\n  \"qameleon-topology:port-src\": \"OUT01\",\r\n  \"qameleon-topology:node-src\": \"dummy\",\r\n  \"qameleon-topology:port-dst\": \"IN01\",\r\n  \"qameleon-topology:node-dst\": \"endpoint-dst\",\r\n  \"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n  \"qameleon-topology:available-capacity\": {},\r\n  \"qameleon-topology:total-potential-capacity\": {}\r\n        }]\r\n     }\r\n   }\r\n }\r\n"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/qameleon-topology:create-qam-topology",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"qameleon-topology:create-qam-topology"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "NXW Create topology (SIM devices)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"qameleon-topology:input\": {\r\n    \"qameleon-topology:topology\": {\r\n      \"qameleon-topology:topology-uuid\": \"QameleonTopology\",\r\n      \"qameleon-topology:qam-node\": [\r\n          {\r\n          \"qameleon-topology:node-type\": \"nll\",\r\n          \"qameleon-topology:host\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:port\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:username\": \"root\",\r\n          \"qameleon-topology:password\": \"root\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"laser-ntua\"\r\n        },\r\n          {\r\n          \"qameleon-topology:node-type\": \"dummy\",\r\n          \"qameleon-topology:host\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:port\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"dummy\"\r\n        },\r\n  {\r\n          \"qameleon-topology:node-type\": \"endpoint\",\r\n          \"qameleon-topology:host\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:port\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"endpoint-dst\"\r\n        }],\r\n      \"qameleon-topology:qam-link\": [\r\n        {\r\n  \"qameleon-topology:uuid\": \"Phy-1\",\r\n  \"qameleon-topology:port-src\": \"OUT01\",\r\n  \"qameleon-topology:node-src\": \"laser-ntua\",\r\n  \"qameleon-topology:port-dst\": \"IN01\",\r\n  \"qameleon-topology:node-dst\": \"dummy\",\r\n  \"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n  \"qameleon-topology:available-capacity\": {},\r\n  \"qameleon-topology:total-potential-capacity\": {}\r\n\r\n        },\r\n  {\r\n  \"qameleon-topology:uuid\": \"Phy-2\",\r\n  \"qameleon-topology:port-src\": \"OUT01\",\r\n  \"qameleon-topology:node-src\": \"dummy\",\r\n  \"qameleon-topology:port-dst\": \"IN01\",\r\n  \"qameleon-topology:node-dst\": \"endpoint-dst\",\r\n  \"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n  \"qameleon-topology:available-capacity\": {},\r\n  \"qameleon-topology:total-potential-capacity\": {}\r\n        }]\r\n     }\r\n   }\r\n }\r\n"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/qameleon-topology:create-qam-topology",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"qameleon-topology:create-qam-topology"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Postman directory containing the HTTP requests for:\n\n- creating a topology consisting of the real NLL (from NTUA) and some dummy nodes\n    \n\nHow to use it ?\n\nFirst make sure to have network connectivity to the SDN Agent of the NLL, then create the topology. You can use the real device or the SIM devices.\n\nThen, you can setup the laser channel as you wish."
+				},
+				{
+					"name": "OpenROADM Integration(TU/e)",
+					"item": [
+						{
+							"name": "Create topology TU-E integration (SIM OpenROADM)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"qameleon-topology:input\": {\r\n    \"qameleon-topology:topology\": {\r\n      \"qameleon-topology:topology-uuid\": \"QameleonTopology\",\r\n      \"qameleon-topology:qam-node\": [\r\n          {\r\n          \"qameleon-topology:node-type\": \"endpoint\",\r\n          \"qameleon-topology:host\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:port\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"endpoint-a\"\r\n        },\r\n        {\r\n          \"qameleon-topology:node-type\": \"openroadm\",\r\n          \"qameleon-topology:host\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:port\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:username\": \"openroadm\",\r\n          \"qameleon-topology:password\": \"openroadm\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"node-openroadm\"\r\n        },\r\n  {\r\n          \"qameleon-topology:node-type\": \"endpoint\",\r\n          \"qameleon-topology:host\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:port\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"endpoint-b\"\r\n        }],\r\n      \"qameleon-topology:qam-link\": [\r\n        {\r\n  \"qameleon-topology:uuid\": \"Phy-1\",\r\n  \"qameleon-topology:port-src\": \"OUT01\",\r\n  \"qameleon-topology:node-src\": \"endpoint-a\",\r\n  \"qameleon-topology:port-dst\": \"DEG1-AMPRX-IN\",\r\n  \"qameleon-topology:node-dst\": \"node-openroadm\",\r\n  \"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n  \"qameleon-topology:available-capacity\": {},\r\n  \"qameleon-topology:total-potential-capacity\": {}\r\n\r\n        },\r\n  {\r\n  \"qameleon-topology:uuid\": \"Phy-2\",\r\n  \"qameleon-topology:port-src\": \"DEG3-AMPTX-OUT\",\r\n  \"qameleon-topology:node-src\": \"node-openroadm\",\r\n  \"qameleon-topology:port-dst\": \"IN01\",\r\n  \"qameleon-topology:node-dst\": \"endpoint-b\",\r\n  \"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n  \"qameleon-topology:available-capacity\": {},\r\n  \"qameleon-topology:total-potential-capacity\": {}\r\n\r\n        }]\r\n     }\r\n   }\r\n }\r\n"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/qameleon-topology:create-qam-topology",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"qameleon-topology:create-qam-topology"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create topology TU-E integration (Tu/e OpenROADM)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"qameleon-topology:input\": {\r\n    \"qameleon-topology:topology\": {\r\n      \"qameleon-topology:topology-uuid\": \"QameleonTopology\",\r\n      \"qameleon-topology:qam-node\": [\r\n          {\r\n          \"qameleon-topology:node-type\": \"endpoint\",\r\n          \"qameleon-topology:host\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:port\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"endpoint-a\"\r\n        },\r\n        {\r\n          \"qameleon-topology:node-type\": \"openroadm\",\r\n          \"qameleon-topology:host\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:port\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:username\": \"openroadm\",\r\n          \"qameleon-topology:password\": \"openroadm\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"node-openroadm\"\r\n        },\r\n  {\r\n          \"qameleon-topology:node-type\": \"endpoint\",\r\n          \"qameleon-topology:host\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:port\": \"INSERT_PROPER_VALUE\",\r\n          \"qameleon-topology:username\": \"admin\",\r\n          \"qameleon-topology:password\": \"admin\",\r\n          \"qameleon-topology:administrative-state\": \"UNLOCKED\",\r\n          \"qameleon-topology:uuid\": \"endpoint-b\"\r\n        }],\r\n      \"qameleon-topology:qam-link\": [\r\n        {\r\n  \"qameleon-topology:uuid\": \"Phy-1\",\r\n  \"qameleon-topology:port-src\": \"OUT01\",\r\n  \"qameleon-topology:node-src\": \"endpoint-a\",\r\n  \"qameleon-topology:port-dst\": \"DEG1-AMPRX-IN\",\r\n  \"qameleon-topology:node-dst\": \"node-openroadm\",\r\n  \"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n  \"qameleon-topology:available-capacity\": {},\r\n  \"qameleon-topology:total-potential-capacity\": {}\r\n\r\n        },\r\n  {\r\n  \"qameleon-topology:uuid\": \"Phy-2\",\r\n  \"qameleon-topology:port-src\": \"DEG3-AMPTX-OUT\",\r\n  \"qameleon-topology:node-src\": \"node-openroadm\",\r\n  \"qameleon-topology:port-dst\": \"IN01\",\r\n  \"qameleon-topology:node-dst\": \"endpoint-b\",\r\n  \"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n  \"qameleon-topology:available-capacity\": {},\r\n  \"qameleon-topology:total-potential-capacity\": {}\r\n\r\n        }]\r\n     }\r\n   }\r\n }\r\n"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/qameleon-topology:create-qam-topology",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"qameleon-topology:create-qam-topology"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create lightpath",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"input\": {\r\n    \"end-point\": [{\r\n            \"local-id\":\"endpoint-a\",\r\n            \"direction\": \"OUTPUT\"\r\n        },\r\n        {\r\n            \"local-id\":\"endpoint-b\",\r\n            \"direction\": \"INPUT\",\r\n            \"tapi-connectivity:name\": [{\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"wavelength-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"1550.79\"\r\n\t\t\t\t}]\r\n        }]\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"tapi-connectivity:create-connectivity-service"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Intergration with OpenROADM device.\n\nCase 1: real device integration with TU\\\\e partner (TU\\\\e OpenROADM case)\n\nCase 2: dummy device (TIM OpenROADM case)\n\nAfter using one of the two postman collection, then you can create a lightpath to test the actual integration"
+				},
+				{
+					"name": "Lumentum Integration (TIM)",
+					"item": [
+						{
+							"name": "Lightpath management",
+							"item": [
+								{
+									"name": "No constraints",
+									"item": [
+										{
+											"name": "G2-out-to-G1-in",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Authorization",
+														"type": "text",
+														"value": "Basic YWRtaW46YWRtaW4="
+													},
+													{
+														"key": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"input\": {\r\n    \"end-point\": [{\r\n            \"local-id\":\"corian-grove-30-1-in\",\r\n            \"direction\": \"INPUT\"\r\n        },\r\n        {\r\n            \"local-id\":\"corian-grove-30-2-out\",\r\n            \"direction\": \"OUTPUT\"\r\n        }]\r\n    }\r\n}"
+												},
+												"url": {
+													"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+													"host": [
+														"{{host}}"
+													],
+													"port": "{{port}}",
+													"path": [
+														"restconf",
+														"operations",
+														"tapi-connectivity:create-connectivity-service"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "WDM-channels-to-G2",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Authorization",
+														"type": "text",
+														"value": "Basic YWRtaW46YWRtaW4="
+													},
+													{
+														"key": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"input\": {\r\n    \"end-point\": [{\r\n            \"local-id\":\"corian-grove-30-2-out\",\r\n            \"direction\": \"OUTPUT\"\r\n        },\r\n        {\r\n            \"local-id\":\"wdm-channels-in\",\r\n            \"direction\": \"INPUT\"\r\n        }]\r\n    }\r\n}"
+												},
+												"url": {
+													"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+													"host": [
+														"{{host}}"
+													],
+													"port": "{{port}}",
+													"path": [
+														"restconf",
+														"operations",
+														"tapi-connectivity:create-connectivity-service"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "With constraints",
+									"item": [
+										{
+											"name": "Commercial Transponder",
+											"item": [
+												{
+													"name": "Commercial Trasp0",
+													"item": [
+														{
+															"name": "CS-p1 193.1 Thz 75Ghz Bandwidth",
+															"request": {
+																"method": "POST",
+																"header": [
+																	{
+																		"key": "Authorization",
+																		"type": "text",
+																		"value": "Basic YWRtaW46YWRtaW4="
+																	},
+																	{
+																		"key": "Content-Type",
+																		"type": "text",
+																		"value": "application/json"
+																	}
+																],
+																"body": {
+																	"mode": "raw",
+																	"raw": "{\r\n\t\"input\": {\r\n\t\t\"end-point\": [{\r\n\t\t\t\t\"local-id\": \"commercial-transponder-0-in\",\r\n                 \"direction\": \"INPUT\",\r\n\t\t\t\t\"tapi-connectivity:name\": [\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"wavelength-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"1552.524\"\r\n\t\t\t\t},\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"bandwidth-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"75\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"local-id\": \"commercial-transponder-0-out\",\r\n                \"direction\": \"OUTPUT\"\r\n\t\t\t}\r\n\t\t],\r\n        \"tapi-connectivity:topology-constraint\": {\r\n\t\t\t\"tapi-connectivity:include-link\": [\r\n\t\t\t\t\"Phy-1\",\"Phy-11\"\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n}"
+																},
+																"url": {
+																	"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+																	"host": [
+																		"{{host}}"
+																	],
+																	"port": "{{port}}",
+																	"path": [
+																		"restconf",
+																		"operations",
+																		"tapi-connectivity:create-connectivity-service"
+																	]
+																}
+															},
+															"response": []
+														},
+														{
+															"name": "CS-p2 193.4 Thz 75Ghz Bandwidth",
+															"request": {
+																"method": "POST",
+																"header": [
+																	{
+																		"key": "Authorization",
+																		"type": "text",
+																		"value": "Basic YWRtaW46YWRtaW4="
+																	},
+																	{
+																		"key": "Content-Type",
+																		"type": "text",
+																		"value": "application/json"
+																	}
+																],
+																"body": {
+																	"mode": "raw",
+																	"raw": "{\r\n\t\"input\": {\r\n\t\t\"end-point\": [{\r\n\t\t\t\t\"local-id\": \"commercial-transponder-0-in\",\r\n                 \"direction\": \"INPUT\",\r\n\t\t\t\t\"tapi-connectivity:name\": [\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"wavelength-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"1550.116\"\r\n\t\t\t\t},\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"bandwidth-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"75\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"local-id\": \"commercial-transponder-0-out\",\r\n                \"direction\": \"OUTPUT\"\r\n\t\t\t}\r\n\t\t],\r\n        \"tapi-connectivity:topology-constraint\": {\r\n\t\t\t\"tapi-connectivity:include-link\": [\r\n\t\t\t\t\"Phy-2\",\"Phy-12\"\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n}"
+																},
+																"url": {
+																	"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+																	"host": [
+																		"{{host}}"
+																	],
+																	"port": "{{port}}",
+																	"path": [
+																		"restconf",
+																		"operations",
+																		"tapi-connectivity:create-connectivity-service"
+																	]
+																}
+															},
+															"response": []
+														}
+													]
+												},
+												{
+													"name": "Groove 1",
+													"item": [
+														{
+															"name": "G1-p1 193.2 Thz 75Ghz Bandwidth",
+															"request": {
+																"method": "POST",
+																"header": [
+																	{
+																		"key": "Authorization",
+																		"type": "text",
+																		"value": "Basic YWRtaW46YWRtaW4="
+																	},
+																	{
+																		"key": "Content-Type",
+																		"type": "text",
+																		"value": "application/json"
+																	}
+																],
+																"body": {
+																	"mode": "raw",
+																	"raw": "{\r\n\t\"input\": {\r\n\t\t\"end-point\": [{\r\n\t\t\t\t\"local-id\": \"corian-grove-30-1-in\",\r\n                 \"direction\": \"INPUT\",\r\n\t\t\t\t\"tapi-connectivity:name\": [\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"wavelength-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"1551.721\"\r\n\t\t\t\t},\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"bandwidth-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"75\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"local-id\": \"corian-grove-30-1-out\",\r\n                \"direction\": \"OUTPUT\"\r\n\t\t\t}\r\n\t\t],\r\n        \"tapi-connectivity:topology-constraint\": {\r\n\t\t\t\"tapi-connectivity:include-link\": [\r\n\t\t\t\t\"Phy-3\",\"Phy-13\"\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n}"
+																},
+																"url": {
+																	"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+																	"host": [
+																		"{{host}}"
+																	],
+																	"port": "{{port}}",
+																	"path": [
+																		"restconf",
+																		"operations",
+																		"tapi-connectivity:create-connectivity-service"
+																	]
+																}
+															},
+															"response": []
+														},
+														{
+															"name": "G1-p2 193.5 Thz 75Ghz Bandwidth",
+															"request": {
+																"method": "POST",
+																"header": [
+																	{
+																		"key": "Authorization",
+																		"type": "text",
+																		"value": "Basic YWRtaW46YWRtaW4="
+																	},
+																	{
+																		"key": "Content-Type",
+																		"type": "text",
+																		"value": "application/json"
+																	}
+																],
+																"body": {
+																	"mode": "raw",
+																	"raw": "{\r\n\t\"input\": {\r\n\t\t\"end-point\": [{\r\n\t\t\t\t\"local-id\": \"corian-grove-30-1-in\",\r\n                 \"direction\": \"INPUT\",\r\n\t\t\t\t\"tapi-connectivity:name\": [\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"wavelength-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"1549.315\"\r\n\t\t\t\t},\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"bandwidth-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"75\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"local-id\": \"corian-grove-30-1-out\",\r\n                \"direction\": \"OUTPUT\"\r\n\t\t\t}\r\n\t\t],\r\n        \"tapi-connectivity:topology-constraint\": {\r\n\t\t\t\"tapi-connectivity:include-link\": [\r\n\t\t\t\t\"Phy-4\",\"Phy-14\"\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n}"
+																},
+																"url": {
+																	"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+																	"host": [
+																		"{{host}}"
+																	],
+																	"port": "{{port}}",
+																	"path": [
+																		"restconf",
+																		"operations",
+																		"tapi-connectivity:create-connectivity-service"
+																	]
+																}
+															},
+															"response": []
+														}
+													]
+												},
+												{
+													"name": "Groove 3",
+													"item": [
+														{
+															"name": "G2-p2 193.3 Thz 75Ghz Bandwidth",
+															"request": {
+																"method": "POST",
+																"header": [
+																	{
+																		"key": "Authorization",
+																		"type": "text",
+																		"value": "Basic YWRtaW46YWRtaW4="
+																	},
+																	{
+																		"key": "Content-Type",
+																		"type": "text",
+																		"value": "application/json"
+																	}
+																],
+																"body": {
+																	"mode": "raw",
+																	"raw": "{\r\n\t\"input\": {\r\n\t\t\"end-point\": [{\r\n\t\t\t\t\"local-id\": \"corian-grove-30-2-in\",\r\n                 \"direction\": \"INPUT\",\r\n\t\t\t\t\"tapi-connectivity:name\": [\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"wavelength-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"1550.918\"\r\n\t\t\t\t},\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"bandwidth-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"75\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"local-id\": \"corian-grove-30-2-out\",\r\n                \"direction\": \"OUTPUT\"\r\n\t\t\t}\r\n\t\t],\r\n        \"tapi-connectivity:topology-constraint\": {\r\n\t\t\t\"tapi-connectivity:include-link\": [\r\n\t\t\t\t\"Phy-5\",\"Phy-15\"\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n}"
+																},
+																"url": {
+																	"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+																	"host": [
+																		"{{host}}"
+																	],
+																	"port": "{{port}}",
+																	"path": [
+																		"restconf",
+																		"operations",
+																		"tapi-connectivity:create-connectivity-service"
+																	]
+																}
+															},
+															"response": []
+														},
+														{
+															"name": "G2-p2 193.6 Thz 75Ghz Bandwidth",
+															"request": {
+																"method": "POST",
+																"header": [
+																	{
+																		"key": "Authorization",
+																		"type": "text",
+																		"value": "Basic YWRtaW46YWRtaW4="
+																	},
+																	{
+																		"key": "Content-Type",
+																		"type": "text",
+																		"value": "application/json"
+																	}
+																],
+																"body": {
+																	"mode": "raw",
+																	"raw": "{\r\n\t\"input\": {\r\n\t\t\"end-point\": [{\r\n\t\t\t\t\"local-id\": \"corian-grove-30-2-in\",\r\n                 \"direction\": \"INPUT\",\r\n\t\t\t\t\"tapi-connectivity:name\": [\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"wavelength-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"1548.515\"\r\n\t\t\t\t},\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"bandwidth-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"75\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"local-id\": \"corian-grove-30-2-out\",\r\n                \"direction\": \"OUTPUT\"\r\n\t\t\t}\r\n\t\t],\r\n        \"tapi-connectivity:topology-constraint\": {\r\n\t\t\t\"tapi-connectivity:include-link\": [\r\n\t\t\t\t\"Phy-6\",\"Phy-16\"\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n}"
+																},
+																"url": {
+																	"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+																	"host": [
+																		"{{host}}"
+																	],
+																	"port": "{{port}}",
+																	"path": [
+																		"restconf",
+																		"operations",
+																		"tapi-connectivity:create-connectivity-service"
+																	]
+																}
+															},
+															"response": []
+														}
+													]
+												}
+											]
+										},
+										{
+											"name": "Simulated env. testing",
+											"item": [
+												{
+													"name": "G1-to-G2 wavelength constraint",
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Basic YWRtaW46YWRtaW4="
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n\t\"input\": {\r\n\t\t\"end-point\": [{\r\n\t\t\t\t\"local-id\": \"corian-grove-30-2-in\",\r\n                 \"direction\": \"INPUT\",\r\n\t\t\t\t\"tapi-connectivity:name\": [{\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"wavelength-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"1536\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"local-id\": \"corian-grove-30-1-out\",\r\n                \"direction\": \"OUTPUT\"\r\n\t\t\t}\r\n\t\t]\r\n\t}\r\n}"
+														},
+														"url": {
+															"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+															"host": [
+																"{{host}}"
+															],
+															"port": "{{port}}",
+															"path": [
+																"restconf",
+																"operations",
+																"tapi-connectivity:create-connectivity-service"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "G0-to-wdm-channels link constraints",
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Basic YWRtaW46YWRtaW4="
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n\t\"input\": {\r\n\t\t\"end-point\": [{\r\n\t\t\t\t\"local-id\": \"wdm-channels-in\",\r\n                 \"direction\": \"INPUT\"\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"local-id\": \"corian-grove-30-0-out\",\r\n                \"direction\": \"OUTPUT\"\r\n\t\t\t}\r\n\t\t],\r\n\t\t\"tapi-connectivity:topology-constraint\": {\r\n\t\t\t\"tapi-connectivity:include-link\": [\r\n\t\t\t\t\"Phy-2\"\r\n\t\t\t],\r\n\t\t\t\"tapi-connectivity:exclude-link\": [\r\n\t\t\t\t\"Phy-17\"\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n}"
+														},
+														"url": {
+															"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+															"host": [
+																"{{host}}"
+															],
+															"port": "{{port}}",
+															"path": [
+																"restconf",
+																"operations",
+																"tapi-connectivity:create-connectivity-service"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "G0-out-to-G0-in wavelength constraints",
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Basic YWRtaW46YWRtaW4="
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n\t\"input\": {\r\n\t\t\"end-point\": [{\r\n\t\t\t\t\"local-id\": \"corian-grove-30-1-in\",\r\n                 \"direction\": \"INPUT\",\r\n\t\t\t\t\"tapi-connectivity:name\": [{\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"wavelength-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"1552.8\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"local-id\": \"corian-grove-30-2-out\",\r\n                \"direction\": \"OUTPUT\"\r\n\t\t\t}\r\n\t\t]\r\n\t}\r\n}"
+														},
+														"url": {
+															"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+															"host": [
+																"{{host}}"
+															],
+															"port": "{{port}}",
+															"path": [
+																"restconf",
+																"operations",
+																"tapi-connectivity:create-connectivity-service"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "Get ERO of all lightpaths",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46YWRtaW4=",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{host}}:{{port}}/restconf/config/tapi-common:context/tapi-path-computation:path-computation-context",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"restconf",
+												"config",
+												"tapi-common:context",
+												"tapi-path-computation:path-computation-context"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get all topologies",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Basic YWRtaW46YWRtaW4="
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{host}}:{{port}}/restconf/operations/tapi-topology:get-topology-list",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"restconf",
+												"operations",
+												"tapi-topology:get-topology-list"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Topology management",
+							"item": [
+								{
+									"name": "Lumentum REAL devices integration: complete topology",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Basic YWRtaW46YWRtaW4="
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n\t\"input\": {\r\n\t\t\"topology\": {\r\n\t\t\t\"topology-uuid\": \"QameleonTopology\",\r\n\t\t\t\"qam-node\": [{\r\n\t\t\t\t\t\"node-type\": \"lumentum\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"password\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"lumentum-roadm-1\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"lumentum\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"password\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"lumentum-roadm-2\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"corian-grove-30-0-out\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"corian-grove-30-1-out\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"corian-grove-30-2-out\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"wdm-channels-out\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"corian-grove-30-0-in\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"corian-grove-30-1-in\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"corian-grove-30-2-in\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"wdm-channels-in\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"qameleon-topology:qam-link\": [\r\n\t\t\t  {\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-1\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"corian-grove-30-0-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4101\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"lumentum-roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t}, \r\n\t\t\t  {\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT02\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"corian-grove-30-0-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4104\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"lumentum-roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-3\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"corian-grove-30-1-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4102\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"lumentum-roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-4\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT02\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"corian-grove-30-1-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4105\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"lumentum-roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-5\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"corian-grove-30-2-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4103\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"lumentum-roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-6\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT02\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"corian-grove-30-2-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4106\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"lumentum-roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-7\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"wdm-channels-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4107\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"lumentum-roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-8\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT02\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"wdm-channels-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4108\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"lumentum-roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-9\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT03\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"wdm-channels-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4109\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"lumentum-roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-10\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"3001\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"lumentum-roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"3001\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"lumentum-roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-11\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5201\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"lumentum-roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"corian-grove-30-0-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-12\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5204\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"lumentum-roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"corian-grove-30-0-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-13\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5202\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"lumentum-roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"corian-grove-30-1-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-14\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5205\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"lumentum-roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"corian-grove-30-1-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\r\n\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-15\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5203\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"lumentum-roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"corian-grove-30-2-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-16\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5206\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"lumentum-roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"corian-grove-30-2-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-17\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5207\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"lumentum-roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"wdm-channels-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-18\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5208\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"lumentum-roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"wdm-channels-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-19\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5209\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"lumentum-roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN03\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"wdm-channels-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n}"
+										},
+										"url": {
+											"raw": "{{host}}:{{port}}/restconf/operations/qameleon-topology:create-qam-topology",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"restconf",
+												"operations",
+												"qameleon-topology:create-qam-topology"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Lumentum SIMULATED devices integration: complete topology",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Basic YWRtaW46YWRtaW4="
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n\t\"input\": {\r\n\t\t\"topology\": {\r\n\t\t\t\"topology-uuid\": \"QameleonTopology\",\r\n\t\t\t\"qam-node\": [{\r\n\t\t\t\t\t\"node-type\": \"lumentum\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"lumentum-roadm-1\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"lumentum\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"lumentum-roadm-2\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"corian-grove-30-0-out\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"corian-grove-30-1-out\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"corian-grove-30-2-out\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"wdm-channels-out\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"corian-grove-30-0-in\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"corian-grove-30-1-in\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"corian-grove-30-2-in\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"wdm-channels-in\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"qameleon-topology:qam-link\": [{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-1\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"corian-grove-30-0-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4101\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"lumentum-roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t}, {\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT02\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"corian-grove-30-0-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4102\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"lumentum-roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-3\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"corian-grove-30-1-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4103\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"lumentum-roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-4\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT02\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"corian-grove-30-1-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4104\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"lumentum-roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-5\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"corian-grove-30-2-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4105\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"lumentum-roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-6\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT02\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"corian-grove-30-2-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4106\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"lumentum-roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-7\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"wdm-channels-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4107\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"lumentum-roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-8\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT02\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"wdm-channels-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4108\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"lumentum-roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-9\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT03\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"wdm-channels-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4109\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"lumentum-roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-10\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"3001\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"lumentum-roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"3001\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"lumentum-roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-11\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5201\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"lumentum-roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"corian-grove-30-0-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-12\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5202\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"lumentum-roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"corian-grove-30-0-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-13\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5203\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"lumentum-roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"corian-grove-30-1-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-14\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5204\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"lumentum-roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"corian-grove-30-1-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\r\n\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-15\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5205\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"lumentum-roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"corian-grove-30-2-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-16\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5206\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"lumentum-roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"corian-grove-30-2-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-17\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5207\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"lumentum-roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"wdm-channels-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-18\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5208\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"lumentum-roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"wdm-channels-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-19\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5209\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"lumentum-roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN03\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"wdm-channels-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n}"
+										},
+										"url": {
+											"raw": "{{host}}:{{port}}/restconf/operations/qameleon-topology:create-qam-topology",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"restconf",
+												"operations",
+												"qameleon-topology:create-qam-topology"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get all topology RPC",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Basic YWRtaW46YWRtaW4="
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{host}}:{{port}}/restconf/operations/tapi-topology:get-topology-list",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"restconf",
+												"operations",
+												"tapi-topology:get-topology-list"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					],
+					"description": "Postman directory containing the requests for the integration with Lumentum real and dummy devices.\n\nFor real devices you need the actual connectivity with the devices, for the dummy just the dummy environment.\n\nFirst create the topology (real or dummy, as you wish)\n\nthen provision the lightpath you prefer."
+				}
+			]
+		},
+		{
+			"name": "Final experiment TIM premises",
+			"item": [
+				{
+					"name": "Topology management",
+					"item": [
+						{
+							"name": "TIM LAB: Laser + Commercial Transponders + ROADMs + OSAs",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"input\": {\r\n\t\t\"topology\": {\r\n\t\t\t\"topology-uuid\": \"QameleonTopology\",\r\n\t\t\t\"qam-node\": [{\r\n\t\t\t\t\t\"node-type\": \"nll\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"password\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"laser-ntua\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"lumentum\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"password\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"roadm-1\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"lumentum\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"password\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"roadm-2\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"commercial-transponder-30-0-out\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"commercial-transponder-30-1-out\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"17INSERT_PROPER_VALUE832\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"commercial-transponder-30-2-out\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"wdm-channels-out\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"commercial-transponder-30-0-in\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"commercial-transponder-30-1-in\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"commercial-transponder-30-2-in\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"wdm-channels-in\"\r\n\t\t\t\t},\r\n                {\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"osa\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"qameleon-topology:qam-link\": [{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-1\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"commercial-transponder-30-0-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4101\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT02\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"commercial-transponder-30-0-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4104\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-3\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"commercial-transponder-30-1-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4102\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-4\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT02\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"commercial-transponder-30-1-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4105\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-5\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"commercial-transponder-30-2-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4103\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-6\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT02\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"commercial-transponder-30-2-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4106\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-7\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"laser-ntua\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4115\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-8\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"3001\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"3001\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-9\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5201\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"commercial-transponder-30-0-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-10\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5204\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"commercial-transponder-30-0-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-11\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5202\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"commercial-transponder-30-1-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-12\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5205\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"commercial-transponder-30-1-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-13\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5203\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"commercial-transponder-30-2-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-14\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5206\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"commercial-transponder-30-2-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-15\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5215\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"osa\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-16\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5207\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN04\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"osa-2\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-17\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5208\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"osa-2\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-18\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5209\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"osa-2\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-19\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5210\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN03\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"osa-2\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-20\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5211\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN04\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"osa-2\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-21\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5212\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN05\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"osa-2\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n}"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/qameleon-topology:create-qam-topology",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"qameleon-topology:create-qam-topology"
+									]
+								},
+								"description": "Used for the final experiment reported in DeliverableD8.4"
+							},
+							"response": []
+						},
+						{
+							"name": "NXW LAB: Laser + Commercial Transponders + ROADMs + OSAs",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Basic YWRtaW46YWRtaW4="
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"input\": {\r\n\t\t\"topology\": {\r\n\t\t\t\"topology-uuid\": \"QameleonTopology\",\r\n\t\t\t\"qam-node\": [{\r\n\t\t\t\t\t\"node-type\": \"nll\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"root\",\r\n\t\t\t\t\t\"password\": \"root\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"laser-ntua\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"lumentum\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"password\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"roadm-1\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"lumentum\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"password\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"roadm-2\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"transponder-0-out\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"transponder-1-out\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"transponder-2-out\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"transponder-0-in\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"transponder-1-in\"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"transponder-2-in\"\r\n\t\t\t\t},\r\n                {\r\n\t\t\t\t\t\"node-type\": \"endpoint\",\r\n\t\t\t\t\t\"host\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"port\": \"INSERT_PROPER_VALUE\",\r\n\t\t\t\t\t\"username\": \"admin\",\r\n\t\t\t\t\t\"password\": \"admin\",\r\n\t\t\t\t\t\"administrative-state\": \"UNLOCKED\",\r\n\t\t\t\t\t\"uuid\": \"osa\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n            \r\n\t\t\t\"qameleon-topology:qam-link\": [{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-1\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"transponder-0-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4101\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT02\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"transponder-0-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4104\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-3\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"transponder-1-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4102\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-4\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT02\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"transponder-1-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4105\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-5\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"transponder-2-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4103\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-6\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT02\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"transponder-2-out\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4106\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-7\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"OUT01\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"laser-ntua\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"4115\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-8\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"3001\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-1\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"3001\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-9\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5201\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"transponder-0-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-10\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5204\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"transponder-0-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-11\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5202\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"transponder-1-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-12\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5205\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"transponder-1-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-13\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5203\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"transponder-2-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-14\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5206\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"transponder-2-in\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-15\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5215\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"osa\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-16\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5207\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN04\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"osa\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-17\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5208\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN01\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"osa\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-18\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5209\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN02\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"osa\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-19\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5210\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN03\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"osa\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-20\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5211\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN04\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"osa\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"qameleon-topology:uuid\": \"Phy-21\",\r\n\t\t\t\t\t\"qameleon-topology:port-src\": \"5212\",\r\n\t\t\t\t\t\"qameleon-topology:node-src\": \"roadm-2\",\r\n\t\t\t\t\t\"qameleon-topology:port-dst\": \"IN05\",\r\n\t\t\t\t\t\"qameleon-topology:node-dst\": \"osa\",\r\n\t\t\t\t\t\"qameleon-topology:direction\": \"UNIDIRECTIONAL\",\r\n\t\t\t\t\t\"qameleon-topology:available-capacity\": {},\r\n\t\t\t\t\t\"qameleon-topology:total-potential-capacity\": {}\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n}"
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/restconf/operations/qameleon-topology:create-qam-topology",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"restconf",
+										"operations",
+										"qameleon-topology:create-qam-topology"
+									]
+								},
+								"description": "Same as TIM LAB, but using a dummy network instead of the real one"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Lightpath management",
+					"item": [
+						{
+							"name": "Commercial transponder tests end2end",
+							"item": [
+								{
+									"name": "Commercial transponder 0",
+									"item": [
+										{
+											"name": "CS0-p1 193.7 Thz 75Ghz Bandwidth",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Authorization",
+														"type": "text",
+														"value": "Basic YWRtaW46YWRtaW4="
+													},
+													{
+														"key": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n\t\"input\": {\r\n\t\t\"end-point\": [{\r\n\t\t\t\t\"local-id\": \"transponder-0-in\",\r\n                 \"direction\": \"INPUT\",\r\n\t\t\t\t\"tapi-connectivity:name\": [\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"wavelength-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"1547.715\"\r\n\t\t\t\t},\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"bandwidth-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"75\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"local-id\": \"transponder-0-out\",\r\n                \"direction\": \"OUTPUT\"\r\n\t\t\t}\r\n\t\t],\r\n        \"tapi-connectivity:topology-constraint\": {\r\n\t\t\t\"tapi-connectivity:include-link\": [\r\n\t\t\t\t\"Phy-1\",\"Phy-9\"\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n}"
+												},
+												"url": {
+													"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+													"host": [
+														"{{host}}"
+													],
+													"port": "{{port}}",
+													"path": [
+														"restconf",
+														"operations",
+														"tapi-connectivity:create-connectivity-service"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "CS0-p2 192.5 Thz 75Ghz Bandwidth",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Authorization",
+														"type": "text",
+														"value": "Basic YWRtaW46YWRtaW4="
+													},
+													{
+														"key": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n\t\"input\": {\r\n\t\t\"end-point\": [{\r\n\t\t\t\t\"local-id\": \"transponder-0-in\",\r\n                 \"direction\": \"INPUT\",\r\n\t\t\t\t\"tapi-connectivity:name\": [\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"wavelength-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"1557.363\"\r\n\t\t\t\t},\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"bandwidth-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"75\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"local-id\": \"transponder-0-out\",\r\n                \"direction\": \"OUTPUT\"\r\n\t\t\t}\r\n\t\t],\r\n        \"tapi-connectivity:topology-constraint\": {\r\n\t\t\t\"tapi-connectivity:include-link\": [\r\n\t\t\t\t\"Phy-2\",\"Phy-10\"\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n}"
+												},
+												"url": {
+													"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+													"host": [
+														"{{host}}"
+													],
+													"port": "{{port}}",
+													"path": [
+														"restconf",
+														"operations",
+														"tapi-connectivity:create-connectivity-service"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Commercial transponder 1",
+									"item": [
+										{
+											"name": "CS1-p1 193.6 Thz 75Ghz Bandwidth",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Authorization",
+														"type": "text",
+														"value": "Basic YWRtaW46YWRtaW4="
+													},
+													{
+														"key": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n\t\"input\": {\r\n\t\t\"end-point\": [{\r\n\t\t\t\t\"local-id\": \"transponder-1-in\",\r\n                 \"direction\": \"INPUT\",\r\n\t\t\t\t\"tapi-connectivity:name\": [\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"wavelength-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"1548.515\"\r\n\t\t\t\t},\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"bandwidth-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"75\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"local-id\": \"transponder-1-out\",\r\n                \"direction\": \"OUTPUT\"\r\n\t\t\t}\r\n\t\t],\r\n        \"tapi-connectivity:topology-constraint\": {\r\n\t\t\t\"tapi-connectivity:include-link\": [\r\n\t\t\t\t\"Phy-3\",\"Phy-11\"\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n}"
+												},
+												"url": {
+													"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+													"host": [
+														"{{host}}"
+													],
+													"port": "{{port}}",
+													"path": [
+														"restconf",
+														"operations",
+														"tapi-connectivity:create-connectivity-service"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "CS-p2 193.4 Thz 75Ghz Bandwidth",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Authorization",
+														"type": "text",
+														"value": "Basic YWRtaW46YWRtaW4="
+													},
+													{
+														"key": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n\t\"input\": {\r\n\t\t\"end-point\": [{\r\n\t\t\t\t\"local-id\": \"transponder-1-in\",\r\n                 \"direction\": \"INPUT\",\r\n\t\t\t\t\"tapi-connectivity:name\": [\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"wavelength-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"1558.173\"\r\n\t\t\t\t},\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"bandwidth-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"75\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"local-id\": \"transponder-1-out\",\r\n                \"direction\": \"OUTPUT\"\r\n\t\t\t}\r\n\t\t],\r\n        \"tapi-connectivity:topology-constraint\": {\r\n\t\t\t\"tapi-connectivity:include-link\": [\r\n\t\t\t\t\"Phy-4\",\"Phy-12\"\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n}"
+												},
+												"url": {
+													"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+													"host": [
+														"{{host}}"
+													],
+													"port": "{{port}}",
+													"path": [
+														"restconf",
+														"operations",
+														"tapi-connectivity:create-connectivity-service"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Commercial Transponder 2",
+									"item": [
+										{
+											"name": "CS2-p2 193.3 Thz 75Ghz Bandwidth",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Authorization",
+														"type": "text",
+														"value": "Basic YWRtaW46YWRtaW4="
+													},
+													{
+														"key": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n\t\"input\": {\r\n\t\t\"end-point\": [{\r\n\t\t\t\t\"local-id\": \"transponder-2-in\",\r\n                 \"direction\": \"INPUT\",\r\n\t\t\t\t\"tapi-connectivity:name\": [\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"wavelength-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"1549.315\"\r\n\t\t\t\t},\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"bandwidth-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"75\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"local-id\": \"transponder-2-out\",\r\n                \"direction\": \"OUTPUT\"\r\n\t\t\t}\r\n\t\t],\r\n        \"tapi-connectivity:topology-constraint\": {\r\n\t\t\t\"tapi-connectivity:include-link\": [\r\n\t\t\t\t\"Phy-5\",\"Phy-13\"\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n}"
+												},
+												"url": {
+													"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+													"host": [
+														"{{host}}"
+													],
+													"port": "{{port}}",
+													"path": [
+														"restconf",
+														"operations",
+														"tapi-connectivity:create-connectivity-service"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "CS2-p2 192.3 Thz 75Ghz Bandwidth",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Authorization",
+														"type": "text",
+														"value": "Basic YWRtaW46YWRtaW4="
+													},
+													{
+														"key": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n\t\"input\": {\r\n\t\t\"end-point\": [{\r\n\t\t\t\t\"local-id\": \"transponder-2-in\",\r\n                 \"direction\": \"INPUT\",\r\n\t\t\t\t\"tapi-connectivity:name\": [\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"wavelength-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"1558.983\"\r\n\t\t\t\t},\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"bandwidth-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"75\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"local-id\": \"transponder-2-out\",\r\n                \"direction\": \"OUTPUT\"\r\n\t\t\t}\r\n\t\t],\r\n        \"tapi-connectivity:topology-constraint\": {\r\n\t\t\t\"tapi-connectivity:include-link\": [\r\n\t\t\t\t\"Phy-6\",\"Phy-14\"\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n}"
+												},
+												"url": {
+													"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+													"host": [
+														"{{host}}"
+													],
+													"port": "{{port}}",
+													"path": [
+														"restconf",
+														"operations",
+														"tapi-connectivity:create-connectivity-service"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "SBVT configuration",
+							"item": [
+								{
+									"name": "Update Baud rate",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Basic YWRtaW46YWRtaW4="
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"input\": {\r\n    \"end-point\": [\r\n        {\r\n            \"local-id\":\"laser-ntua\",\r\n            \"direction\": \"INPUT\",\r\n            \"tapi-connectivity:name\": [\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"baud-rate\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"_32\"\r\n\t\t\t\t}\r\n                ]\r\n        }]\r\n    }\r\n}"
+										},
+										"url": {
+											"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"restconf",
+												"operations",
+												"tapi-connectivity:create-connectivity-service"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Modulation format",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Basic YWRtaW46YWRtaW4="
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"input\": {\r\n    \"end-point\": [\r\n        {\r\n            \"local-id\":\"laser-ntua\",\r\n            \"direction\": \"INPUT\",\r\n            \"tapi-connectivity:name\": [\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"modulation-format\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"_16QAM\"\r\n\t\t\t\t}\r\n                ]\r\n        }]\r\n    }\r\n}\r\n\r\n"
+										},
+										"url": {
+											"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"restconf",
+												"operations",
+												"tapi-connectivity:create-connectivity-service"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Laser configuration",
+							"item": [
+								{
+									"name": "Set laser channel",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Basic YWRtaW46YWRtaW4="
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"input\": {\r\n    \"end-point\": [\r\n        {\r\n            \"local-id\":\"laser-ntua\",\r\n            \"tapi-connectivity:name\": [\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"channel-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"2\"\r\n\t\t\t\t}]\r\n        }]\r\n    }\r\n}\r\n\r\n"
+										},
+										"url": {
+											"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"restconf",
+												"operations",
+												"tapi-connectivity:create-connectivity-service"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Setup spectrum for laser channels",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Basic YWRtaW46YWRtaW4="
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"input\": {\r\n    \"end-point\": [\r\n        {\r\n            \"local-id\":\"osa\",\r\n            \"direction\": \"INPUT\",\r\n            \"tapi-connectivity:name\": [\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"wavelength-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"1553.083\"\r\n\t\t\t\t},\r\n                {\r\n\t\t\t\t\t\"tapi-connectivity:value-name\": \"bandwidth-constraint\",\r\n\t\t\t\t\t\"tapi-connectivity:value\": \"850\"\r\n\t\t\t\t}]\r\n        },\r\n        {\r\n            \"local-id\":\"laser-ntua\",\r\n            \"direction\": \"OUTPUT\"\r\n        }],\r\n        \"tapi-connectivity:topology-constraint\": {\r\n\t\t\t\"tapi-connectivity:include-link\": [\r\n\t\t\t\t\"Phy-7\",\"Phy-15\"\r\n\t\t\t]\r\n\t\t}\r\n    }\r\n}"
+										},
+										"url": {
+											"raw": "{{host}}:{{port}}/restconf/operations/tapi-connectivity:create-connectivity-service",
+											"host": [
+												"{{host}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"restconf",
+												"operations",
+												"tapi-connectivity:create-connectivity-service"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

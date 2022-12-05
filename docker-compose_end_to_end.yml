@@ -1,0 +1,64 @@
+version: '3.9'
+services:
+
+  qam_sdn_controller:
+        restart: unless-stopped
+        container_name: qam_sdn_controller
+        image: qam_sdn_controller:0.0.1
+        ports:
+         - 8081:8081
+         - 8181:8181
+        networks:
+           qameleon_network:
+             ipv4_address: 172.10.12.2
+
+  pce:
+        ports:
+            - '1234:1234'
+        container_name: pce
+        image: 'pce:0.0.1'
+        networks:
+           qameleon_network:
+             ipv4_address: 172.10.12.3
+
+  mockoon:
+    image: mockoon/cli:latest
+    command: mockoon-cli start --data data
+    networks:
+      qameleon_network:
+             ipv4_address: 172.10.12.4
+    ports:
+      - "3000:3000"
+    volumes:
+      - type: bind
+        source: ./mock_sbvt_env.json
+        target: /data
+
+  nll:
+        ports:
+         - 830:830
+        container_name: nll
+        image: netopeer_server:0.1
+        volumes:
+            - /home/ubuntu/nll_config:/home/cfg_files
+        networks:
+           qameleon_network:
+             ipv4_address: 172.10.12.5
+
+
+  netconf-testtool:
+        ports:
+            - '17830-17838:17830-17838'
+        container_name: netconf_testtool_1.7.2
+        image: 'netconf-testtool:1.7.2'
+        networks:
+           qameleon_network:
+             ipv4_address: 172.10.12.7
+
+
+
+networks:
+  qameleon_network:
+    ipam:
+      config:
+        - subnet: 172.10.12.0/24

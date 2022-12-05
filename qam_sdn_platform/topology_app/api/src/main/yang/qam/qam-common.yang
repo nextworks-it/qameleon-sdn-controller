@@ -18,9 +18,9 @@ typedef q-node-type {
         value "1";
         description " Lumentum node.";
       }
-      enum finisar {
+      enum nll {
         value "2";
-        description " Finisar node.";
+        description " Nll node.";
       }
 	enum dummy {
         value "3";
@@ -29,6 +29,14 @@ typedef q-node-type {
 	enum endpoint {
         value "4";
         description " Endpoint node.";
+      }
+	enum openroadm {
+        value "5";
+        description " OpenRoadm node.";
+      }
+      enum sbvt {
+        value "6";
+        description " SBVT node.";
       }
     }
     description "Type of Qameleon node";

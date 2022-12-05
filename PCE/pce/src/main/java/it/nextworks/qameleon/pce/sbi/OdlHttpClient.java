@@ -2,7 +2,6 @@ package it.nextworks.qameleon.pce.sbi;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,7 +25,7 @@ public class OdlHttpClient {
         this.password = password;
     }
 
-    protected String sendHttpRequest(String urlString, String requestMethod, String jsonStringFormat){
+    protected String sendHttpRequest(String urlString, String requestMethod){
         try {
             LOG.info("Performing request to  "+urlString);
             URL url = new URL("http://"+urlString);

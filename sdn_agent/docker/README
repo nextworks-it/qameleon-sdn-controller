@@ -1,0 +1,17 @@
+After to have executed the script in this dir, some manual steps have to be performed:
+
+0. Show all docker images with sudo docker image ls
+1. Run the container with: sudo docker run -v <host_path_where_conf_file_are_stored>:/home/cfg_files <image_id>
+	1.1 Example: sudo docker run -v /home/pietro/repo/qameleon/docker/shared_dir:/home/cfg_files 14d8a279de88
+2. Show the running container with: sudo docker ps
+3. Access the container with: sudo docker exec -it <container_id> /bin/bash
+4. Inside the container: netopeer-configurator
+	4.1 In the NACM section: Set OFF the access control, set to ALLOWED the system groups and set to PERMIT al actions.
+	4.2 In the NACM section: Add user with "admin" as name
+	4.3 Into SSH authentication, add the following public key: /etc/ssh/ssh_host_rsa_key.pub and add "admin" as user
+5. Press F10 to save and q to exit
+6. Exit from the container
+7. Restart the container with: sudo docker restart <container_id> in order to reload the setting of step 4.
+
+N.B. In the current version, socket_server.py in /usr/src/netopeer and startup_config_diff.py in /usr/src/netopeer/startup_config_diff must be run manually. Will be automated in next developments.
+N.B2: The netconf client must need a private key to query the server. It is stored into /etc/ssh/ssh_host_rsa_key path into the container. 

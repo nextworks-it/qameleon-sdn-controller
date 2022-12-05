@@ -8,4 +8,13 @@ into pce directory:
 Into test_pce dir is available a python3 script to test the PCE. It is assumed to have a topology already on-boarded into the topology application.
 Change the hardcoded IP address and the source and destination nodes according your needs.
 
+Alternatevely, to make up and running the PCE within a Docker container, after the step #1:
 
+## 2b. Build the image with:
+sudo docker build . -t pce:0.0.1
+
+## 3. Run the docker image with:
+sudo docker run -p 1234:1234 -d --name pce pce:0.0.1
+
+## 4. (Optional) Check the logs of PCE with:
+sudo docker logs -f -n 100 pce

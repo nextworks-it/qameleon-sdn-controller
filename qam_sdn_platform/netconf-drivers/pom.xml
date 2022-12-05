@@ -17,8 +17,6 @@
   <packaging>jar</packaging>
 
    <dependencies>
-
-
      <dependency>
        <groupId>it.nextworks.testnetconf</groupId>
        <artifactId>testnetconf-api</artifactId>

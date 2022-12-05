@@ -1,0 +1,3 @@
+path.frequency_channel_map=/app-wrapper/topology_app/inv_lookup_table.json
+pce.ip=172.10.12.3
+pce.port=1234

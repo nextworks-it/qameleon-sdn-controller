@@ -1,5 +1,6 @@
 package it.nextworks.qameleon.pce.model;
 
+import java.util.List;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,15 +19,19 @@ import javax.validation.Valid;
 public class TapiPathComputationTopologyConstraint extends TapiCommonLocalClass  {
   @JsonProperty("include-node")
   private String includeNode = null;
-
+/*
   @JsonProperty("exclude-link")
   private String excludeLink = null;
-
+*/
   @JsonProperty("avoid-topology")
   private String avoidTopology = null;
 
   @JsonProperty("exclude-path")
   private String excludePath = null;
+
+  @JsonProperty("exclude-link")
+  private List<String> excludeLink = null;
+
 
   @JsonProperty("include-topology")
   private String includeTopology = null;
@@ -39,15 +44,19 @@ public class TapiPathComputationTopologyConstraint extends TapiCommonLocalClass 
 
   @JsonProperty("include-node-edge-point")
   private String includeNodeEdgePoint = null;
-
+/*
   @JsonProperty("include-link")
   private String includeLink = null;
+*/
+  @JsonProperty("include-link")
+  private List<String> includeLink = null;
 
   @JsonProperty("preferred-transport-layer")
   private TapiCommonLayerProtocolName preferredTransportLayer = null;
 
   @JsonProperty("exclude-node")
   private String excludeNode = null;
+
 
   @JsonProperty("constraint-weight")
   private Integer constraintWeight = null;
@@ -72,7 +81,7 @@ public class TapiPathComputationTopologyConstraint extends TapiCommonLocalClass 
     this.includeNode = includeNode;
   }
 
-  public TapiPathComputationTopologyConstraint excludeLink(String excludeLink) {
+  public TapiPathComputationTopologyConstraint excludeLink(List<String> excludeLink) {
     this.excludeLink = excludeLink;
     return this;
   }
@@ -84,11 +93,11 @@ public class TapiPathComputationTopologyConstraint extends TapiCommonLocalClass 
   @ApiModelProperty(value = "none")
 
 
-  public String getExcludeLink() {
+  public List<String> getExcludeLink() {
     return excludeLink;
   }
 
-  public void setExcludeLink(String excludeLink) {
+  public void setExcludeLink(List<String> excludeLink) {
     this.excludeLink = excludeLink;
   }
 
@@ -212,7 +221,7 @@ public class TapiPathComputationTopologyConstraint extends TapiCommonLocalClass 
     this.includeNodeEdgePoint = includeNodeEdgePoint;
   }
 
-  public TapiPathComputationTopologyConstraint includeLink(String includeLink) {
+  public TapiPathComputationTopologyConstraint includeLink(List<String> includeLink) {
     this.includeLink = includeLink;
     return this;
   }
@@ -224,11 +233,11 @@ public class TapiPathComputationTopologyConstraint extends TapiCommonLocalClass 
   @ApiModelProperty(value = "This is a loose constraint - that is it is unordered and could be a partial list ")
 
 
-  public String getIncludeLink() {
+  public List<String> getIncludeLink() {
     return includeLink;
   }
 
-  public void setIncludeLink(String includeLink) {
+  public void setIncludeLink(List<String> includeLink) {
     this.includeLink = includeLink;
   }
 

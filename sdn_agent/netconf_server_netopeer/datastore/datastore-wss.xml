@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datastores xmlns="urn:cesnet:tmc:datastores:file">
+  <running lock="">
+    <wss xmlns="http://org/nextworks/qameleon/wss">
+      <wss-id>44</wss-id>
+      <wss-ports>
+        <port-id>44</port-id>
+        <port-frequency-info>
+          <n>45</n>
+          <m>45</m>
+        </port-frequency-info>
+      </wss-ports>
+    </wss>
+  </running>
+  <candidate lock="" modified="false"/>
+  <startup lock="">
+    <wss xmlns="http://org/nextworks/qameleon/wss">
+      <wss-id>44</wss-id>
+      <wss-ports>
+        <port-id>44</port-id>
+        <port-frequency-info>
+          <n>45</n>
+          <m>45</m>
+        </port-frequency-info>
+      </wss-ports>
+    </wss>
+  </startup>
+</datastores>

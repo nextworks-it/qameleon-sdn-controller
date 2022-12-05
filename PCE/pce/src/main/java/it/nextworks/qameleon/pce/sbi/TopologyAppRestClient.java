@@ -14,17 +14,15 @@ public class TopologyAppRestClient extends OdlHttpClient{
     }
 
         public JSONObject getTopology(String topologyId) throws JSONException {
-            String message;
             JSONObject topologyIdJson = new JSONObject();
             topologyIdJson.put("qameleon-topology:topology-id", topologyId);
 
             JSONObject topologyInput= new JSONObject();
             topologyInput.put("qameleon-topology:input",topologyIdJson);
 
-            message = topologyInput.toString();
 
             final String FULL_URL = getHostname()+":"+getPort()+"/restconf/operations/qameleon-topology:get-qam-topology";
-            String rawTopology = sendHttpRequest(FULL_URL,"POST",message);
+            String rawTopology = sendHttpRequest(FULL_URL,"POST");
             if(rawTopology==null){
                 LOG.warn("Not able to receive a response. Check the topology app status.");
                 return null;
